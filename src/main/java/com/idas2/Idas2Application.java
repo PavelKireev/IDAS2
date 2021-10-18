@@ -1,4 +1,4 @@
-package com.example.idas2;
+package com.idas2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
