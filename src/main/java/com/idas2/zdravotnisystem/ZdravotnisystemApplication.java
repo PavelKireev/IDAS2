@@ -1,13 +1,13 @@
-package com.idas2;
+package com.idas2.zdravotnisystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Idas2Application {
+public class ZdravotnisystemApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Idas2Application.class, args);
+        SpringApplication.run(ZdravotnisystemApplication.class, args);
     }
 
 }

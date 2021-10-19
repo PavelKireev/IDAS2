@@ -1,4 +1,4 @@
-package com.idas2.configuration;
+package com.idas2.zdravotnisystem.configuration;
 
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;

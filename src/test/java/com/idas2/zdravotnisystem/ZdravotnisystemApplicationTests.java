@@ -1,10 +1,10 @@
-package com.idas2;
+package com.idas2.zdravotnisystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Idas2ApplicationTests {
+class ZdravotnisystemApplicationTests {
 
     @Test
     void contextLoads() {

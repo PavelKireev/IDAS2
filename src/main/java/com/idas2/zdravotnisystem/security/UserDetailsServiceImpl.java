@@ -1,8 +1,8 @@
-package com.idas2.security;
+package com.idas2.zdravotnisystem.security;
 
-import com.idas2.component.AuthUser;
-import com.idas2.db.entity.User;
-import com.idas2.db.repository.UserRepository;
+import com.idas2.zdravotnisystem.component.AuthUser;
+import com.idas2.zdravotnisystem.db.entity.User;
+import com.idas2.zdravotnisystem.db.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,6 +1,6 @@
-package com.idas2.configuration.security;
+package com.idas2.zdravotnisystem.configuration.security;
 
-import com.idas2.security.UserDetailsServiceImpl;
+import com.idas2.zdravotnisystem.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

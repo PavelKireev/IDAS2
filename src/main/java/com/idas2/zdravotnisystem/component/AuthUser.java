@@ -1,6 +1,6 @@
-package com.idas2.component;
+package com.idas2.zdravotnisystem.component;
 
-import com.idas2.db.entity.User;
+import com.idas2.zdravotnisystem.db.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;

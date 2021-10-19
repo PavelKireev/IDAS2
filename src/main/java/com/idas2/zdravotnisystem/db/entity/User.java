@@ -1,4 +1,4 @@
-package com.idas2.db.entity;
+package com.idas2.zdravotnisystem.db.entity;
 
 public class User {
 

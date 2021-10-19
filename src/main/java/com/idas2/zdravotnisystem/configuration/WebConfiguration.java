@@ -1,4 +1,4 @@
-package com.idas2.configuration;
+package com.idas2.zdravotnisystem.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;

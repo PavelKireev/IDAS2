@@ -8,11 +8,11 @@
         <version>2.5.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.idas2</groupId>
-    <artifactId>IDAS2</artifactId>
+    <groupId>com.idas2.zdravotnisystem</groupId>
+    <artifactId>Zdravotnisystem</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>IDAS2</name>
-    <description>IDAS2</description>
+    <name>Zdravotnisystem</name>
+    <description>Zdravotnisystem</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
