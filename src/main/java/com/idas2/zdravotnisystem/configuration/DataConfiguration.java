@@ -7,9 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@ComponentScan({"com.idas2"})
-@EntityScan(basePackages = {"com.idas2.db.entity"})
-@EnableJpaRepositories(basePackages = {"com.idas2.db.repository"})
+@ComponentScan({"com.idas2.zdravotnisystem"})
+@EntityScan(basePackages = {"com.idas2.zdravotnisystem.db.entity"})
+@EnableJpaRepositories(basePackages = {"com.idas2.zdravotnisystem.db.repository"})
 public class DataConfiguration {
 }
 
