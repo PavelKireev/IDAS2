@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         final User user = Optional.ofNullable(userRepository.findByEmail(email))
                 .orElseThrow(() -> new UsernameNotFoundException(email));
 
-        return AuthUser.of(user, getAuthorities(user));
+        return AuthUser.of(user, new ArrayList<>());
     }
 
     private Collection<GrantedAuthority> getAuthorities(User user) {

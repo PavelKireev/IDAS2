@@ -10,7 +10,7 @@ public class IndexController {
 
     @GetMapping("")
     public ModelAndView index() {
-        return RedirectUtil.redirect("/sign-in");
+        return RedirectUtil.redirect("/test");
     }
 
 }

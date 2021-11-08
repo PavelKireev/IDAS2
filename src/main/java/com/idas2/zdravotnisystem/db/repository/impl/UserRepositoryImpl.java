@@ -53,8 +53,8 @@ public class UserRepositoryImpl
     @Override
     public User findByEmail(String email) {
         return getOne(
-            "SELECT * FROM UZIVATEL WHERE email = :email",
-            mapParams("email", email),
+            "SELECT * FROM UZIVATEL WHERE EMAIL = :EMAIL",
+            mapParams("EMAIL", email),
             mapper
         );
     }
