@@ -19,7 +19,7 @@ public class UserMapper implements RowMapper<User> {
             .setJmeno(rs.getString("jmeno"))
             .setPrijmeni(rs.getString("prijmeni"))
             .setEmail(rs.getString("email"))
-            .setHeslo(rs.getString("heslo"));
+            .setPassword(rs.getString("heslo"));
 //            .setRoleId(rs.getInt("role_id_role"))
 //            .setAvatarId(rs.getInt("avatar_id_avatar"));
 

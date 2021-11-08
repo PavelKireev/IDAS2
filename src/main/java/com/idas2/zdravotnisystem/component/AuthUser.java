@@ -4,6 +4,7 @@ import com.idas2.zdravotnisystem.db.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class AuthUser extends org.springframework.security.core.userdetails.User {
     private static final long serialVersionUID = -3706525489763216102L;
@@ -15,6 +16,11 @@ public class AuthUser extends org.springframework.security.core.userdetails.User
         Collection<? extends GrantedAuthority> authorities
     ) {
         return new AuthUser(user, authorities);
+    }
+
+    public AuthUser() {
+        super("Unknown User", "password", Collections.emptyList());
+        user = null;
     }
 
     private AuthUser(
