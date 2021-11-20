@@ -4,7 +4,7 @@ import com.idas2.zdravotnisystem.db.entity.base.UUIDableTimedEntity;
 
 import javax.persistence.Entity;
 
-@Entity(name = "UZIVATEL")
+@Entity(name = "USERS")
 public class User extends UUIDableTimedEntity<Integer> {
 
     private static final long serialVersionUID = -3370171534784395231L;
@@ -39,8 +39,8 @@ public class User extends UUIDableTimedEntity<Integer> {
         return telCislo;
     }
 
-    public User setTelCislo(String tel_cislo) {
-        this.telCislo = tel_cislo;
+    public User setTelCislo(String telCislo) {
+        this.telCislo = telCislo;
         return this;
     }
 
