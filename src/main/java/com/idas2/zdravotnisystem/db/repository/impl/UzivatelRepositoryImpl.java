@@ -2,7 +2,7 @@ package com.idas2.zdravotnisystem.db.repository.impl;
 
 import com.idas2.zdravotnisystem.db.entity.User;
 import com.idas2.zdravotnisystem.db.mapper.UserMapper;
-import com.idas2.zdravotnisystem.db.repository.UserRepository;
+import com.idas2.zdravotnisystem.db.repository.UzivatelRepository;
 import com.idas2.zdravotnisystem.form.UserUpdateForm;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -11,14 +11,14 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserRepositoryImpl
+public class UzivatelRepositoryImpl
     extends AbstractCrudRepository<User, UserMapper>
-    implements UserRepository {
+    implements UzivatelRepository {
 
     private final UserMapper mapper;
 
     @Autowired
-    public UserRepositoryImpl(
+    public UzivatelRepositoryImpl(
         NamedParameterJdbcTemplate namedParameterJdbcTemplate,
         UserMapper mapper
     ) {

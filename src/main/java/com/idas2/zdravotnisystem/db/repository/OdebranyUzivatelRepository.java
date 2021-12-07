@@ -1,4 +1,6 @@
 package com.idas2.zdravotnisystem.db.repository;
 
-public interface OdebranyUzivatelRepository {
+import com.idas2.zdravotnisystem.db.entity.OdebranyUzivatel;
+
+public interface OdebranyUzivatelRepository extends CrudRepository<OdebranyUzivatel> {
 }

@@ -2,7 +2,7 @@ package com.idas2.zdravotnisystem.security;
 
 import com.idas2.zdravotnisystem.component.AuthUser;
 import com.idas2.zdravotnisystem.db.entity.User;
-import com.idas2.zdravotnisystem.db.repository.UserRepository;
+import com.idas2.zdravotnisystem.db.repository.UzivatelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,11 +18,11 @@ import java.util.Optional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UzivatelRepository userRepository;
 
     @Autowired
     public UserDetailsServiceImpl(
-        UserRepository userRepository
+        UzivatelRepository userRepository
     ) {
         this.userRepository = userRepository;
     }

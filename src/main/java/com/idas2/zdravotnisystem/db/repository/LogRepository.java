@@ -1,4 +1,6 @@
 package com.idas2.zdravotnisystem.db.repository;
 
-public interface LogRepository {
+import com.idas2.zdravotnisystem.db.entity.Log;
+
+public interface LogRepository extends CrudRepository<Log> {
 }

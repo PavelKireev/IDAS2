@@ -4,7 +4,7 @@ import com.idas2.zdravotnisystem.db.entity.User;
 import com.idas2.zdravotnisystem.form.UserUpdateForm;
 import org.jetbrains.annotations.NotNull;
 
-public interface UserRepository extends CrudRepository<User> {
+public interface UzivatelRepository extends CrudRepository<User> {
 
     void update(
         @NotNull String userUuid,
