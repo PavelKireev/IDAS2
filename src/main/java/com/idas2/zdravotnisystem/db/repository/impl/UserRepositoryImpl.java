@@ -3,6 +3,7 @@ package com.idas2.zdravotnisystem.db.repository.impl;
 import com.idas2.zdravotnisystem.db.entity.User;
 import com.idas2.zdravotnisystem.db.mapper.UserMapper;
 import com.idas2.zdravotnisystem.db.repository.UserRepository;
+import com.idas2.zdravotnisystem.form.UserUpdateForm;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,23 @@ public class UserRepositoryImpl
     }
 
     @Override
-    public @Nullable User update(@NotNull User entity) {
+    public @Nullable User update(
+        @NotNull User entity
+    ) {
         return null;
+    }
+
+    @Override
+    public void update(
+        @NotNull String userUuid,
+        @NotNull UserUpdateForm form
+    ) {
+//        update(
+//            "UPDATE UZIVATEL " +
+//                "SET JMENO = :jmeno" +
+//                "PRIJMENI = :prijmeni" +
+//                "TEL_CISLO = :telCislo"
+//        );
     }
 
     @Override

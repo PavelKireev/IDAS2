@@ -4,7 +4,7 @@ import com.idas2.zdravotnisystem.db.entity.base.UUIDableTimedEntity;
 
 import javax.persistence.Entity;
 
-@Entity(name = "USERS")
+@Entity(name = "UZIVATEL")
 public class User extends UUIDableTimedEntity<Integer> {
 
     private static final long serialVersionUID = -3370171534784395231L;
@@ -16,6 +16,8 @@ public class User extends UUIDableTimedEntity<Integer> {
 
     private String email;
     private String password;
+
+    private Long obrazekIdObrazek;
 
     public String getJmeno() {
         return jmeno;
@@ -69,5 +71,10 @@ public class User extends UUIDableTimedEntity<Integer> {
     public User setPassword(String password) {
         this.password = password;
         return this;
+    }
+
+    @Override
+    public String generateUUID() {
+        return super.generateUUID();
     }
 }

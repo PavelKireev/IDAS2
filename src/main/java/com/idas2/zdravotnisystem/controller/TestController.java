@@ -16,7 +16,7 @@ public class TestController {
         @AuthenticationPrincipal AuthUser authUser
     ) {
         return
-            new ModelAndView("layout/navbar")
+            new ModelAndView("user/profile")
                 .addObject("authUser", authUser);
     }
 }
