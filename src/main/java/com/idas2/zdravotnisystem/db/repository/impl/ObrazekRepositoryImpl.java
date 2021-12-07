@@ -1,6 +1,7 @@
 package com.idas2.zdravotnisystem.db.repository.impl;
 
 import com.idas2.zdravotnisystem.db.entity.Obrazek;
+import com.idas2.zdravotnisystem.db.entity.User;
 import com.idas2.zdravotnisystem.db.mapper.AvatarMapper;
 import com.idas2.zdravotnisystem.db.repository.ObrazekRepository;
 import oracle.jdbc.internal.OracleTypes;
@@ -59,6 +60,36 @@ public class ObrazekRepositoryImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Integer upload(
+        @NotNull User user,
+        @NotNull byte[] obrazek
+    ) {
+//        try {
+//            MapSqlParameterSource parameters = new MapSqlParameterSource();
+//            parameters.addValue(
+//                "DATA",
+//                new SqlLobValue(
+//                    new ByteArrayInputStream(obrazek.getData()),
+//                    obrazek.getData().length,
+//                    new DefaultLobHandler()
+//                ), OracleTypes.BLOB);
+//            parameters.addValue("NAZEV", obrazek.getNazev());
+//            parameters.addValue("PRIPONA", obrazek.getPripona());
+//            parameters.addValue("DATUM", obrazek.getDatum(), OracleTypes.DATE);
+//
+//            return jdbcTemplate.update(
+//                "INSERT INTO OBRAZEK(DATA, NAZEV, PRIPONA, DATUM)" +
+//                    " VALUES (:DATA,:NAZEV, :PRIPONA, :DATUM)",
+//                parameters
+//            );
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         return null;
     }
 
