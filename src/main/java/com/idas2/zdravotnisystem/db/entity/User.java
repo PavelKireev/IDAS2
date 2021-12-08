@@ -17,7 +17,7 @@ public class User extends UUIDableTimedEntity<Integer> {
     private String email;
     private String password;
 
-    private Long obrazekIdObrazek;
+    private Integer obrazekIdObrazek;
 
     public String getJmeno() {
         return jmeno;
@@ -70,6 +70,15 @@ public class User extends UUIDableTimedEntity<Integer> {
 
     public User setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public Integer getObrazekIdObrazek() {
+        return obrazekIdObrazek;
+    }
+
+    public User setObrazekIdObrazek(Integer obrazekIdObrazek) {
+        this.obrazekIdObrazek = obrazekIdObrazek;
         return this;
     }
 

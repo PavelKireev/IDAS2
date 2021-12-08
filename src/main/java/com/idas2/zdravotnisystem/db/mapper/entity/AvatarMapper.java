@@ -1,4 +1,4 @@
-package com.idas2.zdravotnisystem.db.mapper;
+package com.idas2.zdravotnisystem.db.mapper.entity;
 
 import com.idas2.zdravotnisystem.db.entity.Obrazek;
 import org.springframework.jdbc.core.RowMapper;

@@ -1,4 +1,4 @@
-package com.idas2.zdravotnisystem.db.mapper;
+package com.idas2.zdravotnisystem.db.mapper.entity;
 
 import com.idas2.zdravotnisystem.db.entity.User;
 import org.springframework.jdbc.core.RowMapper;
@@ -19,9 +19,8 @@ public class UserMapper implements RowMapper<User> {
             .setJmeno(rs.getString("JMENO"))
             .setPrijmeni(rs.getString("PRIJMENI"))
             .setEmail(rs.getString("EMAIL"))
-            .setPassword(rs.getString("HESLO"));
-//            .setRoleId(rs.getInt("role_id_role"))
-//            .setAvatarId(rs.getInt("avatar_id_avatar"));
+            .setPassword(rs.getString("HESLO"))
+            .setObrazekIdObrazek(rs.getInt("OBRAZEK_ID_OBRAZEK"));
 
         return user;
     }

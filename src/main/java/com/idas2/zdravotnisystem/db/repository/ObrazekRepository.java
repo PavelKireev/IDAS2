@@ -11,8 +11,4 @@ public interface ObrazekRepository extends CrudRepository<Obrazek>{
         @NotNull User user,
         @NotNull MultipartFile obrazek
     );
-
-    @NotNull Obrazek getByUserId(
-        @NotNull Integer userId
-    );
 }

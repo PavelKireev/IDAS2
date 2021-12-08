@@ -2,24 +2,21 @@ package com.idas2.zdravotnisystem.db.repository.impl;
 
 import com.idas2.zdravotnisystem.db.entity.Obrazek;
 import com.idas2.zdravotnisystem.db.entity.User;
-import com.idas2.zdravotnisystem.db.mapper.AvatarMapper;
+import com.idas2.zdravotnisystem.db.mapper.entity.AvatarMapper;
 import com.idas2.zdravotnisystem.db.repository.ObrazekRepository;
 import oracle.jdbc.internal.OracleTypes;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.jdbc.core.support.SqlLobValue;
 import org.springframework.jdbc.support.lob.DefaultLobHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
-import java.nio.file.Files;
 import java.sql.Date;
 
 @Service
@@ -122,14 +119,9 @@ public class ObrazekRepositoryImpl
     }
 
     @Override
-    public Obrazek getByUserId(@NotNull Integer userId) {
-        return null;
-    }
-
-    @Override
     public @Nullable Obrazek getOne(Integer id) {
         return getOne(
-            "SELECT * FROM UZIVATEL WHERE EMAIL = :EMAIL",
+            "SELECT * FROM OBRAZEK WHERE ID_OBRAZEK = :ID_OBRAZEK",
             mapParams("ID_OBRAZEK", id),
             avatarMapper
         );

@@ -2,7 +2,10 @@ package com.idas2.zdravotnisystem.controller;
 
 import com.idas2.zdravotnisystem.component.AuthUser;
 import com.idas2.zdravotnisystem.db.entity.Obrazek;
+import com.idas2.zdravotnisystem.db.entity.User;
 import com.idas2.zdravotnisystem.db.repository.ObrazekRepository;
+import com.idas2.zdravotnisystem.db.repository.PacientRepository;
+import com.idas2.zdravotnisystem.db.view.PacientView;
 import com.idas2.zdravotnisystem.form.UserUpdateForm;
 import com.idas2.zdravotnisystem.service.UserService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
@@ -22,14 +25,17 @@ import java.util.Objects;
 public class UserProfileController {
 
     private final UserService userService;
+    private final PacientRepository pacientRepository;
     private final ObrazekRepository obrazekRepository;
 
     @Autowired
     public UserProfileController(
         UserService userService,
+        PacientRepository pacientRepository,
         ObrazekRepository obrazekRepository
     ) {
         this.userService = userService;
+        this.pacientRepository = pacientRepository;
         this.obrazekRepository = obrazekRepository;
     }
 
@@ -37,8 +43,13 @@ public class UserProfileController {
     public ModelAndView info(
         @AuthenticationPrincipal AuthUser authUser
     ) {
+        PacientView pacientView =
+            pacientRepository
+                .getPacientViewByUzivatelId(authUser.getUser().getId());
+
+        User user = authUser.getUser();
         Obrazek obrazek =
-            obrazekRepository.getByUserId(authUser.getUser().getId());
+            obrazekRepository.getOne(authUser.getUser().getObrazekIdObrazek());
         String file = null;
 
         if (Objects.nonNull(obrazek)) {
@@ -46,15 +57,15 @@ public class UserProfileController {
             String imgDataAsBase64 = new String(imgBytesAsBase64);
             file = String.format(
                 "data:image/%s;base64,%s",
-                obrazek.getPripona(), imgBytesAsBase64);
-//        String file = "data:image/png;base64," + imgDataAsBase64;
-            // <img alt="My image" src="${imgAsBase64}" />
+                obrazek.getPripona(), imgDataAsBase64
+            );
         }
 
         return
             new ModelAndView("user/profile")
-                .addObject("authUser", authUser)
-                .addObject("avatar", file);
+                .addObject("user", user)
+                .addObject("avatar", file)
+                .addObject("pacientView", pacientView);
     }
 
     @PostMapping("/avatar")

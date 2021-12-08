@@ -1,7 +1,7 @@
 package com.idas2.zdravotnisystem.db.repository.impl;
 
 import com.idas2.zdravotnisystem.db.entity.User;
-import com.idas2.zdravotnisystem.db.mapper.UserMapper;
+import com.idas2.zdravotnisystem.db.mapper.entity.UserMapper;
 import com.idas2.zdravotnisystem.db.repository.UzivatelRepository;
 import com.idas2.zdravotnisystem.form.UserUpdateForm;
 import org.jetbrains.annotations.NotNull;
