@@ -20,7 +20,7 @@
             </form>
         </div>
         <div class="row col-lg-4">
-            <img src="/static/img/undraw_profile.svg" width="300" height="300"/>
+            <img src=${avatar!"/static/img/undraw_profile.svg"} width="300" height="300"/>
             <form method="post" enctype="multipart/form-data" action="/profile/avatar">
                 <div class="form-group">
                     <label for="exampleFormControlFile1">Example file input</label>

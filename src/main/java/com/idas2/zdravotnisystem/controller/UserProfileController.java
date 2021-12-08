@@ -1,9 +1,12 @@
 package com.idas2.zdravotnisystem.controller;
 
 import com.idas2.zdravotnisystem.component.AuthUser;
+import com.idas2.zdravotnisystem.db.entity.Obrazek;
 import com.idas2.zdravotnisystem.db.repository.ObrazekRepository;
 import com.idas2.zdravotnisystem.form.UserUpdateForm;
 import com.idas2.zdravotnisystem.service.UserService;
+import com.idas2.zdravotnisystem.util.RedirectUtil;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/profile")
@@ -33,17 +37,24 @@ public class UserProfileController {
     public ModelAndView info(
         @AuthenticationPrincipal AuthUser authUser
     ) {
-        // picture conversion
-//        File img = new File("file.png");
-//        byte[] imgBytes = IOUtils.toByteArray(new FileInputStream(img));
-//        byte[] imgBytesAsBase64 = Base64.encodeBase64(imgBytes);
-//        String imgDataAsBase64 = new String(imgBytesAsBase64);
-//        String imgAsBase64 = "data:image/png;base64," + imgDataAsBase64;
-        // <img alt="My image" src="${imgAsBase64}" />
+        Obrazek obrazek =
+            obrazekRepository.getByUserId(authUser.getUser().getId());
+        String file = null;
+
+        if (Objects.nonNull(obrazek)) {
+            byte[] imgBytesAsBase64 = Base64.encodeBase64(obrazek.getData());
+            String imgDataAsBase64 = new String(imgBytesAsBase64);
+            file = String.format(
+                "data:image/%s;base64,%s",
+                obrazek.getPripona(), imgBytesAsBase64);
+//        String file = "data:image/png;base64," + imgDataAsBase64;
+            // <img alt="My image" src="${imgAsBase64}" />
+        }
 
         return
             new ModelAndView("user/profile")
-                .addObject("authUser", authUser);
+                .addObject("authUser", authUser)
+                .addObject("avatar", file);
     }
 
     @PostMapping("/avatar")
@@ -51,24 +62,8 @@ public class UserProfileController {
         @AuthenticationPrincipal AuthUser authUser,
         @RequestParam("obrazek") MultipartFile file
     ) throws IOException {
-//        <form method="post" action="/form" enctype="multipart/form-data">
-
-        System.out.println("ff");
-        byte[] bytes = file.getBytes();
-//        try {
-//            byte[] image = file.getBytes();
-//            MyModel model = new MyModel(name, image);
-//            int saveImage = myService.saveImage(model);
-//            if (saveImage == 1) {
-//                return "success";
-//            } else {
-//                return "error";
-//            }
-//        } catch (Exception e) {
-//            logger.error("ERROR", e);
-//            return "error";
-//        }
-        return null;
+        obrazekRepository.upload(authUser.getUser(), file);
+        return RedirectUtil.redirect("/profile/info");
     }
 
     @PostMapping("/update")
