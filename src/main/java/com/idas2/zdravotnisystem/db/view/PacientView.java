@@ -4,6 +4,9 @@ import java.sql.Date;
 
 public class PacientView {
 
+    private Integer id;
+    private String password;
+
     private String uuid;
     private String email;
     private String jmeno;
@@ -23,6 +26,26 @@ public class PacientView {
     private String pokojPlocha;
     private Integer pokojKapacita;
     private Integer pokojPocetPacientu;
+
+    private String adresa;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public PacientView setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public PacientView setPassword(String password) {
+        this.password = password;
+        return this;
+    }
 
     public String getUuid() {
         return uuid;
@@ -174,6 +197,15 @@ public class PacientView {
 
     public PacientView setPokojPocetPacientu(Integer pokojPocetPacientu) {
         this.pokojPocetPacientu = pokojPocetPacientu;
+        return this;
+    }
+
+    public String getAdresa() {
+        return adresa;
+    }
+
+    public PacientView setAdresa(String adresa) {
+        this.adresa = adresa;
         return this;
     }
 }

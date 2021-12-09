@@ -6,10 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public interface UzivatelRepository extends CrudRepository<User> {
 
-    void update(
-        @NotNull String userUuid,
-        @NotNull UserUpdateForm form
-    );
-
     User findByEmail(String email);
+
+    @NotNull User findByUuid(String uuid);
 }

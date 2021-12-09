@@ -5,9 +5,9 @@
 
     <div class="row">
         <div class="col-lg-8">
-            <h1>${user.getJmeno()!""} ${user.getPrijmeni()!""} ${pacientView.getUuid()!""}</h1>
+            <h1>${user.getJmeno()!""} ${user.getPrijmeni()!""} <br> ${pacientView.getUuid()!""}</h1>
             <hr>
-            <form>
+            <form method="post" action="/profile/info/update">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -28,8 +28,8 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Telefonni cislo</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
-                </div>
+                    <@form.textField "profileInfoForm.telefonniCislo"/>
+             </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Rust</label>
                     <input type="password" class="form-control" id="exampleInputPassword1">
@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Datum narozeni</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <@form.inputDate "profileInfoForm.datumNarozeni"/>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Pokoj</label>

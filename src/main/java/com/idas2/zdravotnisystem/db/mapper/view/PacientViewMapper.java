@@ -15,6 +15,8 @@ public class PacientViewMapper implements RowMapper<PacientView> {
         PacientView user = new PacientView();
 
         user
+            .setId(rs.getInt("ID"))
+            .setPassword(rs.getString("HESLO"))
             .setUuid(rs.getString("UUID"))
             .setEmail(rs.getString("EMAIL"))
             .setJmeno(rs.getString("JMENO"))

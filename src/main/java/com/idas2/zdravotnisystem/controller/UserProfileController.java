@@ -6,8 +6,10 @@ import com.idas2.zdravotnisystem.db.entity.User;
 import com.idas2.zdravotnisystem.db.repository.ObrazekRepository;
 import com.idas2.zdravotnisystem.db.repository.PacientRepository;
 import com.idas2.zdravotnisystem.db.view.PacientView;
+import com.idas2.zdravotnisystem.form.PacientInfoForm;
 import com.idas2.zdravotnisystem.form.UserUpdateForm;
 import com.idas2.zdravotnisystem.service.UserService;
+import com.idas2.zdravotnisystem.service.form.PacientFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +29,19 @@ public class UserProfileController {
     private final UserService userService;
     private final PacientRepository pacientRepository;
     private final ObrazekRepository obrazekRepository;
+    private final PacientFormService pacientFormService;
 
     @Autowired
     public UserProfileController(
         UserService userService,
         PacientRepository pacientRepository,
-        ObrazekRepository obrazekRepository
+        ObrazekRepository obrazekRepository,
+        PacientFormService pacientFormService
     ) {
         this.userService = userService;
         this.pacientRepository = pacientRepository;
         this.obrazekRepository = obrazekRepository;
+        this.pacientFormService = pacientFormService;
     }
 
     @GetMapping("/info")
@@ -65,7 +70,10 @@ public class UserProfileController {
             new ModelAndView("user/profile")
                 .addObject("user", user)
                 .addObject("avatar", file)
-                .addObject("pacientView", pacientView);
+                .addObject("pacientView", pacientView)
+                .addObject("pacientForm",
+                    pacientFormService.buildInfoFormFromView(pacientView)
+                );
     }
 
     @PostMapping("/avatar")
@@ -79,8 +87,9 @@ public class UserProfileController {
 
     @PostMapping("/update")
     public ModelAndView update(
-        @ModelAttribute UserUpdateForm form
+        @ModelAttribute PacientInfoForm form
     ) {
+
         return null;
     }
 }
