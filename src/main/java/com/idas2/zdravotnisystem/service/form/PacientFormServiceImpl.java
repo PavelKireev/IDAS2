@@ -65,9 +65,11 @@ public class PacientFormServiceImpl implements PacientFormService {
         PacientView view =
             pacientRepository.getPacientViewByUzivatelId(pacientId);
 
+        view
+            .setAdresa(pacientInfoForm.getAdresa())
+            .setTelCislo(pacientInfoForm.getTelCislo());
 
-
-        return null;
+        pacientRepository.updateInfoByView(view);
     }
 
 

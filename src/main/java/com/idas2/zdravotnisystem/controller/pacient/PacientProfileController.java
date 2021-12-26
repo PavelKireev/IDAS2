@@ -1,14 +1,14 @@
-package com.idas2.zdravotnisystem.controller;
+package com.idas2.zdravotnisystem.controller.pacient;
 
 import com.idas2.zdravotnisystem.component.AuthUser;
 import com.idas2.zdravotnisystem.db.entity.Obrazek;
 import com.idas2.zdravotnisystem.db.entity.User;
+import com.idas2.zdravotnisystem.db.repository.HospitalizaceRepository;
 import com.idas2.zdravotnisystem.db.repository.ObrazekRepository;
 import com.idas2.zdravotnisystem.db.repository.PacientRepository;
+import com.idas2.zdravotnisystem.db.repository.ProceduraRepository;
 import com.idas2.zdravotnisystem.db.view.PacientView;
 import com.idas2.zdravotnisystem.form.PacientInfoForm;
-import com.idas2.zdravotnisystem.form.UserUpdateForm;
-import com.idas2.zdravotnisystem.service.UserService;
 import com.idas2.zdravotnisystem.service.form.PacientFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -23,28 +23,31 @@ import java.io.IOException;
 import java.util.Objects;
 
 @Controller
-@RequestMapping("/profile")
-public class UserProfileController {
+@RequestMapping("/pacient")
+public class PacientProfileController {
 
-    private final UserService userService;
     private final PacientRepository pacientRepository;
     private final ObrazekRepository obrazekRepository;
     private final PacientFormService pacientFormService;
+    private final ProceduraRepository proceduraRepository;
+    private final HospitalizaceRepository hospitalizaceRepository;
 
     @Autowired
-    public UserProfileController(
-        UserService userService,
+    public PacientProfileController(
         PacientRepository pacientRepository,
         ObrazekRepository obrazekRepository,
-        PacientFormService pacientFormService
+        PacientFormService pacientFormService,
+        ProceduraRepository proceduraRepository,
+        HospitalizaceRepository hospitalizaceRepository
     ) {
-        this.userService = userService;
         this.pacientRepository = pacientRepository;
         this.obrazekRepository = obrazekRepository;
         this.pacientFormService = pacientFormService;
+        this.proceduraRepository = proceduraRepository;
+        this.hospitalizaceRepository = hospitalizaceRepository;
     }
 
-    @GetMapping("/info")
+    @GetMapping("/profile/info")
     public ModelAndView info(
         @AuthenticationPrincipal AuthUser authUser
     ) {
@@ -53,21 +56,20 @@ public class UserProfileController {
                 .getPacientViewByUzivatelId(authUser.getUser().getId());
 
         User user = authUser.getUser();
-        Obrazek obrazek =
-            obrazekRepository.getOne(authUser.getUser().getObrazekIdObrazek());
+
         String file = null;
 
-        if (Objects.nonNull(obrazek)) {
-            byte[] imgBytesAsBase64 = Base64.encodeBase64(obrazek.getData());
+        if (Objects.nonNull(pacientView.getObrazekData())) {
+            byte[] imgBytesAsBase64 = Base64.encodeBase64(pacientView.getObrazekData());
             String imgDataAsBase64 = new String(imgBytesAsBase64);
             file = String.format(
                 "data:image/%s;base64,%s",
-                obrazek.getPripona(), imgDataAsBase64
+                pacientView.getObrazekPripona(), imgDataAsBase64
             );
         }
 
         return
-            new ModelAndView("user/profile")
+            new ModelAndView("/pacient/profile")
                 .addObject("user", user)
                 .addObject("avatar", file)
                 .addObject("pacientView", pacientView)
@@ -76,20 +78,39 @@ public class UserProfileController {
                 );
     }
 
-    @PostMapping("/avatar")
+    @PostMapping("/profile/avatar")
     public ModelAndView avatar(
         @AuthenticationPrincipal AuthUser authUser,
         @RequestParam("obrazek") MultipartFile file
     ) throws IOException {
         obrazekRepository.upload(authUser.getUser(), file);
-        return RedirectUtil.redirect("/profile/info");
+        return RedirectUtil.redirect("/pacient/profile/info");
     }
 
-    @PostMapping("/update")
+    @PostMapping("profile/info/update")
     public ModelAndView update(
-        @ModelAttribute PacientInfoForm form
+        @ModelAttribute PacientInfoForm form,
+        @AuthenticationPrincipal AuthUser authUser
+    ) {
+        pacientFormService.updateInfoPaient(
+            authUser.getUser().getId(), form
+        );
+
+        return RedirectUtil.redirect("/pacient/profile/info");
+    }
+
+    @GetMapping("/appointment")
+    public ModelAndView appointments(
+        @AuthenticationPrincipal AuthUser authUser
     ) {
 
+        return new ModelAndView("");
+    }
+
+    @GetMapping("/hospitalisation")
+    public ModelAndView hospitalization(
+        @AuthenticationPrincipal AuthUser authUser
+    ) {
         return null;
     }
 }

@@ -5,7 +5,6 @@ import com.idas2.zdravotnisystem.db.mapper.entity.PacientMapper;
 import com.idas2.zdravotnisystem.db.mapper.view.PacientViewMapper;
 import com.idas2.zdravotnisystem.db.repository.PacientRepository;
 import com.idas2.zdravotnisystem.db.view.PacientView;
-import org.apache.commons.io.FilenameUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -14,7 +13,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,7 +58,7 @@ public class PacientRepositoryImpl
     ) {
         try {
             MapSqlParameterSource parameters = new MapSqlParameterSource();
-// getPacientByUserId
+
             parameters
                 .addValue("USER_ID", pacientView.getId())
                 .addValue("EMAIL", pacientView.getEmail())
@@ -75,8 +73,8 @@ public class PacientRepositoryImpl
                 .addValue("RUST", pacientView.getRust())
                 .addValue("HMOTNOST", pacientView.getHmotnost())
                 .addValue("DATUM_NAROZENI", pacientView.getDatumNarozeni())
-                .addValue("ID_OTEC", null)
-                .addValue("ID_MATKA", null);
+                .addValue("ID_OTEC", pacientView.getPacientUzivatelIdOtec())
+                .addValue("ID_MATKA", pacientView.getPacientUzivatelIdMatka());
 
 
 //            parameters.addValue(

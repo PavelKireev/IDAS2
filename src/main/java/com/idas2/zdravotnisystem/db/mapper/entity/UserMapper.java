@@ -20,7 +20,8 @@ public class UserMapper implements RowMapper<User> {
             .setPrijmeni(rs.getString("PRIJMENI"))
             .setEmail(rs.getString("EMAIL"))
             .setPassword(rs.getString("HESLO"))
-            .setObrazekIdObrazek(rs.getInt("OBRAZEK_ID_OBRAZEK"));
+            .setObrazekIdObrazek(rs.getInt("OBRAZEK_ID_OBRAZEK"))
+            .setUuid(rs.getString("UUID"));
 
         return user;
     }

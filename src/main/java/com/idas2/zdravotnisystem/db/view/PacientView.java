@@ -29,6 +29,9 @@ public class PacientView {
 
     private String adresa;
 
+    private Integer pacientUzivatelIdOtec;
+    private Integer pacientUzivatelIdMatka;
+
     public Integer getId() {
         return id;
     }
@@ -206,6 +209,24 @@ public class PacientView {
 
     public PacientView setAdresa(String adresa) {
         this.adresa = adresa;
+        return this;
+    }
+
+    public Integer getPacientUzivatelIdOtec() {
+        return pacientUzivatelIdOtec;
+    }
+
+    public PacientView setPacientUzivatelIdOtec(Integer pacientUzivatelIdOtec) {
+        this.pacientUzivatelIdOtec = pacientUzivatelIdOtec;
+        return this;
+    }
+
+    public Integer getPacientUzivatelIdMatka() {
+        return pacientUzivatelIdMatka;
+    }
+
+    public PacientView setPacientUzivatelIdMatka(Integer pacientUzivatelIdMatka) {
+        this.pacientUzivatelIdMatka = pacientUzivatelIdMatka;
         return this;
     }
 }

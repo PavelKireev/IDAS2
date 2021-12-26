@@ -14,6 +14,14 @@ public class PacientViewMapper implements RowMapper<PacientView> {
     public PacientView mapRow(ResultSet rs, int rowNum) throws SQLException {
         PacientView user = new PacientView();
 
+            Integer otecID =
+                rs.getInt("PACIENT_UZIVATEL_ID_OTEC") == 0 ?
+                    null : rs.getInt("PACIENT_UZIVATEL_ID_OTEC");
+
+        Integer matkaId =
+            rs.getInt("PACIENT_UZIVATEL_ID_MATKA") == 0 ?
+                null : rs.getInt("PACIENT_UZIVATEL_ID_MATKA");
+
         user
             .setId(rs.getInt("ID"))
             .setPassword(rs.getString("HESLO"))
@@ -26,13 +34,16 @@ public class PacientViewMapper implements RowMapper<PacientView> {
             .setObrazekNazev(rs.getString("OBRAZEK_NAZEV"))
             .setObrazekPripona(rs.getString("OBRAZEK_PRIPONA"))
             .setObrazekDatum(rs.getDate("DATUMNAROZENI"))
+            .setAdresa(rs.getString("ADRESA"))
             .setRust(rs.getInt("RUST"))
             .setHmotnost(rs.getInt("HMOTNOST"))
             .setDatumNarozeni(rs.getDate("DATUMNAROZENI"))
             .setPokojNazev(rs.getString("POKOJ_NAZEV"))
             .setPokojCislo(rs.getString("POKOJ_CISLO"))
             .setPokojKapacita(rs.getInt("POKOJ_KAPACITA"))
-            .setPokojPocetPacientu(rs.getInt("POKOJ_POCETPACIENTU"));
+            .setPokojPocetPacientu(rs.getInt("POKOJ_POCETPACIENTU"))
+            .setPacientUzivatelIdOtec(otecID)
+            .setPacientUzivatelIdMatka(matkaId);
 
         return user;
     }

@@ -2,10 +2,13 @@ package com.idas2.zdravotnisystem.db.repository.impl;
 
 import com.idas2.zdravotnisystem.db.entity.User;
 import com.idas2.zdravotnisystem.db.mapper.entity.UserMapper;
+import com.idas2.zdravotnisystem.db.mapper.view.UzivatelViewMapper;
 import com.idas2.zdravotnisystem.db.repository.UzivatelRepository;
+import com.idas2.zdravotnisystem.db.view.UzivatelView;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -15,14 +18,19 @@ public class UzivatelRepositoryImpl
     implements UzivatelRepository {
 
     private final UserMapper mapper;
+    private final UzivatelViewMapper uzivatelViewMapper;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
     public UzivatelRepositoryImpl(
         NamedParameterJdbcTemplate namedParameterJdbcTemplate,
-        UserMapper mapper
+        UserMapper mapper,
+        UzivatelViewMapper uzivatelViewMapper
     ) {
         super(namedParameterJdbcTemplate);
         this.mapper = mapper;
+        this.uzivatelViewMapper = uzivatelViewMapper;
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
     @Override
@@ -115,5 +123,19 @@ public class UzivatelRepositoryImpl
             mapParams("UUID", uuid),
             mapper
         );
+    }
+
+    @NotNull
+    @Override
+    public UzivatelView findViewByUuid(String uuid) {
+        try {
+            return namedParameterJdbcTemplate.queryForObject(
+                "SELECT * FROM UZIVATEL_V WHERE UUID = :UUID ",
+                mapParams("UUID", uuid),
+                uzivatelViewMapper
+            );
+        } catch (EmptyResultDataAccessException ex) {
+            return new UzivatelView();
+        }
     }
 }
