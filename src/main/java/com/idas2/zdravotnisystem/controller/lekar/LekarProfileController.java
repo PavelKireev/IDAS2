@@ -1,6 +1,9 @@
 package com.idas2.zdravotnisystem.controller.lekar;
 
 import com.idas2.zdravotnisystem.component.AuthUser;
+import com.idas2.zdravotnisystem.db.repository.LekarRepository;
+import com.idas2.zdravotnisystem.db.view.LekarView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +15,24 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/lekar/profile")
 public class LekarProfileController {
 
+    private final LekarRepository lekarRepository;
+
+    @Autowired
+    public LekarProfileController(
+        LekarRepository lekarRepository
+    ) {
+        this.lekarRepository = lekarRepository;
+    }
+
     @GetMapping("/info")
     public ModelAndView info(
         @AuthenticationPrincipal AuthUser authUser
     ) {
-        return new ModelAndView();
+        LekarView lekarView =
+            lekarRepository.getViewById(authUser.getUser().getId());
+
+        System.out.println("/");
+        return new ModelAndView("/lekar/profile");
     }
 
     @PostMapping("/update")

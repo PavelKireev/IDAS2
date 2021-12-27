@@ -1,5 +1,5 @@
 <#import '/spring.ftl' as spring>
-<#import '../layout/navbar.ftlh' as layout>
+<#import 'navbar.ftlh' as layout>
 <#import '../partials/form.ftlh' as form>
 
 <@layout.render>

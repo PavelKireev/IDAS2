@@ -1,7 +1,6 @@
 package com.idas2.zdravotnisystem.controller.pacient;
 
 import com.idas2.zdravotnisystem.component.AuthUser;
-import com.idas2.zdravotnisystem.db.entity.Obrazek;
 import com.idas2.zdravotnisystem.db.entity.User;
 import com.idas2.zdravotnisystem.db.repository.HospitalizaceRepository;
 import com.idas2.zdravotnisystem.db.repository.ObrazekRepository;

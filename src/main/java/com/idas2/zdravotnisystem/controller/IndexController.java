@@ -13,18 +13,18 @@ public class IndexController {
     @GetMapping("")
     public ModelAndView index(
         @AuthenticationPrincipal AuthUser authUser
-        ) {
+    ) {
         String role =
             authUser.getAuthorities().stream().findFirst()
                 .orElseThrow(RuntimeException::new).getAuthority();
 
-        if(role.equals("PACIENT"))
+        if (role.equals("PACIENT"))
             return RedirectUtil.redirect("/pacient/profile/info");
 
-        if(role.equals("LEKAR"))
+        if (role.equals("LEKAR"))
             return RedirectUtil.redirect("/lekar/profile/info");
 
-        if(role.equals("ADMIN"))
+        if (role.equals("ADMIN"))
             return RedirectUtil.redirect("/admin");
 
         return RedirectUtil.redirect("/pacient/profile/info");
