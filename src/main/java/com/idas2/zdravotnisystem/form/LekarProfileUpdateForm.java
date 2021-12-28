@@ -1,9 +1,7 @@
-package com.idas2.zdravotnisystem.db.view;
+package com.idas2.zdravotnisystem.form;
 
-public class LekarView {
+public class LekarProfileUpdateForm {
 
-    private Integer id;
-    private String uuid;
     private String email;
     private String jmeno;
     private String prijmeni;
@@ -14,29 +12,11 @@ public class LekarView {
     private String kancelarCislo;
     private String specializaceNazev;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public LekarView setId(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public LekarView setUuid(String uuid) {
-        this.uuid = uuid;
-        return this;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public LekarView setEmail(String email) {
+    public LekarProfileUpdateForm setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -45,7 +25,7 @@ public class LekarView {
         return jmeno;
     }
 
-    public LekarView setJmeno(String jmeno) {
+    public LekarProfileUpdateForm setJmeno(String jmeno) {
         this.jmeno = jmeno;
         return this;
     }
@@ -54,7 +34,7 @@ public class LekarView {
         return prijmeni;
     }
 
-    public LekarView setPrijmeni(String prijmeni) {
+    public LekarProfileUpdateForm setPrijmeni(String prijmeni) {
         this.prijmeni = prijmeni;
         return this;
     }
@@ -63,7 +43,7 @@ public class LekarView {
         return telCislo;
     }
 
-    public LekarView setTelCislo(String telCislo) {
+    public LekarProfileUpdateForm setTelCislo(String telCislo) {
         this.telCislo = telCislo;
         return this;
     }
@@ -72,7 +52,7 @@ public class LekarView {
         return obrazek;
     }
 
-    public LekarView setObrazek(byte[] obrazek) {
+    public LekarProfileUpdateForm setObrazek(byte[] obrazek) {
         this.obrazek = obrazek;
         return this;
     }
@@ -81,7 +61,7 @@ public class LekarView {
         return plat;
     }
 
-    public LekarView setPlat(Integer plat) {
+    public LekarProfileUpdateForm setPlat(Integer plat) {
         this.plat = plat;
         return this;
     }
@@ -90,7 +70,7 @@ public class LekarView {
         return kancelarNazev;
     }
 
-    public LekarView setKancelarNazev(String kancelarNazev) {
+    public LekarProfileUpdateForm setKancelarNazev(String kancelarNazev) {
         this.kancelarNazev = kancelarNazev;
         return this;
     }
@@ -99,7 +79,7 @@ public class LekarView {
         return kancelarCislo;
     }
 
-    public LekarView setKancelarCislo(String kancelarCislo) {
+    public LekarProfileUpdateForm setKancelarCislo(String kancelarCislo) {
         this.kancelarCislo = kancelarCislo;
         return this;
     }
@@ -108,7 +88,7 @@ public class LekarView {
         return specializaceNazev;
     }
 
-    public LekarView setSpecializaceNazev(String specializaceNazev) {
+    public LekarProfileUpdateForm setSpecializaceNazev(String specializaceNazev) {
         this.specializaceNazev = specializaceNazev;
         return this;
     }

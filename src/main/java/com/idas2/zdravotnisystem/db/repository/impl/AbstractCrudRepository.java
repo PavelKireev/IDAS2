@@ -90,4 +90,20 @@ public abstract class AbstractCrudRepository<T extends BaseEntity, M extends Row
         return new MapSqlParameterSource(params);
     }
 
+    protected SqlParameterSource mapViewParams(
+        String key, Object value
+    ) {
+        return mapViewParams(
+            new HashMap<String, Object>() {{
+                put(key, value);
+            }}
+        );
+    }
+
+    protected SqlParameterSource mapViewParams(
+        Map<String, Object> params
+    ) {
+        return new MapSqlParameterSource(params);
+    }
+
 }

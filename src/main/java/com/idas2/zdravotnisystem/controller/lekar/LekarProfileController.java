@@ -3,10 +3,12 @@ package com.idas2.zdravotnisystem.controller.lekar;
 import com.idas2.zdravotnisystem.component.AuthUser;
 import com.idas2.zdravotnisystem.db.repository.LekarRepository;
 import com.idas2.zdravotnisystem.db.view.LekarView;
+import com.idas2.zdravotnisystem.form.LekarProfileUpdateForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,14 +33,16 @@ public class LekarProfileController {
         LekarView lekarView =
             lekarRepository.getViewById(authUser.getUser().getId());
 
-        System.out.println("/");
-        return new ModelAndView("/lekar/profile");
+        return new ModelAndView("/lekar/profile")
+            .addObject("lekarView", lekarView);
     }
 
     @PostMapping("/update")
     public ModelAndView update(
-        @AuthenticationPrincipal AuthUser authUser
+        @AuthenticationPrincipal AuthUser authUser,
+        @ModelAttribute LekarProfileUpdateForm form
     ) {
+
         return new ModelAndView();
     }
 }

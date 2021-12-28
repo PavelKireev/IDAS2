@@ -101,20 +101,4 @@ public class PacientRepositoryImpl
 
     }
 
-    private SqlParameterSource mapViewParams(
-        String key, Object value
-    ) {
-        return mapViewParams(
-            new HashMap<String, Object>() {{
-                put(key, value);
-            }}
-        );
-    }
-
-    private SqlParameterSource mapViewParams(
-        Map<String, Object> params
-    ) {
-        return new MapSqlParameterSource(params);
-    }
-
 }

@@ -1,14 +1,39 @@
 package com.idas2.zdravotnisystem.db.repository.impl;
 
 import com.idas2.zdravotnisystem.db.entity.Lekar;
+import com.idas2.zdravotnisystem.db.mapper.entity.LekarMapper;
+import com.idas2.zdravotnisystem.db.mapper.view.LekarViewMapper;
 import com.idas2.zdravotnisystem.db.repository.LekarRepository;
 import com.idas2.zdravotnisystem.db.view.LekarView;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
-public class LekarRepositoryImpl implements LekarRepository {
+public class LekarRepositoryImpl
+    extends AbstractCrudRepository<Lekar, LekarMapper>
+    implements LekarRepository {
+
+    private final LekarViewMapper lekarViewMapper;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Autowired
+    public LekarRepositoryImpl(
+        LekarViewMapper lekarViewMapper,
+        NamedParameterJdbcTemplate namedParameterJdbcTemplate
+    ) {
+        super(namedParameterJdbcTemplate);
+        this.lekarViewMapper = lekarViewMapper;
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
 
     @Override
     public @Nullable Lekar getOne(Integer id) {
@@ -37,6 +62,17 @@ public class LekarRepositoryImpl implements LekarRepository {
 
     @Override
     public @NotNull LekarView getViewById(@NotNull Integer id) {
-        return null;
+        try {
+            return
+                namedParameterJdbcTemplate
+                    .queryForObject(
+                        "SELECT * FROM LEKAR_V WHERE ID = :ID",
+                        mapViewParams("ID", id),
+                        lekarViewMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
     }
 }
