@@ -4,15 +4,21 @@ public class LekarView {
 
     private Integer id;
     private String uuid;
+    private String heslo;
     private String email;
     private String jmeno;
     private String prijmeni;
     private String telCislo;
     private byte[] obrazek;
+    private String obrazekNazev;
+    private String obrazekPripona;
     private Integer plat;
     private String kancelarNazev;
     private String kancelarCislo;
     private String specializaceNazev;
+
+    private Integer idKancelar;
+    private Integer idSpecializace;
 
     public Integer getId() {
         return id;
@@ -29,6 +35,15 @@ public class LekarView {
 
     public LekarView setUuid(String uuid) {
         this.uuid = uuid;
+        return this;
+    }
+
+    public String getHeslo() {
+        return heslo;
+    }
+
+    public LekarView setHeslo(String heslo) {
+        this.heslo = heslo;
         return this;
     }
 
@@ -77,6 +92,24 @@ public class LekarView {
         return this;
     }
 
+    public String getObrazekNazev() {
+        return obrazekNazev;
+    }
+
+    public LekarView setObrazekNazev(String obrazekNazev) {
+        this.obrazekNazev = obrazekNazev;
+        return this;
+    }
+
+    public String getObrazekPripona() {
+        return obrazekPripona;
+    }
+
+    public LekarView setObrazekPripona(String obrazekPripona) {
+        this.obrazekPripona = obrazekPripona;
+        return this;
+    }
+
     public Integer getPlat() {
         return plat;
     }
@@ -110,6 +143,24 @@ public class LekarView {
 
     public LekarView setSpecializaceNazev(String specializaceNazev) {
         this.specializaceNazev = specializaceNazev;
+        return this;
+    }
+
+    public Integer getIdKancelar() {
+        return idKancelar;
+    }
+
+    public LekarView setIdKancelar(Integer idKancelar) {
+        this.idKancelar = idKancelar;
+        return this;
+    }
+
+    public Integer getIdSpecializace() {
+        return idSpecializace;
+    }
+
+    public LekarView setIdSpecializace(Integer idSpecializace) {
+        this.idSpecializace = idSpecializace;
         return this;
     }
 }

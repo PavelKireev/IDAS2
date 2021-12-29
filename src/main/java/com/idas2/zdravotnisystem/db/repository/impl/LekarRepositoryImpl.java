@@ -11,11 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class LekarRepositoryImpl
@@ -74,5 +70,40 @@ public class LekarRepositoryImpl
         } catch (EmptyResultDataAccessException ex) {
             return null;
         }
+    }
+
+    @Override
+    public void updateInfoByView(LekarView view) {
+        try {
+            MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+            parameters
+                .addValue("USER_ID", view.getId())
+                .addValue("EMAIL", view.getEmail())
+                .addValue("HESLO", view.getHeslo())
+                .addValue("JMENO", view.getJmeno())
+                .addValue("PRIJMENI", view.getPrijmeni())
+                .addValue("TEL_CISLO", view.getTelCislo())
+                .addValue("DATA", view.getObrazek())
+                .addValue("NAZEV", view.getObrazekNazev())
+                .addValue("PRIPONA", view.getObrazekPripona())
+                .addValue("PLAT", view.getPlat())
+                .addValue("SPECIALIZACE_ID", view.getIdSpecializace())
+                .addValue("KANCELAR_ID", view.getIdKancelar())
+                .addValue("SPECIALIZACE_NAZEV", view.getSpecializaceNazev());
+
+
+            namedParameterJdbcTemplate.update(
+                "CALL LEKAR_PRC (" +
+                    ":USER_ID, :EMAIL, :HESLO, :JMENO, :PRIJMENI, :TEL_CISLO, " +
+                    ":DATA, :NAZEV, :PRIPONA, :PLAT, " +
+                    ":ID_KANCELAR, :ID_SPECIALIZACE)",
+                parameters
+            );
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

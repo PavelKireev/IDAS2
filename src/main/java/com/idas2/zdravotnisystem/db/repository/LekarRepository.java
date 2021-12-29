@@ -10,4 +10,8 @@ public interface LekarRepository extends CrudRepository<Lekar> {
     LekarView getViewById(
         @NotNull Integer id
     );
+
+    void updateInfoByView(
+        LekarView view
+    );
 }

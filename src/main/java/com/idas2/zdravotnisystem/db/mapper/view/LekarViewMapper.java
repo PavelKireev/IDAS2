@@ -17,14 +17,19 @@ public class LekarViewMapper implements RowMapper<LekarView> {
         lekarView
             .setId(rs.getInt("ID"))
             .setUuid(rs.getString("UUID"))
+            .setHeslo(rs.getString("HESLO"))
             .setEmail(rs.getString("EMAIL"))
             .setJmeno(rs.getString("JMENO"))
             .setPrijmeni(rs.getString("PRIJMENI"))
             .setTelCislo(rs.getString("TELCISLO"))
             .setObrazek(rs.getBytes("OBRAZEK_DATA"))
+            .setObrazekPripona(rs.getString("OBRAZEK_PRIPONA"))
+            .setObrazekNazev(rs.getString("OBRAZEK_NAZEV"))
             .setPlat(rs.getInt("PLAT"))
             .setKancelarCislo(rs.getString("KANCELAR_CISLO"))
-            .setKancelarNazev(rs.getString("NAZEV"));
+            .setKancelarNazev(rs.getString("NAZEV"))
+            .setIdKancelar(rs.getInt("KANCELAR_ID_KANCELAR"))
+            .setIdSpecializace(rs.getInt("SPECIALIZACE_ID_SPEC"));
 
         return lekarView;
     }
