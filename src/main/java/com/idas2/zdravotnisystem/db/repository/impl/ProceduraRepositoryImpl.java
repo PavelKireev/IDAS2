@@ -4,13 +4,13 @@ import com.idas2.zdravotnisystem.db.entity.Procedura;
 import com.idas2.zdravotnisystem.db.mapper.entity.ProceduraMapper;
 import com.idas2.zdravotnisystem.db.mapper.view.ProceduraViewMapper;
 import com.idas2.zdravotnisystem.db.repository.ProceduraRepository;
-import com.idas2.zdravotnisystem.db.view.HospitalizaceView;
 import com.idas2.zdravotnisystem.db.view.ProceduraView;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -86,5 +86,80 @@ public class ProceduraRepositoryImpl
             LOGGER.warn("EmptyResultDataAccessException");
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public List<ProceduraView> getProceduraViewListByLekarIdBeforeNow(
+        @NotNull Integer lekarId
+    ) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("PACIENT_UZIVATEL_ID_UZIVATEL", lekarId);
+        map.put("CURRENT_TIME", Timestamp.valueOf(LocalDateTime.now()));
+        try {
+            return
+                jdbcTemplate
+                    .query(
+                        "SELECT * FROM PROCEDURA_V WHERE " +
+                            "LEKAR_UZIVATEL_ID_UZIVATEL = :LEKAR_UZIVATEL_ID_UZIVATEL " +
+                            "AND DATUM < :CURRENT_TIME",
+                        mapParams(map),
+                        proceduraViewMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn("EmptyResultDataAccessException");
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<ProceduraView> getProceduraViewListByLekarIdAfterNow(
+        @NotNull Integer lekarId
+    ) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("PACIENT_UZIVATEL_ID_UZIVATEL", lekarId);
+        map.put("CURRENT_TIME", Timestamp.valueOf(LocalDateTime.now()));
+        try {
+            return
+                jdbcTemplate
+                    .query(
+                        "SELECT * FROM PROCEDURA_V WHERE " +
+                            "LEKAR_UZIVATEL_ID_UZIVATEL = :LEKAR_UZIVATEL_ID_UZIVATEL " +
+                            "AND DATUM > :CURRENT_TIME",
+                        mapParams(map),
+                        proceduraViewMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn("EmptyResultDataAccessException");
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public void saveFromView(ProceduraView view) {
+        try {
+            MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+            parameters
+                .addValue("ID", view.getIdProcedura())
+                .addValue("DATE", view.getDatum())
+                .addValue("ID_PROCEDURY", view.getIdTypProcedury())
+                .addValue("POPIS", view.getPopis())
+                .addValue("ID_ZARIZENI", view.getIdZarizeni())
+                .addValue("ID_HOSPITALIZACE", view.getIdHospitalizace())
+                .addValue("ID_UZIVATEL", view.getIdLekar());
+
+            jdbcTemplate.update(
+                "CALL PROCEDURA_PRC (" +
+                    ":ID, :DATE, :ID_PROCEDURY, :POPIS, :ID_ZARIZENI, " +
+                    ":ID_HOSPITALIZACE, :ID_UZIVATEL )",
+                parameters
+            );
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

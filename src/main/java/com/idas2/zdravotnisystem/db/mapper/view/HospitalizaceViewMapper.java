@@ -19,6 +19,8 @@ public class HospitalizaceViewMapper implements RowMapper<HospitalizaceView> {
         return hospitalizaceView
             .setId(rs.getInt("ID"))
             .setDuvod(rs.getString("DUVOD"))
+            .setPacientJmeno(rs.getString("PACIENT_JMENO"))
+            .setPacientPrijmeni(rs.getString("PACIENT_PRIJMENI"))
             .setStavPacienta(rs.getString("STAVPACIENTA"))
             .setHospitalozaceOd(rs.getDate("OD").toLocalDate().format(DateTimeFormatter.ISO_LOCAL_DATE))
             .setHospitalizaceDo(rs.getDate("DO").toLocalDate().format(DateTimeFormatter.ISO_LOCAL_DATE));

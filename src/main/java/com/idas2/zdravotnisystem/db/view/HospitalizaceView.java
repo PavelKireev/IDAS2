@@ -1,13 +1,17 @@
 package com.idas2.zdravotnisystem.db.view;
 
+import com.idas2.zdravotnisystem.util.Selectable;
 import com.idas2.zdravotnisystem.util.TimeUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
-public class HospitalizaceView {
+public class HospitalizaceView implements Selectable {
 
     private Integer id;
+
+    private String pacientJmeno;
+    private String pacientPrijmeni;
 
     private String hospitalozaceOd;
     private String hospitalizaceDo;
@@ -22,6 +26,24 @@ public class HospitalizaceView {
 
     public HospitalizaceView setId(Integer id) {
         this.id = id;
+        return this;
+    }
+
+    public String getPacientJmeno() {
+        return pacientJmeno;
+    }
+
+    public HospitalizaceView setPacientJmeno(String pacientJmeno) {
+        this.pacientJmeno = pacientJmeno;
+        return this;
+    }
+
+    public String getPacientPrijmeni() {
+        return pacientPrijmeni;
+    }
+
+    public HospitalizaceView setPacientPrijmeni(String pacientPrijmeni) {
+        this.pacientPrijmeni = pacientPrijmeni;
         return this;
     }
 
@@ -68,5 +90,15 @@ public class HospitalizaceView {
     public HospitalizaceView setPokojCislo(String pokojCislo) {
         this.pokojCislo = pokojCislo;
         return this;
+    }
+
+    @Override
+    public String getSelectorId() {
+        return getId().toString();
+    }
+
+    @Override
+    public String getSelectorTitle() {
+        return String.format("%s %s", getPacientJmeno(), getPacientPrijmeni());
     }
 }

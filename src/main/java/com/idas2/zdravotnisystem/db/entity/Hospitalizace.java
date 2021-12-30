@@ -1,12 +1,13 @@
 package com.idas2.zdravotnisystem.db.entity;
 
 import com.idas2.zdravotnisystem.db.entity.base.UUIDableTimedEntity;
+import com.idas2.zdravotnisystem.util.Selectable;
 
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
 @Entity
-public class Hospitalizace extends UUIDableTimedEntity<Integer> {
+public class Hospitalizace extends UUIDableTimedEntity<Integer> implements Selectable {
 
     private static final long serialVersionUID = 2250538799447888193L;
 
@@ -59,5 +60,15 @@ public class Hospitalizace extends UUIDableTimedEntity<Integer> {
     public Hospitalizace setPacientUzivatelIdUzivatel(Integer pacientUzivatelIdUzivatel) {
         this.pacientUzivatelIdUzivatel = pacientUzivatelIdUzivatel;
         return this;
+    }
+
+    @Override
+    public String getSelectorId() {
+        return getId().toString();
+    }
+
+    @Override
+    public String getSelectorTitle() {
+        return getDuvod();
     }
 }
