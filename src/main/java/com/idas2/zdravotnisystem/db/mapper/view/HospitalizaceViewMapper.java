@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 
 @Component
 public class HospitalizaceViewMapper implements RowMapper<HospitalizaceView> {
@@ -22,7 +21,7 @@ public class HospitalizaceViewMapper implements RowMapper<HospitalizaceView> {
             .setPacientJmeno(rs.getString("PACIENT_JMENO"))
             .setPacientPrijmeni(rs.getString("PACIENT_PRIJMENI"))
             .setStavPacienta(rs.getString("STAVPACIENTA"))
-            .setHospitalozaceOd(rs.getDate("OD").toLocalDate().format(DateTimeFormatter.ISO_LOCAL_DATE))
-            .setHospitalizaceDo(rs.getDate("DO").toLocalDate().format(DateTimeFormatter.ISO_LOCAL_DATE));
+            .setHospitalozaceOd(rs.getDate("OD"))
+            .setHospitalizaceDo(rs.getDate("DO"));
     }
 }

@@ -17,7 +17,7 @@ public class ProceduraViewMapper implements RowMapper<ProceduraView> {
 
         proceduraView
             .setIdProcedura(rs.getInt("ID_PROCEDURA"))
-            .setDatum(rs.getDate("DATUM").toLocalDate().toString())
+            .setDatum(rs.getDate("DATUM"))
             .setPopis(rs.getString("POPIS"))
             .setIdTypProcedury(rs.getInt("TYP_PROCEDURY_ID_TYPPROCEDURY"))
             .setNazevZarizeni(rs.getString("ZARIZENI_NAZEV"))

@@ -5,6 +5,7 @@ import com.idas2.zdravotnisystem.db.mapper.entity.ProceduraMapper;
 import com.idas2.zdravotnisystem.db.mapper.view.ProceduraViewMapper;
 import com.idas2.zdravotnisystem.db.repository.ProceduraRepository;
 import com.idas2.zdravotnisystem.db.view.ProceduraView;
+import com.idas2.zdravotnisystem.db.view.UzivatelView;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,15 +28,18 @@ public class ProceduraRepositoryImpl
     implements ProceduraRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProceduraRepositoryImpl.class);
+
+    private final ProceduraMapper proceduraMapper;
     private final ProceduraViewMapper proceduraViewMapper;
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     @Autowired
     public ProceduraRepositoryImpl(
-        NamedParameterJdbcTemplate jdbcTemplate,
+        ProceduraMapper proceduraMapper, NamedParameterJdbcTemplate jdbcTemplate,
         ProceduraViewMapper proceduraViewMapper
     ) {
         super(jdbcTemplate);
+        this.proceduraMapper = proceduraMapper;
         this.jdbcTemplate = jdbcTemplate;
         this.proceduraViewMapper = proceduraViewMapper;
     }
@@ -93,7 +97,7 @@ public class ProceduraRepositoryImpl
         @NotNull Integer lekarId
     ) {
         Map<String, Object> map = new HashMap<>();
-        map.put("PACIENT_UZIVATEL_ID_UZIVATEL", lekarId);
+        map.put("LEKAR_UZIVATEL_ID_UZIVATEL", lekarId);
         map.put("CURRENT_TIME", Timestamp.valueOf(LocalDateTime.now()));
         try {
             return
@@ -117,7 +121,7 @@ public class ProceduraRepositoryImpl
         @NotNull Integer lekarId
     ) {
         Map<String, Object> map = new HashMap<>();
-        map.put("PACIENT_UZIVATEL_ID_UZIVATEL", lekarId);
+        map.put("LEKAR_UZIVATEL_ID_UZIVATEL", lekarId);
         map.put("CURRENT_TIME", Timestamp.valueOf(LocalDateTime.now()));
         try {
             return
@@ -159,6 +163,19 @@ public class ProceduraRepositoryImpl
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void deleteByUuid(@NotNull String uuid) {
+        try {
+            jdbcTemplate.update(
+                "DELETE FROM PROCEDURA WHERE UUID = :UUID",
+                mapParams("UUID", uuid)
+            );
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.error(ex.getMessage());
         }
 
     }

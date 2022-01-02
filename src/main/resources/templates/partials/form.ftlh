@@ -76,12 +76,12 @@
     <@spring.formHiddenInput path/>
 </#macro>
 
-<#macro inputDate path >
+<#macro inputDate path label>
     <#assign attr = 'class="form-control" '/>
     <#assign inputId = path?split(".")[1]/>
 
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label"><@spring.message path/></label>
+        <label class="col-sm-3 col-form-label"> ${label!""} </label>
         <div class="col-sm-9">
             <@spring.formInput path attr />
             <@spring.showErrors "" "validation-error-label" />
@@ -92,7 +92,7 @@
         $('#${inputId}').datepicker({
             dateFormat: 'yy-mm-dd',
             changeYear: true,
-            yearRange: "1900:2020",
+            yearRange: "2020:2030",
             defaultDate: new Date(1990, 1 - 1, 1),
             maxDate: 0
         });
@@ -394,20 +394,29 @@
     </script>
 </#macro>
 
-<#macro select2 path url selected attributes="">
+<#macro selectOptions path options key value>
+    <@spring.bind path/>
+    <select id="${spring.status.expression}" name="${spring.status.expression}">
+        <#list options as option>
+            <option value="${option.getSelectorId()}"<@spring.checkSelected option.id/>>${option.getSelectorTitle!""}</option>
+        </#list>
+    </select>
+</#macro>
+
+<#macro select2 path title url selected attributes="">
     <@spring.bind path/>
     <#assign replacedPath = path?replace(".", "-") />
     <#assign selectId = "select-id-${replacedPath}" />
     <#assign varId = path?replace(".", "") />
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">
-            <@spring.message path/>
+            ${title!""}
         </label>
         <div class="col-lg-9">
             <select id="${selectId}" name="${spring.status.expression}" ${attributes}>
                 <#if selected?? && selected?hasContent>
                     <option value="${selected.getSelectorId()}"
-                            selected="selected"><@spring.message selected.getSelectorTitle()/></option>
+                            selected="selected"> ${selected.getSelectorTitle()!""} </option>
                 </#if>
             </select>
             <@spring.showErrors "" "validation-error-label" />
@@ -420,7 +429,7 @@
         $(function () {
             $("#${selectId}").select2({
                 width: "100%",
-                placeholder: "<@spring.message path/>",
+                placeholder: ${path},
                 allowClear: true,
                 theme: "bootstrap",
                 ajax: {
@@ -458,6 +467,7 @@
         });
     </script>
 </#macro>
+
 
 <#macro select2string path url selected attributes="">
     <@spring.bind path/>

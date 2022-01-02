@@ -11,4 +11,10 @@ public interface HospitalizaceRepository extends CrudRepository<Hospitalizace> {
     List<HospitalizaceView> findAllByPacientId(
         @NotNull Integer pacientId
     );
+
+    List<HospitalizaceView> findAllByLekarId(
+        @NotNull Integer lekarId
+    );
+
+    List<HospitalizaceView> findAll();
 }

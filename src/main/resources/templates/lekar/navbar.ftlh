@@ -72,8 +72,8 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Typ:</h6>
-                    <a class="collapse-item" href="/pacient/info/procedury/nadchazejici">Nadchazejici</a>
-                    <a class="collapse-item" href="/pacient/info/procedury/minule">Minule</a>
+                    <a class="collapse-item" href="/lekar/procedura/nadchazejici">Nadchazejici</a>
+                    <a class="collapse-item" href="/lekar/procedura/minule">Minule</a>
                 </div>
             </div>
         </li>
@@ -137,9 +137,9 @@
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link" href="/pacient/info/hospitalizace">
+            <a class="nav-link" href="/lekar/info/hospitalizace">
                 <i class="fas fa-fw fa-table"></i>
-                <span>Historie hospitalizace</span></a>
+                <span>Pacienty</span></a>
         </li>
 
         <!-- Divider -->
@@ -200,7 +200,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="/pacient/profile/info">
+                            <a class="dropdown-item" href="/lekar/profile/info">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>

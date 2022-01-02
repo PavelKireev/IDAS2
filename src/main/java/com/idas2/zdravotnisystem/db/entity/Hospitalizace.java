@@ -4,6 +4,7 @@ import com.idas2.zdravotnisystem.db.entity.base.UUIDableTimedEntity;
 import com.idas2.zdravotnisystem.util.Selectable;
 
 import javax.persistence.Entity;
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,8 +14,8 @@ public class Hospitalizace extends UUIDableTimedEntity<Integer> implements Selec
 
     private String duvod;
     private String stavPacienta;
-    private LocalDateTime hospitalizaceOd;
-    private LocalDateTime hospitalizaceDo;
+    private Date hospitalizaceOd;
+    private Date hospitalizaceDo;
     private Integer pacientUzivatelIdUzivatel;
 
     public String getDuvod() {
@@ -35,20 +36,20 @@ public class Hospitalizace extends UUIDableTimedEntity<Integer> implements Selec
         return this;
     }
 
-    public LocalDateTime getHospitalizaceOd() {
+    public Date getHospitalizaceOd() {
         return hospitalizaceOd;
     }
 
-    public Hospitalizace setHospitalizaceOd(LocalDateTime hospitalizaceOd) {
+    public Hospitalizace setHospitalizaceOd(Date hospitalizaceOd) {
         this.hospitalizaceOd = hospitalizaceOd;
         return this;
     }
 
-    public LocalDateTime getHospitalizaceDo() {
+    public Date getHospitalizaceDo() {
         return hospitalizaceDo;
     }
 
-    public Hospitalizace setHospitalizaceDo(LocalDateTime hospitalizaceDo) {
+    public Hospitalizace setHospitalizaceDo(Date hospitalizaceDo) {
         this.hospitalizaceDo = hospitalizaceDo;
         return this;
     }

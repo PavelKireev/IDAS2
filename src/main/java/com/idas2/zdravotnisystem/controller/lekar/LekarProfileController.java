@@ -39,7 +39,7 @@ public class LekarProfileController {
     }
 
 
-    @GetMapping("/profile/info")
+    @GetMapping("/info")
     public ModelAndView info(
         @AuthenticationPrincipal AuthUser authUser
     ) {
@@ -63,16 +63,17 @@ public class LekarProfileController {
         }
 
         return
-            new ModelAndView("/pacient/profile")
+            new ModelAndView("/lekar/profile/info")
                 .addObject("user", user)
                 .addObject("avatar", file)
+                .addObject("authUser", authUser)
                 .addObject("lekarView", lekarView)
                 .addObject("lekarForm",
                     lekarFormService.buildInfoFormFromView(lekarView)
                 );
     }
 
-    @PostMapping("/profile/avatar")
+    @PostMapping("/avatar")
     public ModelAndView avatar(
         @AuthenticationPrincipal AuthUser authUser,
         @RequestParam("obrazek") MultipartFile file

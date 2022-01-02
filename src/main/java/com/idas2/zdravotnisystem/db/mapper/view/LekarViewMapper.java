@@ -27,7 +27,7 @@ public class LekarViewMapper implements RowMapper<LekarView> {
             .setObrazekNazev(rs.getString("OBRAZEK_NAZEV"))
             .setPlat(rs.getInt("PLAT"))
             .setKancelarCislo(rs.getString("KANCELAR_CISLO"))
-            .setKancelarNazev(rs.getString("NAZEV"))
+            .setKancelarNazev(rs.getString("KANCELAR_NAZEV"))
             .setIdKancelar(rs.getInt("KANCELAR_ID_KANCELAR"))
             .setIdSpecializace(rs.getInt("SPECIALIZACE_ID_SPEC"));
 

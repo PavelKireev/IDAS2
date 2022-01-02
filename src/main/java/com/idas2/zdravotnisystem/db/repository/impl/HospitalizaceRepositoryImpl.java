@@ -14,7 +14,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class HospitalizaceRepositoryImpl
@@ -93,6 +95,41 @@ public class HospitalizaceRepositoryImpl
         } catch (EmptyResultDataAccessException ex) {
             LOGGER.warn("EmptyResultDataAccessException");
             return new ArrayList<HospitalizaceView>();
+        }
+    }
+
+    @Override
+    public List<HospitalizaceView> findAllByLekarId(@NotNull Integer lekarId) {
+        try {
+            return
+                namedParameterJdbcTemplate
+                    .query(
+                        "SELECT * FROM HOSPITALIZACE_V",
+                        mapParams("PACIENT_UZIVATEL_ID_UZIVATEL", lekarId),
+                        hospitalizaceViewMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn("EmptyResultDataAccessException");
+            return new ArrayList<HospitalizaceView>();
+        }    }
+
+    @Override
+    public List<HospitalizaceView> findAll() {
+        Map<String, Object> map = new HashMap<>();
+
+        try {
+            return
+                namedParameterJdbcTemplate
+                    .query(
+                        "SELECT * FROM HOSPITALIZACE_V",
+                        mapParams(map),
+                        hospitalizaceViewMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn("EmptyResultDataAccessException");
+            return new ArrayList<>();
         }
     }
 

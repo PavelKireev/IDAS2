@@ -5,7 +5,7 @@ import java.sql.Date;
 public class ProceduraView {
 
     private Integer idProcedura;
-    private String datum;
+    private Date datum;
     private String popis;
     private Integer idTypProcedury;
 
@@ -66,11 +66,11 @@ public class ProceduraView {
         return this;
     }
 
-    public String getDatum() {
+    public Date getDatum() {
         return datum;
     }
 
-    public ProceduraView setDatum(String datum) {
+    public ProceduraView setDatum(Date datum) {
         this.datum = datum;
         return this;
     }

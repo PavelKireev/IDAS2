@@ -26,4 +26,6 @@ public interface ProceduraRepository{
 
     void saveFromView(ProceduraView view);
 
+    void deleteByUuid(@NotNull String uuid);
+
 }

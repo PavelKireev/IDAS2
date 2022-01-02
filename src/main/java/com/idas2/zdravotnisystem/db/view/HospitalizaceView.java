@@ -4,6 +4,7 @@ import com.idas2.zdravotnisystem.util.Selectable;
 import com.idas2.zdravotnisystem.util.TimeUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 public class HospitalizaceView implements Selectable {
@@ -13,8 +14,8 @@ public class HospitalizaceView implements Selectable {
     private String pacientJmeno;
     private String pacientPrijmeni;
 
-    private String hospitalozaceOd;
-    private String hospitalizaceDo;
+    private Date hospitalozaceOd;
+    private Date hospitalizaceDo;
 
     private String duvod;
     private String stavPacienta;
@@ -47,20 +48,20 @@ public class HospitalizaceView implements Selectable {
         return this;
     }
 
-    public String getHospitalozaceOd() {
+    public Date getHospitalozaceOd() {
         return hospitalozaceOd;
     }
 
-    public HospitalizaceView setHospitalozaceOd(String hospitalozaceOd) {
+    public HospitalizaceView setHospitalozaceOd(Date hospitalozaceOd) {
         this.hospitalozaceOd = hospitalozaceOd;
         return this;
     }
 
-    public String getHospitalizaceDo() {
+    public Date getHospitalizaceDo() {
         return hospitalizaceDo;
     }
 
-    public HospitalizaceView setHospitalizaceDo(String hospitalizaceDo) {
+    public HospitalizaceView setHospitalizaceDo(Date hospitalizaceDo) {
         this.hospitalizaceDo = hospitalizaceDo;
         return this;
     }

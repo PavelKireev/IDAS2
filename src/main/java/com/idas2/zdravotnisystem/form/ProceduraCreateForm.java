@@ -4,21 +4,23 @@ import com.idas2.zdravotnisystem.db.entity.Hospitalizace;
 import com.idas2.zdravotnisystem.db.entity.TypProcedury;
 import com.idas2.zdravotnisystem.db.entity.TypZarizeni;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class ProceduraCreateForm {
 
-    private LocalDateTime localDateTime;
+    private LocalDate datum;
     private String popis;
-    private TypProcedury idTypProcedury;
-    private TypZarizeni idTypZarizeni;
+    private Integer hospitalizace;
+    private Integer idTypProcedury;
+    private Integer idTypZarizeni;
+    private Integer idLekar;
 
-    public LocalDateTime getLocalDateTime() {
-        return localDateTime;
+    public LocalDate getDatum() {
+        return datum;
     }
 
-    public ProceduraCreateForm setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
+    public ProceduraCreateForm setDatum(LocalDate datum) {
+        this.datum = datum;
         return this;
     }
 
@@ -31,33 +33,40 @@ public class ProceduraCreateForm {
         return this;
     }
 
-    public TypProcedury getIdTypProcedury() {
-        return idTypProcedury;
-    }
-
-    public ProceduraCreateForm setIdTypProcedury(TypProcedury idTypProcedury) {
-        this.idTypProcedury = idTypProcedury;
-        return this;
-    }
-
-    public TypZarizeni getIdTypZarizeni() {
-        return idTypZarizeni;
-    }
-
-    public ProceduraCreateForm setIdTypZarizeni(TypZarizeni idTypZarizeni) {
-        this.idTypZarizeni = idTypZarizeni;
-        return this;
-    }
-
-    public Hospitalizace getHospitalizace() {
+    public Integer getHospitalizace() {
         return hospitalizace;
     }
 
-    public ProceduraCreateForm setHospitalizace(Hospitalizace hospitalizace) {
+    public ProceduraCreateForm setHospitalizace(Integer hospitalizace) {
         this.hospitalizace = hospitalizace;
         return this;
     }
 
-    private Hospitalizace hospitalizace;
+    public Integer getIdTypProcedury() {
+        return idTypProcedury;
+    }
+
+    public ProceduraCreateForm setIdTypProcedury(Integer idTypProcedury) {
+        this.idTypProcedury = idTypProcedury;
+        return this;
+    }
+
+    public Integer getIdTypZarizeni() {
+        return idTypZarizeni;
+    }
+
+    public ProceduraCreateForm setIdTypZarizeni(Integer idTypZarizeni) {
+        this.idTypZarizeni = idTypZarizeni;
+        return this;
+    }
+
+    public Integer getIdLekar() {
+        return idLekar;
+    }
+
+    public ProceduraCreateForm setIdLekar(Integer idLekar) {
+        this.idLekar = idLekar;
+        return this;
+    }
 
 }

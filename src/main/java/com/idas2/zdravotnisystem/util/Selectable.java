@@ -6,4 +6,17 @@ public interface Selectable {
 
     String getSelectorTitle();
 
+    default String getSelectorAlias() {
+        return null;
+    }
+    default String getSelectorColor() {
+        return null;
+    }
+    default String getSelectorOwnerAlias() {
+        return null;
+    }
+    default String getSelectorHash() {
+        return null;
+    }
+
 }
