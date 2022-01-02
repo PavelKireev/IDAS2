@@ -1,5 +1,11 @@
 package com.idas2.zdravotnisystem.controller.admin;
 
+import com.idas2.zdravotnisystem.component.AuthUser;
+import com.idas2.zdravotnisystem.db.entity.Log;
+import com.idas2.zdravotnisystem.db.repository.LogRepository;
+import com.idas2.zdravotnisystem.db.view.HospitalizaceView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +17,15 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
+    private final LogRepository logRepositozry;
+
+    @Autowired
+    public AdminController(
+        LogRepository logRepositozry
+    ) {
+        this.logRepositozry = logRepositozry;
+    }
 
     @GetMapping("/overview")
     public ModelAndView overview(){
@@ -40,6 +55,16 @@ public class AdminController {
         list.add("ZDRAVOTNI_KARTA");
 
         return new ModelAndView("/admin/overview")
+            .addObject("list", list);
+    }
+
+    @GetMapping("/log")
+    public ModelAndView log(
+        @AuthenticationPrincipal AuthUser authUser
+    ) {
+        List<Log> list = logRepositozry.findAll();
+
+        return new ModelAndView("lekar/hospitalizace/list")
             .addObject("list", list);
     }
 }

@@ -3,14 +3,14 @@ package com.idas2.zdravotnisystem.db.entity;
 import com.idas2.zdravotnisystem.db.entity.base.UUIDableTimedEntity;
 
 import javax.persistence.Entity;
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 @Entity
 public class Log extends UUIDableTimedEntity<Integer> {
 
     private String akce;
     private String tabulka;
-    private LocalDateTime datum;
+    private Date datum;
     private String text;
     private Integer uzivatelIdUzivatel;
     private Integer odebranyIdOdebranyUzivatel;
@@ -31,15 +31,6 @@ public class Log extends UUIDableTimedEntity<Integer> {
 
     public Log setTabulka(String tabulka) {
         this.tabulka = tabulka;
-        return this;
-    }
-
-    public LocalDateTime getDatum() {
-        return datum;
-    }
-
-    public Log setDatum(LocalDateTime datum) {
-        this.datum = datum;
         return this;
     }
 
@@ -76,6 +67,15 @@ public class Log extends UUIDableTimedEntity<Integer> {
 
     public Log setPrimarniKlic(Integer primarniKlic) {
         this.primarniKlic = primarniKlic;
+        return this;
+    }
+
+    public Date getDatum() {
+        return datum;
+    }
+
+    public Log setDatum(Date datum) {
+        this.datum = datum;
         return this;
     }
 }
