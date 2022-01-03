@@ -49,7 +49,6 @@ public class AdminController {
         list.add("SPECIALIZACE");
         list.add("TYP_PROCEDURY");
         list.add("TYP_ZARIZENI");
-        list.add("UZIVATEL");
         list.add("ZARIZENI");
         list.add("ZAZNAM");
         list.add("ZDRAVOTNI_KARTA");
@@ -64,7 +63,8 @@ public class AdminController {
     ) {
         List<Log> list = logRepositozry.findAll();
 
-        return new ModelAndView("lekar/hospitalizace/list")
+        return new ModelAndView("/admin/log")
             .addObject("list", list);
     }
+
 }

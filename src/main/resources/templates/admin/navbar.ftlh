@@ -63,20 +63,20 @@
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-               aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Moje rezervace</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Typ:</h6>
-                    <a class="collapse-item" href="/pacient/info/procedury/nadchazejici">Nadchazejici</a>
-                    <a class="collapse-item" href="/pacient/info/procedury/minule">Minule</a>
-                </div>
-            </div>
-        </li>
+<#--        <li class="nav-item">-->
+<#--            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"-->
+<#--               aria-expanded="true" aria-controls="collapseTwo">-->
+<#--                <i class="fas fa-fw fa-cog"></i>-->
+<#--                <span>Moje rezervace</span>-->
+<#--            </a>-->
+<#--            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">-->
+<#--                <div class="bg-white py-2 collapse-inner rounded">-->
+<#--                    <h6 class="collapse-header">Typ:</h6>-->
+<#--                    <a class="collapse-item" href="/pacient/info/procedury/nadchazejici">Nadchazejici</a>-->
+<#--                    <a class="collapse-item" href="/pacient/info/procedury/minule">Minule</a>-->
+<#--                </div>-->
+<#--            </div>-->
+<#--        </li>-->
 
 
 <#--        <!-- Nav Item - Utilities Collapse Menu &ndash;&gt;-->
@@ -137,9 +137,14 @@
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link" href="/pacient/info/hospitalizace">
+            <a class="nav-link" href="/admin/overview">
                 <i class="fas fa-fw fa-table"></i>
-                <span>Historie hospitalizace</span></a>
+                <span>Overview</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/admin/log">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Log</span></a>
         </li>
 
         <!-- Divider -->

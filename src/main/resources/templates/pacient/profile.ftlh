@@ -6,7 +6,7 @@
 
     <div class="row">
     <div class="col-lg-8">
-        <h1>${user.getJmeno()!""} ${user.getPrijmeni()!""} <br> ${pacientView.getUuid()!""}</h1>
+        <h1>${user.getJmeno()!""} ${user.getPrijmeni()!""} </h1>
         <hr>
         <form method="post" action="/pacient/profile/info/update">
             <div class="form-group">

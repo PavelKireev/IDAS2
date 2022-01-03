@@ -24,7 +24,7 @@ public class IndexController {
         if (role.equals("LEKAR"))
             return RedirectUtil.redirect("/lekar/profile/info");
 
-        if (role.equals("ADMIN"))
+        if (role.equals("ADMINISTRATOR"))
             return RedirectUtil.redirect("/admin/overview");
 
         return RedirectUtil.redirect("/pacient/profile/info");
