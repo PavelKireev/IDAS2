@@ -3,7 +3,6 @@ package com.idas2.zdravotnisystem.controller.admin;
 import com.idas2.zdravotnisystem.component.AuthUser;
 import com.idas2.zdravotnisystem.db.entity.Log;
 import com.idas2.zdravotnisystem.db.repository.LogRepository;
-import com.idas2.zdravotnisystem.db.view.HospitalizaceView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
