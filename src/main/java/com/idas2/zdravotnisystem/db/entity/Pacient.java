@@ -3,6 +3,8 @@ package com.idas2.zdravotnisystem.db.entity;
 import com.idas2.zdravotnisystem.db.entity.base.UUIDableTimedEntity;
 
 import javax.persistence.Entity;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,9 +15,29 @@ public class Pacient extends UUIDableTimedEntity<Integer> {
     private Integer uzivatelIdUzivatel;
     private Integer rust;
     private Integer hmotnost;
-    private LocalDateTime datumNarozeni;
+    private Date datumNarozeni;
     private Integer nemocnicniPokojIdMistnost;
     private String adresa;
+    private Integer idOtec;
+    private Integer idMatka;
+
+    public Integer getIdOtec() {
+        return idOtec;
+    }
+
+    public Pacient setIdOtec(Integer idOtec) {
+        this.idOtec = idOtec;
+        return this;
+    }
+
+    public Integer getIdMatka() {
+        return idMatka;
+    }
+
+    public Pacient setIdMatka(Integer idMatka) {
+        this.idMatka = idMatka;
+        return this;
+    }
 
     public Integer getUzivatelIdUzivatel() {
         return uzivatelIdUzivatel;
@@ -44,11 +66,11 @@ public class Pacient extends UUIDableTimedEntity<Integer> {
         return this;
     }
 
-    public LocalDateTime getDatumNarozeni() {
+    public Date getDatumNarozeni() {
         return datumNarozeni;
     }
 
-    public Pacient setDatumNarozeni(LocalDateTime datumNarozeni) {
+    public Pacient setDatumNarozeni(Date datumNarozeni) {
         this.datumNarozeni = datumNarozeni;
         return this;
     }

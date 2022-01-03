@@ -6,30 +6,37 @@ import com.idas2.zdravotnisystem.db.mapper.view.PacientViewMapper;
 import com.idas2.zdravotnisystem.db.repository.PacientRepository;
 import com.idas2.zdravotnisystem.db.view.PacientView;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 @Service
 public class PacientRepositoryImpl
     extends AbstractCrudRepository<Pacient, PacientMapper>
     implements PacientRepository {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(PacientRepositoryImpl.class);
+
+    private final PacientMapper pacientMapper;
     private final PacientViewMapper pacientViewMapper;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
     public PacientRepositoryImpl(
+        PacientMapper pacientMapper,
         PacientViewMapper pacientViewMapper,
         NamedParameterJdbcTemplate namedParameterJdbcTemplate
     ) {
         super(namedParameterJdbcTemplate);
+        this.pacientMapper = pacientMapper;
         this.pacientViewMapper = pacientViewMapper;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
@@ -99,6 +106,25 @@ public class PacientRepositoryImpl
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public List<Pacient> findAll() {
+        Map<String, Object> map = new HashMap<>();
+
+        try {
+            return
+                namedParameterJdbcTemplate
+                    .query(
+                        "SELECT * FROM PACIENT",
+                        mapParams(map),
+                        pacientMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn("EmptyResultDataAccessException");
+            return new ArrayList<>();
+        }
     }
 
 }

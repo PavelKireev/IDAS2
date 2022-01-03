@@ -26,6 +26,16 @@ public class AdminController {
         this.logRepositozry = logRepositozry;
     }
 
+    @GetMapping("/log")
+    public ModelAndView log(
+        @AuthenticationPrincipal AuthUser authUser
+    ) {
+        List<Log> list = logRepositozry.findAll();
+
+        return new ModelAndView("/admin/log")
+            .addObject("list", list);
+    }
+
     @GetMapping("/overview")
     public ModelAndView overview(){
 
@@ -52,17 +62,7 @@ public class AdminController {
         list.add("ZAZNAM");
         list.add("ZDRAVOTNI_KARTA");
 
-        return new ModelAndView("/admin/overview")
-            .addObject("list", list);
-    }
-
-    @GetMapping("/log")
-    public ModelAndView log(
-        @AuthenticationPrincipal AuthUser authUser
-    ) {
-        List<Log> list = logRepositozry.findAll();
-
-        return new ModelAndView("/admin/log")
+        return new ModelAndView("/main/resources/templates/admin/overview/overview.ftlh")
             .addObject("list", list);
     }
 

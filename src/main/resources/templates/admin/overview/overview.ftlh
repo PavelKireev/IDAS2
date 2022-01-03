@@ -1,6 +1,6 @@
 <#import '/spring.ftl' as spring>
-<#import 'navbar.ftlh' as layout>
-<#import '../partials/form.ftlh' as form>
+<#import '../navbar.ftlh' as layout>
+<#import '../../partials/form.ftlh' as form>
 
 <@layout.render>
     <#assign count = 1>
@@ -20,7 +20,7 @@
                 <th scope="row">${count}</th>
                 <td>
                     <div class="row">
-                        <a href="${item}"> ${item!""} </a>
+                        <a href="/admin/table/${item}"> ${item!""} </a>
 <#--                        <a class="btn btn-primary ml-4" href="" role="button">Update</a>-->
 <#--                        <a class="btn btn-danger ml-4" href="" role="button">Delete</a>-->
                     </div>
