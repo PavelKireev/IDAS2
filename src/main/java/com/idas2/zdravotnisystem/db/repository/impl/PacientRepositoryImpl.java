@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @Service
 public class PacientRepositoryImpl
     extends AbstractCrudRepository<Pacient, PacientMapper>
@@ -124,6 +125,21 @@ public class PacientRepositoryImpl
         } catch (EmptyResultDataAccessException ex) {
             LOGGER.warn("EmptyResultDataAccessException");
             return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public void delete(@NotNull Integer id) {
+
+        try {
+            namedParameterJdbcTemplate
+                .update(
+                    "DELETE FROM PACIENT WHERE UZIVATEL_ID_UZIVATEL = :ID",
+                    mapParams("ID", id)
+                );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn("Delete pacient ex");
         }
     }
 

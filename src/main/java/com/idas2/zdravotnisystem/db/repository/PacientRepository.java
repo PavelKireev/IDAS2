@@ -19,5 +19,7 @@ public interface PacientRepository {
 
     List<Pacient> findAll();
 
+    void delete(@NotNull Integer id);
+
 
 }

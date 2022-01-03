@@ -2,10 +2,11 @@ package com.idas2.zdravotnisystem.controller.admin;
 
 import com.idas2.zdravotnisystem.db.entity.Pacient;
 import com.idas2.zdravotnisystem.db.repository.PacientRepository;
+import com.idas2.zdravotnisystem.form.PacientInfoForm;
+import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class AdminPacientController {
 
     @GetMapping("/info")
     public ModelAndView info(
-    ){
+    ) {
         List<Pacient> list = repository.findAll();
         return new ModelAndView("/admin/overview/pacient")
             .addObject("list", list);
@@ -33,18 +34,34 @@ public class AdminPacientController {
 
     @GetMapping("/create")
     public ModelAndView create(
-    ){
+    ) {
         List<Pacient> list = repository.findAll();
         return new ModelAndView("/admin/overview/pacient")
             .addObject("list", list);
     }
 
+    @PostMapping("/save")
+    public ModelAndView save(
+        @ModelAttribute("form") PacientInfoForm form
+    ) {
+
+        return RedirectUtil.redirect("/admin/table/PACIENT/info");
+    }
+
     @GetMapping("/update")
     public ModelAndView update(
-    ){
+    ) {
         List<Pacient> list = repository.findAll();
         return new ModelAndView("/admin/overview/pacient")
             .addObject("list", list);
+    }
+
+    @GetMapping("/{pacientId}/delete")
+    public ModelAndView delete(
+        @PathVariable Integer pacientId
+    ) {
+        repository.delete(pacientId);
+        return RedirectUtil.redirect("/admin/table/PACIENT/info");
     }
 
 }

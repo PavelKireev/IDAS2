@@ -1,7 +1,5 @@
 package com.idas2.zdravotnisystem.form;
 
-import java.sql.Date;
-
 public class PacientInfoForm {
 
     private String telCislo;

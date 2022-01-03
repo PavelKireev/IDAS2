@@ -20,7 +20,7 @@
                 <th scope="row">${count}</th>
                 <td>
                     <div class="row">
-                        <a href="/admin/table/${item}"> ${item!""} </a>
+                        <a href="/admin/table/${item}/info"> ${item!""} </a>
 <#--                        <a class="btn btn-primary ml-4" href="" role="button">Update</a>-->
 <#--                        <a class="btn btn-danger ml-4" href="" role="button">Delete</a>-->
                     </div>
