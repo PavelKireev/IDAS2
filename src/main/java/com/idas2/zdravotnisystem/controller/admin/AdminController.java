@@ -62,7 +62,7 @@ public class AdminController {
         list.add("ZAZNAM");
         list.add("ZDRAVOTNI_KARTA");
 
-        return new ModelAndView("/main/resources/templates/admin/overview/overview.ftlh")
+        return new ModelAndView("admin/overview/overview")
             .addObject("list", list);
     }
 
