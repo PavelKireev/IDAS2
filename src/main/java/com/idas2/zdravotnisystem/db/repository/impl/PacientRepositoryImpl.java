@@ -138,6 +138,12 @@ public class PacientRepositoryImpl
                     mapParams("ID", id)
                 );
 
+                namedParameterJdbcTemplate
+                    .update(
+                        "DELETE FROM UZIVATEL WHERE ID_UZIVATEL = :ID",
+                        mapParams("ID", id)
+                    );
+
         } catch (EmptyResultDataAccessException ex) {
             LOGGER.warn("Delete pacient ex");
         }
