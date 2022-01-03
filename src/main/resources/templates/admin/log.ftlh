@@ -26,6 +26,7 @@
                 <th scope="row">${count}</th>
                 <td>${item.getAkce()!""}</td>
                 <td>${item.getTabulka()!""}</td>
+                <td>${item.getDatum()!""}</td>
                 <td>${item.getText()!""}</td>
                 <td>${item.getUzivatelIdUzivatel()!""}</td>
                 <td>${item.getOdebranyIdOdebranyUzivatel()!""}</td>
