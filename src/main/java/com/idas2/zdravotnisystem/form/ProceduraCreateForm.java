@@ -1,25 +1,19 @@
 package com.idas2.zdravotnisystem.form;
 
-import com.idas2.zdravotnisystem.db.entity.Hospitalizace;
-import com.idas2.zdravotnisystem.db.entity.TypProcedury;
-import com.idas2.zdravotnisystem.db.entity.TypZarizeni;
-
-import java.time.LocalDate;
-
 public class ProceduraCreateForm {
 
-    private LocalDate datum;
+    private String datum;
     private String popis;
-    private Integer hospitalizace;
-    private Integer idTypProcedury;
-    private Integer idTypZarizeni;
-    private Integer idLekar;
+    private String hospitalizace;
+    private String idTypProcedury;
+    private String idTypZarizeni;
+    private String idLekar;
 
-    public LocalDate getDatum() {
+    public String getDatum() {
         return datum;
     }
 
-    public ProceduraCreateForm setDatum(LocalDate datum) {
+    public ProceduraCreateForm setDatum(String datum) {
         this.datum = datum;
         return this;
     }
@@ -33,40 +27,39 @@ public class ProceduraCreateForm {
         return this;
     }
 
-    public Integer getHospitalizace() {
+    public String getHospitalizace() {
         return hospitalizace;
     }
 
-    public ProceduraCreateForm setHospitalizace(Integer hospitalizace) {
+    public ProceduraCreateForm setHospitalizace(String hospitalizace) {
         this.hospitalizace = hospitalizace;
         return this;
     }
 
-    public Integer getIdTypProcedury() {
+    public String getIdTypProcedury() {
         return idTypProcedury;
     }
 
-    public ProceduraCreateForm setIdTypProcedury(Integer idTypProcedury) {
+    public ProceduraCreateForm setIdTypProcedury(String idTypProcedury) {
         this.idTypProcedury = idTypProcedury;
         return this;
     }
 
-    public Integer getIdTypZarizeni() {
+    public String getIdTypZarizeni() {
         return idTypZarizeni;
     }
 
-    public ProceduraCreateForm setIdTypZarizeni(Integer idTypZarizeni) {
+    public ProceduraCreateForm setIdTypZarizeni(String idTypZarizeni) {
         this.idTypZarizeni = idTypZarizeni;
         return this;
     }
 
-    public Integer getIdLekar() {
+    public String getIdLekar() {
         return idLekar;
     }
 
-    public ProceduraCreateForm setIdLekar(Integer idLekar) {
+    public ProceduraCreateForm setIdLekar(String idLekar) {
         this.idLekar = idLekar;
         return this;
     }
-
 }

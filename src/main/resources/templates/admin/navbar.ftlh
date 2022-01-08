@@ -12,7 +12,9 @@
     <meta name="author" content="">
 
     <title>Zdravotni System</title>
+    <link rel="icon" type="image/png" href="/static/image/logo.svg">
 
+    <!-- Custom fonts for this template-->
     <!-- Custom fonts for this template-->
     <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -26,6 +28,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="/webjars/bootstrap-glyphicons/bdd2cbfba0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="/static/js/jquery-ui-timepicker-addon.js"></script>
+    <link href="/static/css/jquery-ui-timepicker-addon.css" rel="stylesheet">
+
+    <#--    <script src="/webjars/select2/4.0.5/js/select2.min.js"></script>-->
+    <#--    <link href="/webjars/select2/4.0.5/css/select2.min.css" rel="stylesheet">-->
+    <link href="/static/css/select2-bootstrap.min.css" rel="stylesheet">
+
+    <link href="/static/css/sb-admin-2.min.css?v=2" rel="stylesheet">
+    <#--    <link href="/static/fonts/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">-->
+
+    <link href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css" rel="stylesheet">
+    <link href="/static/css/jquery-ui/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet">
+    <link href="/static/css/jquery-ui/custom-theme/jquery.ui.1.10.0.ie.css" rel="stylesheet">
+    <link href="/static/css/custom.css?v=38" rel="stylesheet">
+    <link href="/static/css/custom-checkbox.css" rel="stylesheet">
+    <link href="/static/css/feed.css?v=37" rel="stylesheet">
+    <link href="/static/css/invoice.css?v=37" rel="stylesheet">
+    <link href="/static/css/table-customize.css" rel="stylesheet">
+
+    <script src="/static/js/login.js"></script>
+    <script src="/static/js/custom.js"></script>
+
+    <script src="/static/js/clipboard.min.js"></script>
+    <script src="/static/js/readmore.js"></script>
 </head>
 
 <body id="page-top">

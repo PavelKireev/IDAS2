@@ -80,9 +80,11 @@
     <#assign attr = 'class="form-control" '/>
     <#assign inputId = path?split(".")[1]/>
 
-    <div class="form-group row">
-        <label class="col-sm-3 col-form-label"> ${label!""} </label>
-        <div class="col-sm-9">
+    <div class="form-group">
+        <label>
+            ${label!""}
+        </label>
+        <div class="">
             <@spring.formInput path attr />
             <@spring.showErrors "" "validation-error-label" />
         </div>
@@ -92,19 +94,19 @@
         $('#${inputId}').datepicker({
             dateFormat: 'yy-mm-dd',
             changeYear: true,
-            yearRange: "2020:2030",
-            defaultDate: new Date(1990, 1 - 1, 1),
-            maxDate: 0
+            yearRange: "2022:2030",
+            defaultDate: new Date(2022, 1 - 1, 1),
+            maxDate: new Date(2025, 1 - 1, 1)
         });
     </script>
 </#macro>
 
-<#macro inputDateTime path>
+<#macro inputDateTime path title>
     <@spring.bind path />
     <div class="form-group">
         <div class="row">
-            <label class="control-label col-lg-3">
-                <@spring.message path/>
+            <label for="datetimepicker-${spring.status.expression}" class="control-label col-lg-3">
+                ${title!""}
             </label>
             <div class="col-lg-9">
                 <input
@@ -116,11 +118,11 @@
                 <script type="application/javascript">
                     $(function () {
                         $('#datetimepicker-${spring.status.expression}')
-                                .datetimepicker({
-                                    dateFormat: "yy-mm-dd",
-                                    timeFormat: "HH:00:00",
-                                    showMinute: false
-                                });
+                            .datetimepicker({
+                                dateFormat: "yy-mm-dd",
+                                timeFormat: "HH:00:00",
+                                showMinute: false
+                            });
                     })
                 </script>
             </div>
@@ -128,12 +130,12 @@
     </div>
 </#macro>
 
-<#macro smallInputDateTime path>
+<#macro smallInputDateTime path title>
     <@spring.bind path />
     <div class="form-group">
         <div class="row">
             <label class="control-label col-lg-4">
-                <@spring.message path/>
+                ${title!""}
             </label>
             <div class="col-lg-8">
                 <input
@@ -145,11 +147,11 @@
                 <script type="application/javascript">
                     $(function () {
                         $('#datetimepicker-${spring.status.expression}')
-                                .datetimepicker({
-                                    dateFormat: "yy-mm-dd",
-                                    timeFormat: "HH:00:00",
-                                    showMinute: false
-                                });
+                            .datetimepicker({
+                                dateFormat: "yy-mm-dd",
+                                timeFormat: "HH:00:00",
+                                showMinute: false
+                            });
                     })
                 </script>
             </div>
@@ -204,7 +206,7 @@
         </#if>
 
         $("#${spring.status.expression}").summernote(
-                ${readonly?string("'disable'","'enable'")}
+            ${readonly?string("'disable'","'enable'")}
         );
 
     </script>
@@ -394,11 +396,12 @@
     </script>
 </#macro>
 
-<#macro selectOptions path options key value>
+<#macro selectOptions path options title>
     <@spring.bind path/>
-    <select id="${spring.status.expression}" name="${spring.status.expression}">
+    <label class="mt-3" for="${spring.status.expression}">${title!""}</label>
+    <select class="custom-select" id="${spring.status.expression}" name="${spring.status.expression}">
         <#list options as option>
-            <option value="${option.getSelectorId()}"<@spring.checkSelected option.id/>>${option.getSelectorTitle!""}</option>
+            <option value="${option.getSelectorId()}" <@spring.checkSelected option.getSelectorId()/>>${option.getSelectorTitle()!""}</option>
         </#list>
     </select>
 </#macro>
@@ -802,7 +805,7 @@
         <div class="mt-3">
             <div class="btn btn-primary mt-2 btn-block" role="button" aria-pressed="true">
                 <label class="mb-0">
-<#--                    <@spring.message "append"/>-->
+                    <#--                    <@spring.message "append"/>-->
                     <@spring.formInput path attr "file"/>
                 </label>
                 <@spring.showErrors "" "validation-error-label" />
@@ -829,4 +832,24 @@
             });
         });
     </script>
+</#macro>
+
+<#macro select path options>
+    <@spring.bind path/>
+    <#assign replacedPath = path?replace(".", "-") />
+    <#assign selectId = "select-id-${replacedPath}" />
+    <div class="form-group row">
+        <@label path/>
+        <div class="col-sm-9">
+            <select id="${selectId}" class="select" name="${spring.status.expression}">
+                <option></option>
+                <#list options as option>
+                    <#assign selected = (spring.stringStatusValue?hasContent && spring.stringStatusValue = option)?then("selected", "")/>
+                    <option ${selected} value="${option}">${option}</option>
+                </#list>
+            </select>
+            <@spring.showErrors "" "validation-error-label" />
+        </div>
+    </div>
+
 </#macro>

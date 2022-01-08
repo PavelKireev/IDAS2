@@ -1,0 +1,254 @@
+/*@font-face {*/
+/*  font-family: 'Roboto';*/
+/*  src: url("/static/fonts/Roboto/Roboto-Regular.ttf");*/
+/*  src: url("/static/fonts/Roboto/Roboto-Regular.ttf?#iefix"); }*/
+
+/*@font-face {*/
+/*  font-family: 'RobotoBold';*/
+/*  src: url("/static/fonts/Roboto/Roboto-Bold.ttf"); }*/
+
+/*@font-face {*/
+/*  font-family: 'RobotoBlack';*/
+/*  src: url("/static/fonts/Roboto/Roboto-Black.ttf"); }*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif; }
+
+.pegasus-feed__date {
+  margin-bottom: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 10px 2px #E4DFE5;
+  font-size: 18px;
+  color: #000;
+  background: #fff;
+  font-weight: bold; }
+
+.pegasus-feed__card {
+  border-bottom: 1px solid #E4DFE5;
+  border-top: 1px solid #E4DFE5;
+  box-shadow: 0 2px 10px 2px #E4DFE5;
+  background-color: #fff;
+  margin-bottom: 20px;
+  position: relative;
+  border-top-right-radius: .35rem;
+  border-top-left-radius: .35rem;
+  border-bottom-right-radius: .35rem;
+  padding-bottom: 1px; }
+  .pegasus-feed__card:last-child {
+    border-bottom: none; }
+
+.feed-card {
+  padding: 30px 30px 25px 40px; }
+  .feed-card__header {
+    margin-bottom: 10px; }
+  .feed-card--subcard-list {
+    overflow: hidden; }
+  .feed-card--subcard {
+    padding: 20px 30px 25px 80px; }
+
+.feed-card-indicator-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 15px;
+  height: calc(100% - 45px); }
+  .feed-card-indicator-line:before {
+    content: '';
+    position: absolute;
+    border: 10px solid transparent;
+    border-top: 10px solid white;
+    border-right: 10px solid white; }
+  .feed-card-indicator-line.gitlab-line {
+    background: linear-gradient(180deg, #FCA326 0, #FC6D26 50%, #FCA326 100%); }
+  .feed-card-indicator-line.jira-line {
+    background: linear-gradient(180deg, #0085ff 0, #0051d1 50%, #0085ff 100%); }
+  .feed-card-indicator-line.youtrack-line {
+    background: linear-gradient(180deg, #e32581 0, #05c1fd 25%, #9135e0 50%, #9135e0 75%, #05c1fd 100%); }
+  .feed-card-indicator-line.teamcity-line {
+    background: linear-gradient(180deg, #18d68c 0, #05c1fd 25%, #9135e0 50%, #9135e0 75%, #05c1fd 100%); }
+  .feed-card-indicator-line.bitbucket-line {
+    background: linear-gradient(180deg, #0085ff 0, #0051d1 50%, #0085ff 100%); }
+  .feed-card-indicator-line.github-line {
+    background: linear-gradient(180deg, #4078c0 0, #6cc644 20%, #4078c0 100%); }
+  .feed-card-indicator-line.omnidesk-line {
+    background: linear-gradient(180deg, #ffc248 0, #ffa900 25%, #00bff1 50%, #0093da 75%, #4078c0 100%); }
+  .feed-card-indicator-line.sentry-line {
+    background: linear-gradient(180deg, #fea0d5 0, #e1567c 25%, #331c3b 75%, #43254e 100%); }
+  .feed-card-indicator-line.sonarqube-line {
+    background: radial-gradient(circle at 100%, #05c1fd, #0051d1); }
+  .feed-card-indicator-line.slack-line {
+    background: linear-gradient(180deg, #2EB67D 0%, #ECB22E 25%, #E01E5A 50%, #36C5F0 75%, #2EB67D 100%); }
+  .feed-card-indicator-line.twist-line {
+    background: linear-gradient(180deg, #316feb 0, #05c1fd 50%, #316feb 100%); }
+  .feed-card-indicator-line.unknown-line:before {
+    content: 'Unknown';
+    transform: rotate(-90deg);
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: absolute;
+    bottom: 50%;
+    left: -100%;
+    background: transparent;
+    border: none; }
+
+/*.feed-card-indicator-icon {*/
+/*  position: absolute;*/
+/*  top: 0;*/
+/*  left: 5px;*/
+/*  transform: translateX(0);*/
+/*  max-width: 25px;*/
+/*  max-height: 45px;*/
+/*  height: 100%;*/
+/*  width: 100%; }*/
+/*  .feed-card-indicator-icon.gitlab-icon {*/
+/*    background: url("/static/img/gitlab-icon-small.png") no-repeat center center/100%; }*/
+/*  .feed-card-indicator-icon.jira-icon {*/
+/*    background: url("/static/img/jira-icon-small.png") no-repeat center center/100%; }*/
+/*  .feed-card-indicator-icon.youtrack-icon {*/
+/*    background: url("/static/img/youtrack-icon.png") no-repeat center center/100%; }*/
+/*  .feed-card-indicator-icon.teamcity-icon {*/
+/*    background: url("/static/img/teamcity-icon.png") no-repeat center center/100%; }*/
+/*  .feed-card-indicator-icon.bitbucket-icon {*/
+/*    background: url("/static/img/bitbucket-logo-small.png") no-repeat center center/100%; }*/
+/*  .feed-card-indicator-icon.github-icon {*/
+/*    background: url("/static/img/github-icon-small.png") no-repeat center center/100%; }*/
+/*  .feed-card-indicator-icon.omnidesk-icon {*/
+/*    background: url("/static/img/omnidesk-icon.png") no-repeat center center/100%; }*/
+/*  .feed-card-indicator-icon.sentry-icon {*/
+/*    background: url("/static/img/sentry-icon-opt.png") no-repeat center center/100%; }*/
+/*  .feed-card-indicator-icon.sonarqube-icon {*/
+/*    background: url("/static/img/sonarqube-icon-opt.png") no-repeat center center/100%; }*/
+/*  .feed-card-indicator-icon.slack-icon {*/
+/*    background: url("/static/img/slack-icon.png") no-repeat center center/100%; }*/
+/*  .feed-card-indicator-icon.twist-icon {*/
+/*    background: url("/static/img/twist-icon.svg") no-repeat center center/100%; }*/
+/*  .feed-card-indicator-icon.unknown-icon:before {*/
+/*    content: '404';*/
+/*    position: absolute;*/
+/*    font-size: 16px;*/
+/*    font-weight: bold;*/
+/*    top: 50%;*/
+/*    left: 0;*/
+/*    transform: translate(20%, -50%); }*/
+
+.feed-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; }
+  .feed-card-header--subcard {
+    padding-top: 20px;
+    border-top: 2px solid #E4DFE5; }
+
+.profile-user-box {
+  display: flex; }
+  .profile-user-box__image {
+    margin-right: 15px; }
+  .profile-user-box__avatar {
+    min-height: 40px;
+    max-height: 40px;
+    display: block;
+    border-radius: 10px; }
+  .profile-user-box__top {
+    display: flex;
+    align-items: center; }
+  .profile-user-box__user-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    margin-right: 5px; }
+    .profile-user-box__user-name--small {
+      font-size: 14px; }
+  .profile-user-box__user-tg {
+    color: #a5c3ec;
+    font-size: 14px; }
+    .profile-user-box__user-tg--small {
+      font-size: 12px; }
+  .profile-user-box__project-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #858796; }
+
+.status-box {
+  display: flex;
+  line-height: 1;
+  align-items: flex-end; }
+  .status-box__status {
+    margin-right: 5px;
+    font-size: 12px;
+    color: #858796; }
+  .status-box__date {
+    font-size: 12px;
+    color: #858796; }
+
+.feed-card-body__title {
+  margin-bottom: 10px; }
+
+.feed-card-body__link {
+  font-size: 16px;
+  font-weight: bold; }
+
+.feed-card-body__text {
+  font-size: 14px;
+  color: #858796; }
+
+.show-more-cards-btn {
+  display: flex !important;
+  margin: 0 auto 10px auto;
+  justify-content: center;
+  max-width: 100px;
+  cursor: pointer;
+  padding: 5px 0;
+  transition: ease-in-out .2s;
+  text-decoration: none !important;
+  text-align: center;
+  font-size: 14px;
+  background: #504EBD;
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 5px; }
+  .show-more-cards-btn:hover {
+    background: #fff;
+    color: #504EBD;
+    border-color: #504EBD; }
+
+@media all and (max-width: 575px) {
+  .container-fluid {
+    padding: 0 12px !important; }
+  .feed-card {
+    padding: 30px 10px 15px 35px; }
+    .feed-card--subcard {
+      padding: 10px 10px 15px 35px; }
+  .profile-user-box__top {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start; }
+  .profile-user-box__user-name {
+    font-size: 14px; }
+  .profile-user-box__user-tg {
+    font-size: 12px; }
+  .profile-user-box__project-name {
+    font-size: 14px; }
+  .status-box {
+    flex-direction: column;
+    align-items: flex-start; }
+    .status-box__status {
+      margin-bottom: 5px; } }
+
+@media all and (max-width: 375px) {
+  .feed-card-header {
+    flex-direction: column; }
+  .profile-user-box__user-name {
+    font-size: 14px; }
+  .profile-user-box__user-tg {
+    font-size: 12px; }
+  .profile-user-box__project-name {
+    font-size: 14px; } }

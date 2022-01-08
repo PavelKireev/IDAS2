@@ -3,6 +3,7 @@ package com.idas2.zdravotnisystem.controller.lekar;
 import com.idas2.zdravotnisystem.component.AuthUser;
 import com.idas2.zdravotnisystem.db.repository.HospitalizaceRepository;
 import com.idas2.zdravotnisystem.db.repository.ProceduraRepository;
+import com.idas2.zdravotnisystem.db.repository.TypProceduryRepository;
 import com.idas2.zdravotnisystem.db.repository.TypZarizeniRepository;
 import com.idas2.zdravotnisystem.db.view.ProceduraView;
 import com.idas2.zdravotnisystem.form.ProceduraCreateForm;
@@ -23,6 +24,7 @@ public class LekarProceduraController {
     private final ProceduraRepository proceduraRepository;
     private final ProceduraFormService proceduraFormService;
     private final TypZarizeniRepository typZarizeniRepository;
+    private final TypProceduryRepository typProceduryRepository;
     private final HospitalizaceRepository hospitalizaceRepository;
 
     @Autowired
@@ -30,11 +32,13 @@ public class LekarProceduraController {
         ProceduraRepository proceduraRepository,
         ProceduraFormService proceduraFormService,
         TypZarizeniRepository typZarizeniRepository,
+        TypProceduryRepository typProceduryRepository,
         HospitalizaceRepository hospitalizaceRepository
     ) {
         this.proceduraRepository = proceduraRepository;
         this.proceduraFormService = proceduraFormService;
         this.typZarizeniRepository = typZarizeniRepository;
+        this.typProceduryRepository = typProceduryRepository;
         this.hospitalizaceRepository = hospitalizaceRepository;
     }
 
@@ -72,6 +76,7 @@ public class LekarProceduraController {
     ) {
         return new ModelAndView("lekar/appointment/create")
             .addObject("form", new ProceduraCreateForm())
+            .addObject("typProceduryList", typProceduryRepository.findAll())
             .addObject("typZarizeniList", typZarizeniRepository.findAll())
             .addObject("hospitalizaceList", hospitalizaceRepository.findAll());
     }

@@ -15,7 +15,7 @@ public class SelectOptionModelAssembler<E extends Selectable>
     @Override
     public SelectOptionModel toModel(Selectable entity) {
         SelectOptionModel model = SelectOptionModel.of(
-            entity.getSelectorId(),
+            null,
             entity.getSelectorTitle()
         );
         model.setAlias(entity.getSelectorAlias());
