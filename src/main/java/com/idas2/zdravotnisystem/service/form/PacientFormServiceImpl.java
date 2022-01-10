@@ -5,21 +5,29 @@ import com.idas2.zdravotnisystem.db.repository.PacientRepository;
 import com.idas2.zdravotnisystem.db.repository.UzivatelRepository;
 import com.idas2.zdravotnisystem.db.view.PacientView;
 import com.idas2.zdravotnisystem.form.PacientInfoForm;
+import com.idas2.zdravotnisystem.form.pacient.PacientSignUpForm;
+import com.idas2.zdravotnisystem.util.TimeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.sql.Date;
 
 @Service
 public class PacientFormServiceImpl implements PacientFormService {
 
+    private final PasswordEncoder encoder;
     private final PacientRepository pacientRepository;
     private final UzivatelRepository uzivatelRepository;
 
     @Autowired
     public PacientFormServiceImpl(
+        PasswordEncoder encoder,
         PacientRepository pacientRepository,
         UzivatelRepository uzivatelRepository
     ) {
+        this.encoder = encoder;
         this.pacientRepository = pacientRepository;
         this.uzivatelRepository = uzivatelRepository;
     }
@@ -69,7 +77,31 @@ public class PacientFormServiceImpl implements PacientFormService {
             .setAdresa(pacientInfoForm.getAdresa())
             .setTelCislo(pacientInfoForm.getTelCislo());
 
-        pacientRepository.updateInfoByView(view);
+        pacientRepository.updateByView(view);
+    }
+
+    @Override
+    public void signUp(
+        @NotNull PacientSignUpForm form
+    ) {
+        PacientView view = new PacientView();
+
+        view
+            .setEmail(form.getEmail())
+            .setPassword(encoder.encode(form.getHeslo()))
+            .setJmeno(form.getJmeno())
+            .setPrijmeni(form.getPrijmeni())
+            .setTelCislo(form.getTelCislo())
+            .setAdresa(form.getAdresa())
+            .setHmotnost(form.getHmotnost())
+            .setRust(form.getRust())
+            .setDatumNarozeni(
+                Date.valueOf(
+                    TimeUtil.fromStringSqlLocalDate(form.getDatumNarozeni())
+                )
+            );
+
+        pacientRepository.updateByView(view);
     }
 
 

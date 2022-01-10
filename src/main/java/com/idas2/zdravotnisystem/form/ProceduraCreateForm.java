@@ -6,7 +6,7 @@ public class ProceduraCreateForm {
     private String popis;
     private String hospitalizace;
     private String idTypProcedury;
-    private String idTypZarizeni;
+    private String idZarizeni;
     private String idLekar;
 
     public String getDatum() {
@@ -45,12 +45,12 @@ public class ProceduraCreateForm {
         return this;
     }
 
-    public String getIdTypZarizeni() {
-        return idTypZarizeni;
+    public String getIdZarizeni() {
+        return idZarizeni;
     }
 
-    public ProceduraCreateForm setIdTypZarizeni(String idTypZarizeni) {
-        this.idTypZarizeni = idTypZarizeni;
+    public ProceduraCreateForm setIdZarizeni(String idZarizeni) {
+        this.idZarizeni = idZarizeni;
         return this;
     }
 

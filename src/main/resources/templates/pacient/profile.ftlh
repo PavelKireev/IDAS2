@@ -24,18 +24,24 @@
                        value="${pacientView.getPrijmeni()!""}">
             </div>
             <div class="form-group">
-                <label for="telCisloField">Telefonni Cislo</label>
+                <div class="mt-2">
+                    <label for="telCisloField">Telefonni Cislo</label>
+                </div>
                 <@spring.formInput "pacientForm.telCislo" "class=\"form-control\" id=\"telCisloField\" value=\"$\{pacientView.getTelCislo()!""}\"" />
                 <@spring.showErrors "" "validation-error-label" />
             </div>
             <div class="form-group">
-                <label for="adresaField">Adresa</label>
+                <div class="mt-2">
+                    <label for="adresaField">Adresa</label>
+                </div>
                 <@spring.formInput "pacientForm.adresa" "class=\"form-control\" id=\"adreseField\" value=\"$\{pacientView.getTelCislo()!""}\"" />
                 <@spring.showErrors "" "validation-error-label" />
             </div>
             <div class="form-group">
-                <label for="datumNarozeniField">Date</label>
-                <input type="date" class="form-control" id="datumNarozeniField" disabled
+                <div class="mt-2">
+                    <label for="datumNarozeniField">Datum Narozeni</label>
+                </div>
+                <input class="form-control" id="datumNarozeniField" disabled
                        value="${pacientView.getDatumNarozeni()!""}">
             </div>
             <div class="form-group">

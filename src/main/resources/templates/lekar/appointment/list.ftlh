@@ -8,7 +8,7 @@
 
     <div class="row">
         <h2> Procedury </h2>
-        <a class="btn btn-success ml-4" href="/lekar/procedura/add" role="button">Pridat</a>
+        <a class="btn mb-1 btn-success ml-4" href="/lekar/procedura/add" role="button">Pridat</a>
     </div>
 
     <table class="table">
@@ -28,7 +28,7 @@
                 <td>${item.getPopis()!""}</td>
                 <td>${item.getOrdinaceCislo()!""}</td>
                 <td>${item.getJmenoPacient()!""} ${item.getPrijmeniPacient()!""}</td>
-                <td>${item.getDatum().toLocalDate().toString()!""}</td>
+                <td>${item.getDatum()!""}</td>
             </tr>
             <#assign count = count + 1 >
         </#list>

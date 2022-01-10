@@ -1,10 +1,7 @@
 package com.idas2.zdravotnisystem.controller.lekar;
 
 import com.idas2.zdravotnisystem.component.AuthUser;
-import com.idas2.zdravotnisystem.db.repository.HospitalizaceRepository;
-import com.idas2.zdravotnisystem.db.repository.ProceduraRepository;
-import com.idas2.zdravotnisystem.db.repository.TypProceduryRepository;
-import com.idas2.zdravotnisystem.db.repository.TypZarizeniRepository;
+import com.idas2.zdravotnisystem.db.repository.*;
 import com.idas2.zdravotnisystem.db.view.ProceduraView;
 import com.idas2.zdravotnisystem.form.ProceduraCreateForm;
 import com.idas2.zdravotnisystem.service.form.ProceduraFormService;
@@ -23,7 +20,7 @@ public class LekarProceduraController {
 
     private final ProceduraRepository proceduraRepository;
     private final ProceduraFormService proceduraFormService;
-    private final TypZarizeniRepository typZarizeniRepository;
+    private final ZarizeniRepository zarizeniRepository;
     private final TypProceduryRepository typProceduryRepository;
     private final HospitalizaceRepository hospitalizaceRepository;
 
@@ -31,13 +28,13 @@ public class LekarProceduraController {
     public LekarProceduraController(
         ProceduraRepository proceduraRepository,
         ProceduraFormService proceduraFormService,
-        TypZarizeniRepository typZarizeniRepository,
+        ZarizeniRepository zarizeniRepository,
         TypProceduryRepository typProceduryRepository,
         HospitalizaceRepository hospitalizaceRepository
     ) {
         this.proceduraRepository = proceduraRepository;
         this.proceduraFormService = proceduraFormService;
-        this.typZarizeniRepository = typZarizeniRepository;
+        this.zarizeniRepository = zarizeniRepository;
         this.typProceduryRepository = typProceduryRepository;
         this.hospitalizaceRepository = hospitalizaceRepository;
     }
@@ -77,7 +74,7 @@ public class LekarProceduraController {
         return new ModelAndView("lekar/appointment/create")
             .addObject("form", new ProceduraCreateForm())
             .addObject("typProceduryList", typProceduryRepository.findAll())
-            .addObject("typZarizeniList", typZarizeniRepository.findAll())
+            .addObject("zarizeniList", zarizeniRepository.findAll())
             .addObject("hospitalizaceList", hospitalizaceRepository.findAll());
     }
 

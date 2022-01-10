@@ -20,7 +20,6 @@
                             <@spring.formInput "signInForm.email" "required class=\"form-control form-control-sm\" placeholder=\"Email\"" "email"/>
                             <@spring.showErrors "<br>" "small"/>
                         </div>
-
                         <div class="form-group">
                             <@spring.formInput "signInForm.password" "required class=\"form-control form-control-sm\" placeholder=\"Password\"" "password"/>
                             <@spring.showErrors "<br>" "small"/>
@@ -30,10 +29,9 @@
                         </div>
                         <input type="submit" class="btn btn-sm btn-success btn-user btn-block" value="Login"/>
                     </form>
+                    <a class="btn btn-primary btn-sm btn-primary btn-block mt-1" href="/pacient/sign-up" role="button">Sign Up</a>
                 </div>
             </div>
         </div>
     </div>
 </@layout.render>
-
-</html>

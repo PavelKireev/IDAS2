@@ -24,6 +24,8 @@ public class ProceduraViewMapper implements RowMapper<ProceduraView> {
             .setZnackaZarizeni(rs.getString("ZARIZENI_ZNACKA"))
             .setDatuVyrobyZarizeni(rs.getDate("ZARIZENI_DATUMVYROBY"))
             .setJeFunkcni(rs.getBoolean("ZARIZENI_JEFUNKCNI"))
+            .setJmenoPacient(rs.getString("PACIENT_JMENO"))
+            .setPrijmeniPacient(rs.getString("PACIENT_PRIJMENI"))
             .setIdMistnost(rs.getInt("ORDINACE_MISTNOST_ID_MISTNOST"))
             .setOrdinaceNazev(rs.getString("ORDINACE_NAZEV"))
             .setOrdinaceCislo(rs.getString("ORDINACE_CISLO"))

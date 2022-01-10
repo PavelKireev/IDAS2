@@ -41,7 +41,7 @@ public class ProceduraFormServiceImpl implements ProceduraFormService {
             .setDatum(Date.valueOf(ld))
             .setPopis(form.getPopis())
             .setIdTypProcedury(Integer.valueOf(form.getIdTypProcedury()))
-            .setIdTypZarizeni(Integer.valueOf(form.getIdTypZarizeni()))
+            .setIdZarizeni(Integer.valueOf(form.getIdZarizeni()))
             .setIdHospitalizace(Integer.valueOf(form.getHospitalizace()))
             .setIdLekar(authUser.getUser().getId());
 

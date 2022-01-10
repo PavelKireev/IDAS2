@@ -1,18 +1,20 @@
 package com.idas2.zdravotnisystem.db.entity;
 
 import com.idas2.zdravotnisystem.db.entity.base.UUIDableTimedEntity;
+import com.idas2.zdravotnisystem.util.Selectable;
 
 import javax.persistence.Entity;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-public class Zarizeni extends UUIDableTimedEntity<Integer> {
+public class Zarizeni extends UUIDableTimedEntity<Integer> implements Selectable {
 
     private static final long serialVersionUID = -1182832341277995623L;
 
     private String nazev;
     private String znacka;
-    private LocalDateTime datumVyroby;
+    private LocalDate datumVyroby;
     private Boolean jeFunkcni;
 
     private Integer ordinaceIdMistnost;
@@ -36,11 +38,11 @@ public class Zarizeni extends UUIDableTimedEntity<Integer> {
         return this;
     }
 
-    public LocalDateTime getDatumVyroby() {
+    public LocalDate getDatumVyroby() {
         return datumVyroby;
     }
 
-    public Zarizeni setDatumVyroby(LocalDateTime datumVyroby) {
+    public Zarizeni setDatumVyroby(LocalDate datumVyroby) {
         this.datumVyroby = datumVyroby;
         return this;
     }
@@ -70,5 +72,15 @@ public class Zarizeni extends UUIDableTimedEntity<Integer> {
     public Zarizeni setTypZarizeniIdTypZarizeni(Integer typZarizeniIdTypZarizeni) {
         this.typZarizeniIdTypZarizeni = typZarizeniIdTypZarizeni;
         return this;
+    }
+
+    @Override
+    public String getSelectorId() {
+        return getId().toString();
+    }
+
+    @Override
+    public String getSelectorTitle() {
+        return String.format("%s %s", getNazev(), getZnacka());
     }
 }

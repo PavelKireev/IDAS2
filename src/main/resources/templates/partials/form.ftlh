@@ -101,6 +101,31 @@
     </script>
 </#macro>
 
+<#macro inputBirthDate path label>
+    <#assign attr = 'class="form-control" '/>
+    <#assign inputId = path?split(".")[1]/>
+
+    <div class="form-group">
+        <label>
+            ${label!""}
+        </label>
+        <div class="form-group">
+            <@spring.formInput path attr />
+            <@spring.showErrors "" "validation-error-label" />
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $('#${inputId}').datepicker({
+            dateFormat: 'yy-mm-dd',
+            changeYear: true,
+            yearRange: "1910:2030",
+            defaultDate: new Date(1990, 1 - 1, 1),
+            maxDate: new Date(2022, 1 - 1, 16)
+        });
+    </script>
+</#macro>
+
 <#macro inputDateTime path title>
     <@spring.bind path />
     <div class="form-group">

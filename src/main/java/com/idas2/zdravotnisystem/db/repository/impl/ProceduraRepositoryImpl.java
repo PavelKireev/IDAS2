@@ -148,15 +148,15 @@ public class ProceduraRepositoryImpl
             parameters
                 .addValue("ID", view.getIdProcedura())
                 .addValue("DATE", view.getDatum())
-                .addValue("ID_PROCEDURY", view.getIdTypProcedury())
                 .addValue("POPIS", view.getPopis())
+                .addValue("ID_PROCEDURY", view.getIdTypProcedury())
                 .addValue("ID_ZARIZENI", view.getIdZarizeni())
                 .addValue("ID_HOSPITALIZACE", view.getIdHospitalizace())
                 .addValue("ID_UZIVATEL", view.getIdLekar());
 
             jdbcTemplate.update(
                 "CALL PROCEDURA_PRC (" +
-                    ":ID, :DATE, :ID_PROCEDURY, :POPIS, :ID_ZARIZENI, " +
+                    ":ID, :DATE, :POPIS, :ID_PROCEDURY, :ID_ZARIZENI, " +
                     ":ID_HOSPITALIZACE, :ID_UZIVATEL )",
                 parameters
             );

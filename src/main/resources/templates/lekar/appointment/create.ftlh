@@ -17,7 +17,7 @@
                 <@form.inputDate "form.datum" "Datum"/>
                 <@form.selectOptions "form.hospitalizace" hospitalizaceList "Pacient"/>
                 <@form.selectOptions "form.idTypProcedury"  typProceduryList "Procedura" />
-                <@form.selectOptions "form.idTypZarizeni" typZarizeniList "Zarizeni" />
+                <@form.selectOptions "form.idZarizeni" zarizeniList "Zarizeni" />
 
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
             </form>

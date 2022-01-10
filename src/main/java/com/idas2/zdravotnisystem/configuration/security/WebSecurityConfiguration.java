@@ -47,35 +47,37 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
             .antMatchers(
-                    "/oauth/**",
-                    "/static/**",
-                    "/webjars/**",
-                    "/upload/img/**",
-                    "/user/sign-up",
-                    "/invite/**",
-                    "/user/confirm/*",
-                    "/restore-password/**",
-                    "/user/restore-password/**",
-                    "/signup",
-                    "/cloudpayments/**",
-                    "/avatar"
+                "/oauth/**",
+                "/static/**",
+                "/webjars/**",
+                "/upload/img/**",
+                "/user/sign-up",
+                "/invite/**",
+                "/user/confirm/*",
+                "/restore-password/**",
+                "/user/restore-password/**",
+                "/signup",
+                "/cloudpayments/**",
+                "/avatar",
+                "/pacient/sign-up",
+                "/pacient/register"
             )
             .permitAll()
             .anyRequest()
             .authenticated();
 
         http.formLogin()
-                .loginPage("/login")
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .permitAll();
+            .loginPage("/login")
+            .usernameParameter("email")
+            .passwordParameter("password")
+            .permitAll();
 
         http.logout()
-                .permitAll();
+            .permitAll();
 
         http.csrf()
-                .csrfTokenRepository(new HttpSessionCsrfTokenRepository())
-                .disable();
+            .csrfTokenRepository(new HttpSessionCsrfTokenRepository())
+            .disable();
     }
 
 }

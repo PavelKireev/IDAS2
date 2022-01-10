@@ -30,7 +30,9 @@
                     <@spring.showErrors "" "validation-error-label" />
                 </div>
                 <div class="form-group">
-                    <label for="kancelarField">Kancelar</label>
+                    <div class="mt-2">
+                        <label for="kancelarField">Kancelar</label>
+                    </div>
                     <input type="text" class="form-control" id="kancelarField" disabled
                            value="${lekarView.getKancelarCislo()!""}">
                 </div>

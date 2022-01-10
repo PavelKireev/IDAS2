@@ -168,4 +168,9 @@ public class TimeUtil {
 
         return times;
     }
+
+    public static LocalDate fromStringSqlLocalDate(String sqlLocalDate) {
+        DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(sqlLocalDate, DATEFORMATTER);
+    }
 }

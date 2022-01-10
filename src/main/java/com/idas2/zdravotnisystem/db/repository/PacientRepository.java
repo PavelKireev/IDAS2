@@ -13,7 +13,7 @@ public interface PacientRepository {
         @NotNull Integer uzivatelId
     );
 
-    void updateInfoByView(
+    void updateByView(
         @NotNull PacientView pacientView
     );
 

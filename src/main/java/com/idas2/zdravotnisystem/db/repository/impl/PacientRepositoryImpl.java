@@ -14,10 +14,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PacientRepositoryImpl
@@ -61,11 +58,12 @@ public class PacientRepositoryImpl
     }
 
     @Override
-    public void updateInfoByView(
+    public void updateByView(
         @NotNull PacientView pacientView
     ) {
         try {
             MapSqlParameterSource parameters = new MapSqlParameterSource();
+
 
             parameters
                 .addValue("USER_ID", pacientView.getId())
@@ -77,7 +75,6 @@ public class PacientRepositoryImpl
                 .addValue("ADRESA", pacientView.getAdresa())
                 .addValue("NAZEV", pacientView.getObrazekNazev())
                 .addValue("PRIPONA", pacientView.getObrazekPripona())
-                .addValue("DATA", pacientView.getObrazekData())
                 .addValue("RUST", pacientView.getRust())
                 .addValue("HMOTNOST", pacientView.getHmotnost())
                 .addValue("DATUM_NAROZENI", pacientView.getDatumNarozeni())
@@ -85,21 +82,20 @@ public class PacientRepositoryImpl
                 .addValue("ID_MATKA", pacientView.getPacientUzivatelIdMatka());
 
 
-//            parameters.addValue(
-//                "DATA", pacientView.getBytes()
-////                new SqlLobValue(
-////                    new ByteArrayInputStream(obrazek.getBytes()),
-////                    obrazek.getBytes().length,
-////                    new DefaultLobHandler()
-////                ), OracleTypes.BLOB
-//            );
+            if (Objects.isNull(pacientView.getObrazekData())) {
+                parameters.addValue(
+                    "DATA", new byte[0]
+                );
+            } else {
+                parameters.addValue("DATA", pacientView.getObrazekData());
+            }
 
 
             namedParameterJdbcTemplate.update(
                 "CALL PACIENT_PRC (" +
                     ":USER_ID, :EMAIL, :HESLO, :JMENO, :PRIJMENI, :TEL_CISLO, " +
-                    ":ADRESA, :DATA,:NAZEV,:PRIPONA, :RUST, :HMOTNOST, " +
-                    ":DATUM_NAROZENI, :ID_OTEC, :ID_MATKA)",
+                    ":ADRESA, :DATA, :NAZEV, :PRIPONA, :RUST, :HMOTNOST, " +
+                    ":DATUM_NAROZENI, :ID_OTEC, :ID_MATKA )",
                 parameters
             );
 
@@ -138,11 +134,11 @@ public class PacientRepositoryImpl
                     mapParams("ID", id)
                 );
 
-                namedParameterJdbcTemplate
-                    .update(
-                        "DELETE FROM UZIVATEL WHERE ID_UZIVATEL = :ID",
-                        mapParams("ID", id)
-                    );
+            namedParameterJdbcTemplate
+                .update(
+                    "DELETE FROM UZIVATEL WHERE ID_UZIVATEL = :ID",
+                    mapParams("ID", id)
+                );
 
         } catch (EmptyResultDataAccessException ex) {
             LOGGER.warn("Delete pacient ex");
