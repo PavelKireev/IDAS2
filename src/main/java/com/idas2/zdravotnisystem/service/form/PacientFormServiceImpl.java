@@ -4,7 +4,7 @@ import com.idas2.zdravotnisystem.db.entity.User;
 import com.idas2.zdravotnisystem.db.repository.PacientRepository;
 import com.idas2.zdravotnisystem.db.repository.UzivatelRepository;
 import com.idas2.zdravotnisystem.db.view.PacientView;
-import com.idas2.zdravotnisystem.form.PacientInfoForm;
+import com.idas2.zdravotnisystem.form.pacient.PacientInfoForm;
 import com.idas2.zdravotnisystem.form.pacient.PacientSignUpForm;
 import com.idas2.zdravotnisystem.util.TimeUtil;
 import org.jetbrains.annotations.NotNull;

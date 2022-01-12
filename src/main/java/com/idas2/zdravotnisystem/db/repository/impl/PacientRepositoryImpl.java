@@ -125,6 +125,25 @@ public class PacientRepositoryImpl
     }
 
     @Override
+    public List<PacientView> findAllView() {
+        Map<String, Object> map = new HashMap<>();
+
+        try {
+            return
+                namedParameterJdbcTemplate
+                    .query(
+                        "SELECT * FROM PACIENT_V",
+                        mapParams(map),
+                        pacientViewMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn("EmptyResultDataAccessException");
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
     public void delete(@NotNull Integer id) {
 
         try {
@@ -142,6 +161,24 @@ public class PacientRepositoryImpl
 
         } catch (EmptyResultDataAccessException ex) {
             LOGGER.warn("Delete pacient ex");
+        }
+    }
+
+    @Override
+    public PacientView getPacientViewByUzivatelUuid(
+        @NotNull String pacientUuid
+    ) {
+        try {
+            return
+                namedParameterJdbcTemplate
+                    .queryForObject(
+                        "SELECT * FROM PACIENT_V WHERE UUID = :UUID",
+                        mapViewParams("UUID", pacientUuid),
+                        pacientViewMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
         }
     }
 

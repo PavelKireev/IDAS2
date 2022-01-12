@@ -2,7 +2,7 @@ package com.idas2.zdravotnisystem.controller.admin;
 
 import com.idas2.zdravotnisystem.db.entity.Pacient;
 import com.idas2.zdravotnisystem.db.repository.PacientRepository;
-import com.idas2.zdravotnisystem.form.PacientInfoForm;
+import com.idas2.zdravotnisystem.form.pacient.PacientInfoForm;
 import com.idas2.zdravotnisystem.form.pacient.PacientCreateForm;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.springframework.beans.factory.annotation.Autowired;

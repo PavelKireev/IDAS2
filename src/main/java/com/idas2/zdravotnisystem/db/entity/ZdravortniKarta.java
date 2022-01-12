@@ -3,41 +3,41 @@ package com.idas2.zdravotnisystem.db.entity;
 import com.idas2.zdravotnisystem.db.entity.base.UUIDableTimedEntity;
 
 import javax.persistence.Entity;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 public class ZdravortniKarta extends UUIDableTimedEntity<Integer> {
 
     private static final long serialVersionUID = -4953939557759873994L;
 
-    private LocalDateTime datumVytvareni;
-    private LocalDateTime kartaOd;
-    private LocalDateTime kartaDo;
+    private LocalDate datumVytvareni;
+    private LocalDate kartaOd;
+    private LocalDate kartaDo;
     private Integer pacientUzivatelIdUzivatel;
 
-    public LocalDateTime getDatumVytvareni() {
+    public LocalDate getDatumVytvareni() {
         return datumVytvareni;
     }
 
-    public ZdravortniKarta setDatumVytvareni(LocalDateTime datumVytvareni) {
+    public ZdravortniKarta setDatumVytvareni(LocalDate datumVytvareni) {
         this.datumVytvareni = datumVytvareni;
         return this;
     }
 
-    public LocalDateTime getKartaOd() {
+    public LocalDate getKartaOd() {
         return kartaOd;
     }
 
-    public ZdravortniKarta setKartaOd(LocalDateTime kartaOd) {
+    public ZdravortniKarta setKartaOd(LocalDate kartaOd) {
         this.kartaOd = kartaOd;
         return this;
     }
 
-    public LocalDateTime getKartaDo() {
+    public LocalDate getKartaDo() {
         return kartaDo;
     }
 
-    public ZdravortniKarta setKartaDo(LocalDateTime kartaDo) {
+    public ZdravortniKarta setKartaDo(LocalDate kartaDo) {
         this.kartaDo = kartaDo;
         return this;
     }

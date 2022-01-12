@@ -1,15 +1,8 @@
-package com.idas2.zdravotnisystem.db.entity;
+package com.idas2.zdravotnisystem.form.lekar;
 
-import com.idas2.zdravotnisystem.db.entity.base.UUIDableTimedEntity;
-
-import javax.persistence.Entity;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@Entity
-public class Pojisteni extends UUIDableTimedEntity<Integer> {
-
-    private static final long serialVersionUID = -1567403174561554709L;
+public class LekarPojisteniForm {
 
     private String cisloKarty;
     private String cisloSmlouvy;
@@ -23,7 +16,7 @@ public class Pojisteni extends UUIDableTimedEntity<Integer> {
         return cisloKarty;
     }
 
-    public Pojisteni setCisloKarty(String cisloKarty) {
+    public LekarPojisteniForm setCisloKarty(String cisloKarty) {
         this.cisloKarty = cisloKarty;
         return this;
     }
@@ -32,7 +25,7 @@ public class Pojisteni extends UUIDableTimedEntity<Integer> {
         return cisloSmlouvy;
     }
 
-    public Pojisteni setCisloSmlouvy(String cisloSmlouvy) {
+    public LekarPojisteniForm setCisloSmlouvy(String cisloSmlouvy) {
         this.cisloSmlouvy = cisloSmlouvy;
         return this;
     }
@@ -41,7 +34,7 @@ public class Pojisteni extends UUIDableTimedEntity<Integer> {
         return pojistnaCastka;
     }
 
-    public Pojisteni setPojistnaCastka(Integer pojistnaCastka) {
+    public LekarPojisteniForm setPojistnaCastka(Integer pojistnaCastka) {
         this.pojistnaCastka = pojistnaCastka;
         return this;
     }
@@ -50,7 +43,7 @@ public class Pojisteni extends UUIDableTimedEntity<Integer> {
         return pojisteniOd;
     }
 
-    public Pojisteni setPojisteniOd(LocalDate pojisteniOd) {
+    public LekarPojisteniForm setPojisteniOd(LocalDate pojisteniOd) {
         this.pojisteniOd = pojisteniOd;
         return this;
     }
@@ -59,7 +52,7 @@ public class Pojisteni extends UUIDableTimedEntity<Integer> {
         return pojisteniDo;
     }
 
-    public Pojisteni setPojisteniDo(LocalDate pojisteniDo) {
+    public LekarPojisteniForm setPojisteniDo(LocalDate pojisteniDo) {
         this.pojisteniDo = pojisteniDo;
         return this;
     }
@@ -68,7 +61,7 @@ public class Pojisteni extends UUIDableTimedEntity<Integer> {
         return pojistovnaIdPojistovna;
     }
 
-    public Pojisteni setPojistovnaIdPojistovna(Integer pojistovnaIdPojistovna) {
+    public LekarPojisteniForm setPojistovnaIdPojistovna(Integer pojistovnaIdPojistovna) {
         this.pojistovnaIdPojistovna = pojistovnaIdPojistovna;
         return this;
     }
@@ -77,8 +70,9 @@ public class Pojisteni extends UUIDableTimedEntity<Integer> {
         return zdravotniKartaIdKarta;
     }
 
-    public Pojisteni setZdravotniKartaIdKarta(Integer zdravotniKartaIdKarta) {
+    public LekarPojisteniForm setZdravotniKartaIdKarta(Integer zdravotniKartaIdKarta) {
         this.zdravotniKartaIdKarta = zdravotniKartaIdKarta;
         return this;
     }
+
 }

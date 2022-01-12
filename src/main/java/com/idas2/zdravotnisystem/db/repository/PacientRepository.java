@@ -2,7 +2,6 @@ package com.idas2.zdravotnisystem.db.repository;
 
 import com.idas2.zdravotnisystem.db.entity.Pacient;
 import com.idas2.zdravotnisystem.db.view.PacientView;
-import com.idas2.zdravotnisystem.form.PacientInfoForm;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -19,7 +18,12 @@ public interface PacientRepository {
 
     List<Pacient> findAll();
 
+    List<PacientView> findAllView();
+
     void delete(@NotNull Integer id);
 
 
+    PacientView getPacientViewByUzivatelUuid(
+        @NotNull String pacientUuid
+    );
 }

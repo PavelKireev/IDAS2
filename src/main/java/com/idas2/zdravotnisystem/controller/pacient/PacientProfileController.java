@@ -7,7 +7,7 @@ import com.idas2.zdravotnisystem.db.repository.ObrazekRepository;
 import com.idas2.zdravotnisystem.db.repository.PacientRepository;
 import com.idas2.zdravotnisystem.db.repository.ProceduraRepository;
 import com.idas2.zdravotnisystem.db.view.PacientView;
-import com.idas2.zdravotnisystem.form.PacientInfoForm;
+import com.idas2.zdravotnisystem.form.pacient.PacientInfoForm;
 import com.idas2.zdravotnisystem.service.form.PacientFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.apache.tomcat.util.codec.binary.Base64;

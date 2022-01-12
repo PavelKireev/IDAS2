@@ -1,4 +1,4 @@
-package com.idas2.zdravotnisystem.form;
+package com.idas2.zdravotnisystem.form.pacient;
 
 public class PacientInfoForm {
 
