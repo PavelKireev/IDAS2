@@ -101,14 +101,16 @@
     </script>
 </#macro>
 
-<#macro inputBirthDate path label>
-    <#assign attr = 'class="form-control" '/>
+<#macro inputBirthDate path label attr>
+<#--    <#assign attr = 'class="form-control" '/>-->
     <#assign inputId = path?split(".")[1]/>
 
     <div class="form-group">
-        <label>
-            ${label!""}
-        </label>
+        <div class="mt-2">
+            <label>
+                ${label!""}
+            </label>
+        </div>
         <div class="form-group">
             <@spring.formInput path attr />
             <@spring.showErrors "" "validation-error-label" />

@@ -174,8 +174,14 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="/lekar/info/hospitalizace">
+                <a class="nav-link" href="/lekar/hospitalizace/list">
                     <i class="fas fa-fw fa-table"></i>
+                    <span>Hospitalizace</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/lekar/pacient/list">
+                    <i class="fas fa-fw fa-user"></i>
                     <span>Pacienty</span></a>
             </li>
 

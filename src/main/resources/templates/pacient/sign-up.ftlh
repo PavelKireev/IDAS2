@@ -99,7 +99,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <@form.inputBirthDate "form.datumNarozeni" "Datum Narozeni"/>
+                                <@form.inputBirthDate "form.datumNarozeni" "Datum Narozeni" "class=\"form-control\""/>
                             </div>
                         </div>
                         <input type="submit" class="btn btn-sm btn-success btn-user btn-block" value="Sign Up"/>

@@ -15,14 +15,16 @@ public class PojisteniRepositoryImpl
     extends AbstractCrudRepository<Pojisteni, PojisteniMapper>
     implements PojisteniRepository {
 
-    private PojisteniMapper pojisteniMapper;
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final PojisteniMapper pojisteniMapper;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
     public PojisteniRepositoryImpl(
+        PojisteniMapper pojisteniMapper,
         NamedParameterJdbcTemplate namedParameterJdbcTemplate
     ) {
         super(namedParameterJdbcTemplate);
+        this.pojisteniMapper = pojisteniMapper;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 

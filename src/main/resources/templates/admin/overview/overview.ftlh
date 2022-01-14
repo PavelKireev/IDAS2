@@ -5,7 +5,7 @@
 <@layout.render>
     <#assign count = 1>
 
-    <h2>Prehled Tabulek </h2>
+    <h2>Prehled Tabulek</h2>
 
     <table class="table">
         <thead>

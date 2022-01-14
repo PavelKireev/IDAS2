@@ -53,8 +53,8 @@ public class ZdravotniKartaRepositoryImpl
     }
 
     @Override
-    public ZdravortniKarta findByPacientUuid(
-        @NotNull String pacientId
+    public ZdravortniKarta findByPacientId(
+        @NotNull Integer pacientId
     ) {
         try {
             return

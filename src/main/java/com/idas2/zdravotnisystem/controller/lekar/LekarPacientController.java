@@ -8,6 +8,7 @@ import com.idas2.zdravotnisystem.db.repository.PacientRepository;
 import com.idas2.zdravotnisystem.db.repository.PojisteniRepository;
 import com.idas2.zdravotnisystem.db.repository.PojistovnaRepository;
 import com.idas2.zdravotnisystem.db.repository.ZdravotniKartaRepository;
+import com.idas2.zdravotnisystem.db.repository.impl.NemocnicniPokojRepositoryImpl;
 import com.idas2.zdravotnisystem.db.view.PacientView;
 import com.idas2.zdravotnisystem.form.lekar.LekarPojisteniForm;
 import com.idas2.zdravotnisystem.form.lekar.LekarProfileUpdateForm;
@@ -15,6 +16,7 @@ import com.idas2.zdravotnisystem.form.lekar.LekarZdravortniKartaForm;
 import com.idas2.zdravotnisystem.form.lekar.LerkarPacientUpdateForm;
 import com.idas2.zdravotnisystem.service.form.PacientFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/lekar/pacient")
@@ -32,6 +35,7 @@ public class LekarPacientController {
     private final PojisteniRepository pojisteniRepository;
     private final PojistovnaRepository pojistovnaRepository;
     private final ZdravotniKartaRepository zdravotniKartaRepository;
+    private final NemocnicniPokojRepositoryImpl nemocnicniPokojRepository;
 
     @Autowired
     public LekarPacientController(
@@ -39,13 +43,15 @@ public class LekarPacientController {
         PacientFormService pacientFormService,
         PojisteniRepository pojisteniRepository,
         PojistovnaRepository pojistovnaRepository,
-        ZdravotniKartaRepository zdravotniKartaRepository
+        ZdravotniKartaRepository zdravotniKartaRepository,
+        NemocnicniPokojRepositoryImpl nemocnicniPokojRepository
     ) {
         this.pacientRepository = pacientRepository;
         this.pacientFormService = pacientFormService;
         this.pojisteniRepository = pojisteniRepository;
         this.pojistovnaRepository = pojistovnaRepository;
         this.zdravotniKartaRepository = zdravotniKartaRepository;
+        this.nemocnicniPokojRepository = nemocnicniPokojRepository;
     }
 
     @GetMapping("/list")
@@ -74,12 +80,13 @@ public class LekarPacientController {
     ) {
         LerkarPacientUpdateForm pacientForm =
             new LerkarPacientUpdateForm();
+
         PacientView pacientView =
             pacientRepository.getPacientViewByUzivatelUuid(pacientUuid);
 
 
         ZdravortniKarta zdravortniKarta =
-            zdravotniKartaRepository.findByPacientUuid(pacientUuid);
+            zdravotniKartaRepository.findByPacientId(pacientView.getId());
 
         List<Pojistovna> pojistovnaList = pojistovnaRepository.findAll();
 
@@ -90,23 +97,56 @@ public class LekarPacientController {
 
         LekarZdravortniKartaForm zdravortniKartaForm = new LekarZdravortniKartaForm();
 
-        return new ModelAndView("lekar/pacient/edit")
+        String avatar = null;
+
+        if (Objects.nonNull(pacientView.getObrazekData())) {
+            byte[] imgBytesAsBase64 = Base64.encodeBase64(pacientView.getObrazekData());
+            String imgDataAsBase64 = new String(imgBytesAsBase64);
+            avatar = String.format(
+                "data:image/%s;base64,%s",
+                pacientView.getObrazekPripona(), imgDataAsBase64
+            );
+        }
+
+        return new ModelAndView("lekar/pacient/info")
             .addObject("pacientForm", pacientForm)
             .addObject("pacientView", pacientView)
             .addObject("pojistovnaList", pojistovnaList)
             .addObject("zdravotniKarta", zdravortniKarta)
             .addObject("zdravotniKartaForm", zdravortniKarta)
             .addObject("pojisteni", pojisteni)
-            .addObject("pojisteniForm", pojisteniForm);
+            .addObject("pojisteniForm", pojisteniForm)
+            .addObject("avatar", avatar)
+            .addObject("pokojList", nemocnicniPokojRepository.findAll());
     }
 
-    @PostMapping("/{pacientUuid}/update")
-    public ModelAndView update(
+    @PostMapping("/{pacientUuid}/profile/update")
+    public ModelAndView updateProfile(
         @PathVariable String pacientUuid,
         @AuthenticationPrincipal AuthUser authUser,
-        @ModelAttribute("pacientForm") LekarProfileUpdateForm pacientForm,
-        @ModelAttribute("zdravotniKartaForm") LekarZdravortniKartaForm lekarZdravortniKartaForm,
-        @ModelAttribute("pojisteniForm") LekarPojisteniForm lekarPojisteniForm
+        @ModelAttribute("pacientForm") LekarProfileUpdateForm pacientForm
+    ) {
+//        pacientFormService.updateProfileInfo(pacientUuid, pacientForm);
+
+        return RedirectUtil.redirect(String.format("/lekar/pacient/%s/edit"), pacientUuid);
+    }
+
+    @PostMapping("/{pacientUuid}/karta/update")
+    public ModelAndView updateKarta(
+        @PathVariable String pacientUuid,
+        @AuthenticationPrincipal AuthUser authUser
+//        @ModelAttribute("zdravotniKartaName") LekarProfileUpdateForm pacientForm,
+        ) {
+//        pacientFormService.updateProfileInfo(pacientUuid, pacientForm);
+
+        return RedirectUtil.redirect(String.format("/lekar/pacient/%s/edit"), pacientUuid);
+    }
+
+    @PostMapping("/{pacientUuid}/pojisteni/update")
+    public ModelAndView updatePojisteni(
+        @PathVariable String pacientUuid,
+        @AuthenticationPrincipal AuthUser authUser
+//        @ModelAttribute("zdravotniKartaName") LekarProfileUpdateForm pacientForm,
     ) {
 //        pacientFormService.updateProfileInfo(pacientUuid, pacientForm);
 
