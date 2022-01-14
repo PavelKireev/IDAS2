@@ -2,10 +2,12 @@ package com.idas2.zdravotnisystem.db.mapper.view;
 
 import com.idas2.zdravotnisystem.db.view.NemocnicniPokojView;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Component
 public class NemocnicniPokojViewMapper implements RowMapper<NemocnicniPokojView> {
 
     @Override
@@ -14,7 +16,7 @@ public class NemocnicniPokojViewMapper implements RowMapper<NemocnicniPokojView>
         NemocnicniPokojView nemocnicniPokojView = new NemocnicniPokojView();
 
         nemocnicniPokojView
-            .setPocetPacientu(rs.getInt("POCET_PACIENTU"))
+            .setPocetPacientu(rs.getInt("POCETPACIENTU"))
             .setKapacita(rs.getInt("KAPACITA"))
             .setPlocha(rs.getString("PLOCHA"))
             .setCislo(rs.getInt("CISLO"))

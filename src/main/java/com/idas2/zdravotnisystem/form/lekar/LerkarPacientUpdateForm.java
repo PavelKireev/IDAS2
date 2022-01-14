@@ -15,6 +15,8 @@ public class LerkarPacientUpdateForm {
 
     private String datumNarozeni;
 
+    private Integer idPokoj;
+
 
 
     public String getJmeno() {
@@ -86,6 +88,15 @@ public class LerkarPacientUpdateForm {
 
     public LerkarPacientUpdateForm setDatumNarozeni(String datumNarozeni) {
         this.datumNarozeni = datumNarozeni;
+        return this;
+    }
+
+    public Integer getIdPokoj() {
+        return idPokoj;
+    }
+
+    public LerkarPacientUpdateForm setIdPokoj(Integer idPokoj) {
+        this.idPokoj = idPokoj;
         return this;
     }
 }

@@ -73,11 +73,7 @@
                                value="${pacientView.getHmotnost()!""}">
                     </div>
                     <div class="form-group col-lg-3">
-                        <div class="mt-2">
-                            <label for="pokojField">Pokoj</label>
-                        </div>
-                        <input type="text" class="form-control" id="pokojField"
-                               value="${pacientView.getPokojCislo()!""}">
+                        <@form.selectOptions "pacientForm.idPokoj" pokojList "Pokoj"/>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -87,73 +83,17 @@
             <hr>
             <form method="post" action="/lekar/pacient/${pacientView.getUuid()}/karta/update">
                 <div class="form-row">
-                    <div class="form-group col-lg-4">
-                        <div class="mt-2">
-                            <label for="emailField">Email address</label>
-                        </div>
-                        <@spring.formInput
-                        "pacientForm.jmeno"
-                        "class=\"form-control\" id=\"emailField\"
-                    type=\"email\" value=\"$\{pacientView.getEmail()!\"\"}\""
-                        />
-                        <@spring.showErrors "" "validation-error-label" />
-                    </div>
-                    <div class="form-group col-lg-4">
-                        <div class="mt-2">
-                            <label for="jmenoField">Jmeno</label>
-                        </div>
-                        <@spring.formInput "pacientForm.jmeno" "class=\"form-control\" id=\"jmenoField\" value=\"$\{pacientView.getJmeno()!\"\"}\"" />
-                        <@spring.showErrors "" "validation-error-label" />
-                    </div>
-                    <div class="form-group col-lg-4">
-                        <div class="mt-2">
-                            <label for="prijmeniField">Prijmeni</label>
-                        </div>
-                        <@spring.formInput "pacientForm.prijmeni" "class=\"form-control\" id=\"prijmeniField\" value=\"$\{pacientView.getPrijmeni()!\"\"}\"" />
-                        <@spring.showErrors "" "validation-error-label" />
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-lg-4">
-                        <div class="mt-2">
-                            <label for="telCisloField">Telefonni Cislo</label>
-                        </div>
-                        <@spring.formInput "pacientForm.telCislo" "class=\"form-control\" id=\"telCisloField\" value=\"$\{pacientView.getTelCislo()!\"\"}\"" />
-                        <@spring.showErrors "" "validation-error-label" />
-                    </div>
-                    <div class="form-group col-lg-8">
-                        <div class="mt-2">
-                            <label for="adresaField">Adresa</label>
-                        </div>
-                        <@spring.formInput "pacientForm.adresa" "class=\"form-control\" id=\"adresaField\" value=\"$\{pacientView.getAdresa()!\"\"}\"" />
-                        <@spring.showErrors "" "validation-error-label" />
-                    </div>
-                </div>
-                <div class="form-row">
                     <div class="form-group col-lg-3">
-                        <@form.inputBirthDate "pacientForm.datumNarozeni" "Datum Narozeni" "class=\"form-control\" id=\"datumNarozeniField\" value=\"$\{pacientView.getDatumNarozeni()!\"\"}\"" />
-                        <#--                    <@spring.formInput "pacientForm.adresa" "class=\"form-control\" id=\"adresaField\" value=\"$\{pacientView.getDatumNarozeni()!""}\"" />-->
-                        <@spring.showErrors "" "validation-error-label" />
+                        <@form.inputDate "kartaForm.platnostOd" "Platnost Od" "class=\"form-control\" id=\"datumNarozeniField\" value=\"$\{pacientView.getDatumNarozeni()!\"\"}\"" />
                     </div>
                     <div class="form-group col-lg-3">
-                        <div class="mt-2">
-                            <label for="rustField">Rust</label>
-                        </div>
-                        <input type="text" class="form-control" id="rustField" value="${pacientView.getRust()!""}">
+                        <@form.inputDate "kartaForm.platnostDo" "Platnost Do" "class=\"form-control\" id=\"datumNarozeniField\" value=\"$\{pacientView.getDatumNarozeni()!\"\"}\"" />
                     </div>
                     <div class="form-group col-lg-3">
-                        <div class="mt-2">
-                            <label for="hmotnostField">Hmotnost</label>
-                        </div>
-                        <input type="text" class="form-control" id="hmotnostField"
-                               value="${pacientView.getHmotnost()!""}">
+<#--                        <@form.inputDate "kartaForm.datumVytvareni" "Datum Vytvareni" "class=\"form-control\" id=\"datumNarozeniField\" value=\"$\{pacientView.getDatumNarozeni()!\"\"}\" disabled" />-->
                     </div>
                     <div class="form-group col-lg-3">
-                        <div class="mt-2">
-                            <label for="pokojField">Pokoj</label>
-                        </div>
-                        <input type="text" class="form-control" id="pokojField"
-                               value="${pacientView.getPokojCislo()!""}">
+                        <@form.selectOptions "pacientForm.idPokoj" pokojList "Pokoj"/>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>

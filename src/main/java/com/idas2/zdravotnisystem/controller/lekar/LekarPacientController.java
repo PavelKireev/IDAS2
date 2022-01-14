@@ -10,10 +10,7 @@ import com.idas2.zdravotnisystem.db.repository.PojistovnaRepository;
 import com.idas2.zdravotnisystem.db.repository.ZdravotniKartaRepository;
 import com.idas2.zdravotnisystem.db.repository.impl.NemocnicniPokojRepositoryImpl;
 import com.idas2.zdravotnisystem.db.view.PacientView;
-import com.idas2.zdravotnisystem.form.lekar.LekarPojisteniForm;
-import com.idas2.zdravotnisystem.form.lekar.LekarProfileUpdateForm;
-import com.idas2.zdravotnisystem.form.lekar.LekarZdravortniKartaForm;
-import com.idas2.zdravotnisystem.form.lekar.LerkarPacientUpdateForm;
+import com.idas2.zdravotnisystem.form.lekar.*;
 import com.idas2.zdravotnisystem.service.form.PacientFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -81,6 +78,7 @@ public class LekarPacientController {
         LerkarPacientUpdateForm pacientForm =
             new LerkarPacientUpdateForm();
 
+        LekarKartaUpdateForm kartaForm = new LekarKartaUpdateForm();
         PacientView pacientView =
             pacientRepository.getPacientViewByUzivatelUuid(pacientUuid);
 
@@ -117,7 +115,8 @@ public class LekarPacientController {
             .addObject("pojisteni", pojisteni)
             .addObject("pojisteniForm", pojisteniForm)
             .addObject("avatar", avatar)
-            .addObject("pokojList", nemocnicniPokojRepository.findAll());
+            .addObject("pokojList", nemocnicniPokojRepository.findAll())
+            .addObject("kartaForm", kartaForm);
     }
 
     @PostMapping("/{pacientUuid}/profile/update")

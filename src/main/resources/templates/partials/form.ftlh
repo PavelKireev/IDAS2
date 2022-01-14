@@ -76,11 +76,11 @@
     <@spring.formHiddenInput path/>
 </#macro>
 
-<#macro inputDate path label>
-    <#assign attr = 'class="form-control" '/>
+<#macro inputDate path label attr>
+<#--    <#assign attr = 'class="form-control" '/>-->
     <#assign inputId = path?split(".")[1]/>
 
-    <div class="form-group">
+    <div class="form-group mt-2">
         <label>
             ${label!""}
         </label>
@@ -425,7 +425,7 @@
 
 <#macro selectOptions path options title>
     <@spring.bind path/>
-    <label class="mt-3" for="${spring.status.expression}">${title!""}</label>
+    <label class="mt-2" for="${spring.status.expression}">${title!""}</label>
     <select class="custom-select" id="${spring.status.expression}" name="${spring.status.expression}">
         <#list options as option>
             <option value="${option.getSelectorId()}" <@spring.checkSelected option.getSelectorId()/>>${option.getSelectorTitle()!""}</option>
