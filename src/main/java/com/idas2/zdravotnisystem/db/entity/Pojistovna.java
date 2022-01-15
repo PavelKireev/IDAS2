@@ -1,11 +1,12 @@
 package com.idas2.zdravotnisystem.db.entity;
 
 import com.idas2.zdravotnisystem.db.entity.base.UUIDableTimedEntity;
+import com.idas2.zdravotnisystem.util.Selectable;
 
 import javax.persistence.Entity;
 
 @Entity
-public class Pojistovna extends UUIDableTimedEntity<Integer> {
+public class Pojistovna extends UUIDableTimedEntity<Integer> implements Selectable {
 
     private static final long serialVersionUID = -2379914720466367824L;
 
@@ -38,5 +39,15 @@ public class Pojistovna extends UUIDableTimedEntity<Integer> {
     public Pojistovna setTelCislo(String telCislo) {
         this.telCislo = telCislo;
         return this;
+    }
+
+    @Override
+    public String getSelectorId() {
+        return getId().toString();
+    }
+
+    @Override
+    public String getSelectorTitle() {
+        return getNazev();
     }
 }

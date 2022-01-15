@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -56,7 +57,7 @@ public class PojisteniRepositoryImpl
     @Override
     public Pojisteni findByZdravorniKartaId(
         @NotNull Integer zdravotniKartaId
-    ){
+    ) {
         try {
             return
                 namedParameterJdbcTemplate
@@ -67,6 +68,36 @@ public class PojisteniRepositoryImpl
                     );
         } catch (EmptyResultDataAccessException ex) {
             return null;
+        }
+    }
+
+    @Override
+    public void updateByEntity(
+        Pojisteni pojisteni
+    ) {
+        try {
+            MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+            parameters
+                .addValue("ID", pojisteni.getId())
+                .addValue("CISLO_KARTY", pojisteni.getCisloKarty())
+                .addValue("CISLO_SMLOUVY", pojisteni.getCisloSmlouvy())
+                .addValue("POJISTNA_CASTKA", pojisteni.getPojistnaCastka())
+                .addValue("OD", pojisteni.getPojisteniOd())
+                .addValue("DO", pojisteni.getPojisteniDo())
+                .addValue("ID_POJISTOVNA", pojisteni.getPojistovnaIdPojistovna())
+                .addValue("ID_KARTA", pojisteni.getZdravotniKartaIdKarta())
+            ;
+
+
+            namedParameterJdbcTemplate.update(
+                "CALL POJISTENI_PRC (" +
+                    ":ID, :OD, :DO, :PACIENT_UZIVATEL_ID_UZIVATEL )",
+                parameters
+            );
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -7,8 +7,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+
+import java.util.Objects;
 
 @Component
 public class ZdravotniKartaRepositoryImpl
@@ -67,6 +70,34 @@ public class ZdravotniKartaRepositoryImpl
 
         } catch (EmptyResultDataAccessException ex) {
             return null;
+        }
+    }
+
+    @Override
+    public void updateByEntity(
+        @NotNull ZdravortniKarta zdravortniKarta
+    ) {
+        try {
+            MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+
+            parameters
+                .addValue("ID", zdravortniKarta.getId())
+                .addValue("OD", zdravortniKarta.getKartaOd())
+                .addValue("DO", zdravortniKarta.getKartaDo())
+                .addValue("PACIENT_UZIVATEL_ID_UZIVATEL",
+                    zdravortniKarta.getPacientUzivatelIdUzivatel()
+                );
+
+
+            namedParameterJdbcTemplate.update(
+                "CALL ZDRAVOTNI_KARTA_PRC (" +
+                    ":ID, :OD, :DO, :PACIENT_UZIVATEL_ID_UZIVATEL )",
+                parameters
+            );
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

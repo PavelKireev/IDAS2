@@ -21,6 +21,7 @@ public class PacientView {
     private Date datumNarozeni;
     private Date obrazekDatum;
 
+    private Integer pokojIdMistnost;
     private String pokojNazev;
     private String pokojCislo;
     private String pokojPlocha;
@@ -218,6 +219,15 @@ public class PacientView {
 
     public PacientView setPacientUzivatelIdOtec(Integer pacientUzivatelIdOtec) {
         this.pacientUzivatelIdOtec = pacientUzivatelIdOtec;
+        return this;
+    }
+
+    public Integer getPokojIdMistnost() {
+        return pokojIdMistnost;
+    }
+
+    public PacientView setPokojIdMistnost(Integer pokojIdMistnost) {
+        this.pokojIdMistnost = pokojIdMistnost;
         return this;
     }
 

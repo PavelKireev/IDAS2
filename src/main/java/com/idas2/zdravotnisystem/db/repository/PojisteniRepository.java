@@ -7,4 +7,6 @@ public interface PojisteniRepository extends CrudRepository<Pojisteni> {
     Pojisteni findByZdravorniKartaId(
         @NotNull Integer zdravotniKartaId
     );
+
+    void updateByEntity(Pojisteni pojisteni);
 }

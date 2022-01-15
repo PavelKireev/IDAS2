@@ -4,6 +4,7 @@ import com.idas2.zdravotnisystem.db.entity.Obrazek;
 import com.idas2.zdravotnisystem.db.entity.User;
 import com.idas2.zdravotnisystem.db.mapper.entity.AvatarMapper;
 import com.idas2.zdravotnisystem.db.repository.ObrazekRepository;
+import com.idas2.zdravotnisystem.db.view.PacientView;
 import oracle.jdbc.internal.OracleTypes;
 import org.apache.commons.io.FilenameUtils;
 import org.jetbrains.annotations.NotNull;
@@ -117,6 +118,58 @@ public class ObrazekRepositoryImpl
         }
 
     }
+
+    @Override
+    public void upload(
+        @NotNull PacientView user,
+        @NotNull MultipartFile obrazek
+    ) {
+        try {
+            MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+            parameters
+                .addValue("USER_ID", user.getId())
+                .addValue("EMAIL", user.getEmail())
+                .addValue("HESLO", user.getPassword())
+                .addValue("JMENO", user.getJmeno())
+                .addValue("PRIJMENI", user.getPrijmeni())
+                .addValue("TEL_CISLO", 1234)
+                .addValue("ADRESA", "1234")
+                .addValue("NAZEV", obrazek.getOriginalFilename())
+                .addValue("PRIPONA",
+                    FilenameUtils.getExtension(obrazek.getOriginalFilename()))
+                .addValue("RUST", 2)
+                .addValue("HMOTNOST", 1)
+                .addValue("DATUM_NAROZENI", new Date(4124))
+                .addValue("ID_OTEC", null)
+                .addValue("ID_MATKA", null);
+
+
+            parameters.addValue(
+                "DATA", obrazek.getBytes()
+//                new SqlLobValue(
+//                    new ByteArrayInputStream(obrazek.getBytes()),
+//                    obrazek.getBytes().length,
+//                    new DefaultLobHandler()
+//                ), OracleTypes.BLOB
+            );
+
+
+
+
+            jdbcTemplate.update(
+                "CALL PACIENT_PRC (" +
+                    ":USER_ID, :EMAIL, :HESLO, :JMENO, :PRIJMENI, :TEL_CISLO, " +
+                    ":ADRESA, :DATA,:NAZEV,:PRIPONA, :RUST, :HMOTNOST, " +
+                    ":DATUM_NAROZENI, :ID_OTEC, :ID_MATKA)",
+                parameters
+            );
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public @Nullable Obrazek getOne(Integer id) {
