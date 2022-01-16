@@ -1,8 +1,10 @@
 package com.idas2.zdravotnisystem.service.form;
 
+import com.idas2.zdravotnisystem.db.entity.Hospitalizace;
+import com.idas2.zdravotnisystem.db.entity.Pojisteni;
 import com.idas2.zdravotnisystem.db.entity.User;
-import com.idas2.zdravotnisystem.db.repository.PacientRepository;
-import com.idas2.zdravotnisystem.db.repository.UzivatelRepository;
+import com.idas2.zdravotnisystem.db.entity.ZdravortniKarta;
+import com.idas2.zdravotnisystem.db.repository.*;
 import com.idas2.zdravotnisystem.db.view.PacientView;
 import com.idas2.zdravotnisystem.form.pacient.PacientInfoForm;
 import com.idas2.zdravotnisystem.form.pacient.PacientSignUpForm;
@@ -13,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Service
 public class PacientFormServiceImpl implements PacientFormService {
@@ -20,16 +23,25 @@ public class PacientFormServiceImpl implements PacientFormService {
     private final PasswordEncoder encoder;
     private final PacientRepository pacientRepository;
     private final UzivatelRepository uzivatelRepository;
+    private final PojisteniRepository pojisteniRepository;
+    private final HospitalizaceRepository hospitalizaceRepository;
+    private final ZdravotniKartaRepository zdravotniKartaRepository;
 
     @Autowired
     public PacientFormServiceImpl(
         PasswordEncoder encoder,
         PacientRepository pacientRepository,
-        UzivatelRepository uzivatelRepository
+        UzivatelRepository uzivatelRepository,
+        PojisteniRepository pojisteniRepository,
+        HospitalizaceRepository hospitalizaceRepository,
+        ZdravotniKartaRepository zdravotniKartaRepository
     ) {
         this.encoder = encoder;
         this.pacientRepository = pacientRepository;
         this.uzivatelRepository = uzivatelRepository;
+        this.pojisteniRepository = pojisteniRepository;
+        this.hospitalizaceRepository = hospitalizaceRepository;
+        this.zdravotniKartaRepository = zdravotniKartaRepository;
     }
 
 
@@ -102,6 +114,44 @@ public class PacientFormServiceImpl implements PacientFormService {
             );
 
         pacientRepository.updateByView(view);
+
+        User user = uzivatelRepository.findByEmail(view.getEmail());
+
+        ZdravortniKarta zdravortniKarta = new ZdravortniKarta();
+
+        Hospitalizace hospitalizace = new Hospitalizace();
+
+        hospitalizace
+            .setDuvod("Neznamy")
+            .setStavPacienta("Neznamy")
+            .setPacientUzivatelIdUzivatel(user.getId())
+            .setHospitalizaceOd(Date.valueOf(LocalDate.now()))
+            .setHospitalizaceDo(Date.valueOf(LocalDate.now()));
+
+        hospitalizaceRepository.saveByEntity(hospitalizace);
+
+        zdravortniKarta
+            .setKartaOd(LocalDate.now().plusDays(1))
+            .setKartaDo(LocalDate.now().plusYears(2L))
+            .setPacientUzivatelIdUzivatel(user.getId());
+
+        zdravotniKartaRepository.updateByEntity(zdravortniKarta);
+
+        ZdravortniKarta karta = zdravotniKartaRepository.findByPacientId(user.getId());
+
+        Pojisteni pojisteni = new Pojisteni();
+
+        pojisteni
+            .setCisloKarty("Nezname")
+            .setCisloSmlouvy("Nezname")
+            .setPojistnaCastka(0)
+            .setPojisteniOd(LocalDate.now())
+            .setPojisteniDo(LocalDate.now().plusYears(1))
+            .setPojistovnaIdPojistovna(1)
+            .setZdravotniKartaIdKarta(karta.getId());
+
+        pojisteniRepository.updateByEntity(pojisteni);
+
     }
 
 

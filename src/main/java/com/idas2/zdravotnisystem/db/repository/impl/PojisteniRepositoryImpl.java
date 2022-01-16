@@ -92,7 +92,7 @@ public class PojisteniRepositoryImpl
 
             namedParameterJdbcTemplate.update(
                 "CALL POJISTENI_PRC (" +
-                    ":ID, :OD, :DO, :PACIENT_UZIVATEL_ID_UZIVATEL )",
+                    ":ID, :CISLO_KARTY, :CISLO_SMLOUVY, :POJISTNA_CASTKA, :OD, :DO, :ID_POJISTOVNA, :ID_KARTA )",
                 parameters
             );
 

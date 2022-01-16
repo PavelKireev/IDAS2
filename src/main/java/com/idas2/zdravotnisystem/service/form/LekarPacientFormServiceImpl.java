@@ -49,13 +49,13 @@ public class LekarPacientFormServiceImpl implements LekarPacientFormService {
     @Override
     public void updateKartaForm(
         @NotNull Integer pacientId,
-        @NotNull LekarZdravortniKartaForm source
+        @NotNull LekarKartaUpdateForm source
     ) {
         ZdravortniKarta karta = kartaRepository.findByPacientId(pacientId);
 
         karta
-            .setKartaOd(source.getKartaOd())
-            .setKartaDo(source.getKartaDo());
+            .setKartaOd(Date.valueOf(source.getPlatnostOd()).toLocalDate())
+            .setKartaDo(Date.valueOf(source.getPlatnostDo()).toLocalDate());
 
         kartaRepository.updateByEntity(karta);
     }
@@ -69,8 +69,8 @@ public class LekarPacientFormServiceImpl implements LekarPacientFormService {
             .setCisloKarty(source.getCisloKarty())
             .setCisloSmlouvy(source.getCisloSmlouvy())
             .setPojistnaCastka(source.getPojistnaCastka())
-            .setPojisteniOd(source.getPojisteniOd())
-            .setPojisteniDo(source.getPojisteniDo())
+            .setPojisteniOd(source.getPojisteniOd().toString())
+            .setPojisteniDo(source.getPojisteniDo().toString())
             .setPojistovnaIdPojistovna(source.getPojistovnaIdPojistovna())
             .setZdravotniKartaIdKarta(source.getZdravotniKartaIdKarta());
 
@@ -88,8 +88,8 @@ public class LekarPacientFormServiceImpl implements LekarPacientFormService {
             .setCisloKarty(source.getCisloKarty())
             .setCisloSmlouvy(source.getCisloSmlouvy())
             .setPojistnaCastka(source.getPojistnaCastka())
-            .setPojisteniOd(source.getPojisteniOd())
-            .setPojisteniDo(source.getPojisteniDo())
+            .setPojisteniOd(Date.valueOf(source.getPojisteniOd()).toLocalDate())
+            .setPojisteniDo(Date.valueOf(source.getPojisteniDo()).toLocalDate())
             .setPojistovnaIdPojistovna(source.getPojistovnaIdPojistovna())
             .setZdravotniKartaIdKarta(source.getZdravotniKartaIdKarta());
 

@@ -18,8 +18,8 @@ public interface LekarPacientFormService {
     );
 
     void updateKartaForm(
-        @NotNull Integer kartaId,
-        @NotNull LekarZdravortniKartaForm source
+        @NotNull Integer pacientId,
+        @NotNull LekarKartaUpdateForm source
     );
 
     @NotNull

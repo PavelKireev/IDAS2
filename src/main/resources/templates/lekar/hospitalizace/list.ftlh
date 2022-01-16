@@ -27,6 +27,11 @@
                 <td>${item.getStavPacienta()!""}</td>
                 <td>${item.getHospitalizaceDo()!""}</td>
                 <td>${item.getPokojCislo()!""}</td>
+                <td>
+                    <a class="btn mb-1 btn-secondary ml-5"
+                       href="/lekar/hospitalizace/zaznam/list?hospId=${item.getId()}"
+                       role="button">Zaznamy</a>
+                </td>
             </tr>
             <#assign count = count + 1 >
         </#list>

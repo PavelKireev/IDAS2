@@ -1,28 +1,35 @@
-package com.idas2.zdravotnisystem.db.entity;
+package com.idas2.zdravotnisystem.db.view;
 
-import com.idas2.zdravotnisystem.db.entity.base.UUIDableTimedEntity;
-
-import javax.persistence.Entity;
 import java.sql.Date;
 
-@Entity
-public class Zaznam extends UUIDableTimedEntity<Integer> {
+public class ZaznamView {
 
-    private static final long serialVersionUID = 5328938767647000364L;
+    private Integer id;
 
     private String titul;
     private String text;
     private Date datumVytvareni;
 
-    private Integer typZaznamuIdTypZaznamu;
+    private String jmeno;
+    private String prijmeni;
+
     private Integer hospitalizaceIdHospitalizace;
     private Integer lekarUzivatelIdUzivatel;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public ZaznamView setId(Integer id) {
+        this.id = id;
+        return this;
+    }
 
     public String getTitul() {
         return titul;
     }
 
-    public Zaznam setTitul(String titul) {
+    public ZaznamView setTitul(String titul) {
         this.titul = titul;
         return this;
     }
@@ -31,7 +38,7 @@ public class Zaznam extends UUIDableTimedEntity<Integer> {
         return text;
     }
 
-    public Zaznam setText(String text) {
+    public ZaznamView setText(String text) {
         this.text = text;
         return this;
     }
@@ -40,17 +47,26 @@ public class Zaznam extends UUIDableTimedEntity<Integer> {
         return datumVytvareni;
     }
 
-    public Zaznam setDatumVytvareni(Date datumVytvareni) {
+    public ZaznamView setDatumVytvareni(Date datumVytvareni) {
         this.datumVytvareni = datumVytvareni;
         return this;
     }
 
-    public Integer getTypZaznamuIdTypZaznamu() {
-        return typZaznamuIdTypZaznamu;
+    public String getJmeno() {
+        return jmeno;
     }
 
-    public Zaznam setTypZaznamuIdTypZaznamu(Integer typZaznamuIdTypZaznamu) {
-        this.typZaznamuIdTypZaznamu = typZaznamuIdTypZaznamu;
+    public ZaznamView setJmeno(String jmeno) {
+        this.jmeno = jmeno;
+        return this;
+    }
+
+    public String getPrijmeni() {
+        return prijmeni;
+    }
+
+    public ZaznamView setPrijmeni(String prijmeni) {
+        this.prijmeni = prijmeni;
         return this;
     }
 
@@ -58,7 +74,7 @@ public class Zaznam extends UUIDableTimedEntity<Integer> {
         return hospitalizaceIdHospitalizace;
     }
 
-    public Zaznam setHospitalizaceIdHospitalizace(Integer hospitalizaceIdHospitalizace) {
+    public ZaznamView setHospitalizaceIdHospitalizace(Integer hospitalizaceIdHospitalizace) {
         this.hospitalizaceIdHospitalizace = hospitalizaceIdHospitalizace;
         return this;
     }
@@ -67,7 +83,7 @@ public class Zaznam extends UUIDableTimedEntity<Integer> {
         return lekarUzivatelIdUzivatel;
     }
 
-    public Zaznam setLekarUzivatelIdUzivatel(Integer lekarUzivatelIdUzivatel) {
+    public ZaznamView setLekarUzivatelIdUzivatel(Integer lekarUzivatelIdUzivatel) {
         this.lekarUzivatelIdUzivatel = lekarUzivatelIdUzivatel;
         return this;
     }

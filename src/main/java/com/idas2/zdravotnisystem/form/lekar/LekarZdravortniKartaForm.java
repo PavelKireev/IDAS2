@@ -1,27 +1,25 @@
 package com.idas2.zdravotnisystem.form.lekar;
 
-import java.time.LocalDate;
-
 public class LekarZdravortniKartaForm {
 
-    private LocalDate kartaOd;
-    private LocalDate kartaDo;
+    private String kartaOd;
+    private String kartaDo;
     private Integer pacientUzivatelIdUzivatel;
 
-    public LocalDate getKartaOd() {
+    public String getKartaOd() {
         return kartaOd;
     }
 
-    public LekarZdravortniKartaForm setKartaOd(LocalDate kartaOd) {
+    public LekarZdravortniKartaForm setKartaOd(String kartaOd) {
         this.kartaOd = kartaOd;
         return this;
     }
 
-    public LocalDate getKartaDo() {
+    public String getKartaDo() {
         return kartaDo;
     }
 
-    public LekarZdravortniKartaForm setKartaDo(LocalDate kartaDo) {
+    public LekarZdravortniKartaForm setKartaDo(String kartaDo) {
         this.kartaDo = kartaDo;
         return this;
     }
@@ -30,9 +28,7 @@ public class LekarZdravortniKartaForm {
         return pacientUzivatelIdUzivatel;
     }
 
-    public LekarZdravortniKartaForm setPacientUzivatelIdUzivatel(
-        Integer pacientUzivatelIdUzivatel
-    ) {
+    public LekarZdravortniKartaForm setPacientUzivatelIdUzivatel(Integer pacientUzivatelIdUzivatel) {
         this.pacientUzivatelIdUzivatel = pacientUzivatelIdUzivatel;
         return this;
     }

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,7 +28,6 @@ public class LekarPacientController {
 
     private final ObrazekRepository obrazekRepository;
     private final PacientRepository pacientRepository;
-    private final PacientFormService pacientFormService;
     private final PojisteniRepository pojisteniRepository;
     private final PojistovnaRepository pojistovnaRepository;
     private final LekarPacientFormService lekarPacientFormService;
@@ -40,7 +38,6 @@ public class LekarPacientController {
     public LekarPacientController(
         ObrazekRepository obrazekRepository,
         PacientRepository pacientRepository,
-        PacientFormService pacientFormService,
         PojisteniRepository pojisteniRepository,
         PojistovnaRepository pojistovnaRepository,
         LekarPacientFormService lekarPacientFormService,
@@ -49,7 +46,6 @@ public class LekarPacientController {
     ) {
         this.obrazekRepository = obrazekRepository;
         this.pacientRepository = pacientRepository;
-        this.pacientFormService = pacientFormService;
         this.pojisteniRepository = pojisteniRepository;
         this.pojistovnaRepository = pojistovnaRepository;
         this.lekarPacientFormService = lekarPacientFormService;
@@ -66,15 +62,13 @@ public class LekarPacientController {
             .addObject("list", list);
     }
 
-
-//    @PostMapping("/{pacientUuid}/add")
-//    public ModelAndView add(
-//        @PathVariable String pacientUuid,
-//        @AuthenticationPrincipal AuthUser authUser
-//    ){
-//        return new ModelAndView();
-//    }
-//
+    @GetMapping("/delete")
+    public ModelAndView delete(
+        @RequestParam Integer pacId
+    ){
+        pacientRepository.delete(pacId);
+        return RedirectUtil.redirect("/lekar/pacient/list");
+    }
 
     @GetMapping("/{pacientUuid}/edit")
     public ModelAndView edit(
@@ -125,6 +119,14 @@ public class LekarPacientController {
             .addObject("pokojList", nemocnicniPokojRepository.findAll());
     }
 
+    @GetMapping("/{pacientUuid}/zaznam/add")
+    public ModelAndView zaznamAdd(
+
+    ){
+
+        return new ModelAndView();
+    }
+
     @PostMapping("/{pacientUuid}/profile/update")
     public ModelAndView updateProfile(
         @PathVariable String pacientUuid,
@@ -136,22 +138,22 @@ public class LekarPacientController {
 
         lekarPacientFormService.updatePacientForm(pacientView.getId(), pacientForm);
 
-        return RedirectUtil.redirect(String.format("/lekar/pacient/%s/edit", pacientUuid));
+        pacientView =
+            pacientRepository.getPacientViewByUzivatelId(pacientView.getId());
+
+        return RedirectUtil.redirect(String.format("/lekar/pacient/%s/edit", pacientView.getUuid()));
     }
 
     @PostMapping("/{pacientUuid}/karta/update")
     public ModelAndView updateKarta(
         @PathVariable String pacientUuid,
         @AuthenticationPrincipal AuthUser authUser,
-        @ModelAttribute("kartaForm") LekarZdravortniKartaForm kartaForm
+        @ModelAttribute("kartaForm") LekarKartaUpdateForm kartaForm
     ) {
         PacientView pacientView =
             pacientRepository.getPacientViewByUzivatelUuid(pacientUuid);
 
-        ZdravortniKarta zdravortniKarta =
-            zdravotniKartaRepository.findByPacientId(pacientView.getId());
-
-        lekarPacientFormService.updateKartaForm(zdravortniKarta.getId(), kartaForm);
+        lekarPacientFormService.updateKartaForm(pacientView.getId(), kartaForm);
 
         return RedirectUtil.redirect(String.format("/lekar/pacient/%s/edit", pacientUuid));
     }
@@ -167,6 +169,8 @@ public class LekarPacientController {
 
         ZdravortniKarta zdravortniKarta =
             zdravotniKartaRepository.findByPacientId(pacientView.getId());
+
+        pojisteniForm.setZdravotniKartaIdKarta(zdravortniKarta.getId());
 
         lekarPacientFormService.updatePojisteniForm(zdravortniKarta.getId(), pojisteniForm);
         return RedirectUtil.redirect(String.format("/lekar/pacient/%s/edit", pacientUuid));

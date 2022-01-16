@@ -7,8 +7,8 @@ public class LekarPojisteniForm {
     private String cisloKarty;
     private String cisloSmlouvy;
     private Integer pojistnaCastka;
-    private LocalDate pojisteniOd;
-    private LocalDate pojisteniDo;
+    private String pojisteniOd;
+    private String pojisteniDo;
     private Integer pojistovnaIdPojistovna;
     private Integer zdravotniKartaIdKarta;
 
@@ -39,20 +39,20 @@ public class LekarPojisteniForm {
         return this;
     }
 
-    public LocalDate getPojisteniOd() {
+    public String getPojisteniOd() {
         return pojisteniOd;
     }
 
-    public LekarPojisteniForm setPojisteniOd(LocalDate pojisteniOd) {
+    public LekarPojisteniForm setPojisteniOd(String pojisteniOd) {
         this.pojisteniOd = pojisteniOd;
         return this;
     }
 
-    public LocalDate getPojisteniDo() {
+    public String getPojisteniDo() {
         return pojisteniDo;
     }
 
-    public LekarPojisteniForm setPojisteniDo(LocalDate pojisteniDo) {
+    public LekarPojisteniForm setPojisteniDo(String pojisteniDo) {
         this.pojisteniDo = pojisteniDo;
         return this;
     }

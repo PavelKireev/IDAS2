@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
 import java.util.Objects;
 
 @Component
@@ -83,8 +84,8 @@ public class ZdravotniKartaRepositoryImpl
 
             parameters
                 .addValue("ID", zdravortniKarta.getId())
-                .addValue("OD", zdravortniKarta.getKartaOd())
-                .addValue("DO", zdravortniKarta.getKartaDo())
+                .addValue("OD", Date.valueOf(zdravortniKarta.getKartaOd()))
+                .addValue("DO", Date.valueOf(zdravortniKarta.getKartaDo()))
                 .addValue("PACIENT_UZIVATEL_ID_UZIVATEL",
                     zdravortniKarta.getPacientUzivatelIdUzivatel()
                 );

@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,7 @@ public class HospitalizaceRepositoryImpl
         this.hospitalizaceViewMapper = hospitalizaceViewMapper;
     }
 
+    @Override
     public @Nullable HospitalizaceView findOne(Integer id) {
         try {
             return
@@ -79,6 +81,34 @@ public class HospitalizaceRepositoryImpl
     }
 
     @Override
+    public void saveByEntity(
+        Hospitalizace entity
+    ) {
+        try {
+            MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+            parameters
+                .addValue("ID", entity.getId())
+                .addValue("DUVOD", entity.getDuvod())
+                .addValue("STAVPACIENTA", entity.getStavPacienta())
+                .addValue("OD", entity.getHospitalizaceOd())
+                .addValue("DO", entity.getHospitalizaceDo())
+                .addValue("PACIENT_UZIVATEL_ID_UZIVATEL", entity.getPacientUzivatelIdUzivatel())
+            ;
+
+
+            namedParameterJdbcTemplate.update(
+                "CALL HOSPITALIZACE_PRC (" +
+                    ":ID, :DUVOD, :STAVPACIENTA, :OD, :DO, :PACIENT_UZIVATEL_ID_UZIVATEL )",
+                parameters
+            );
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public List<HospitalizaceView> findAllByPacientId(
         @NotNull Integer pacientId
     ) {
@@ -112,7 +142,8 @@ public class HospitalizaceRepositoryImpl
         } catch (EmptyResultDataAccessException ex) {
             LOGGER.warn("EmptyResultDataAccessException");
             return new ArrayList<HospitalizaceView>();
-        }    }
+        }
+    }
 
     @Override
     public List<HospitalizaceView> findAll() {

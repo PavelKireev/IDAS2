@@ -16,7 +16,7 @@
                             <label for="emailField">Email address</label>
                         </div>
                         <@spring.formInput
-                        "pacientForm.jmeno"
+                        "pacientForm.email"
                         "class=\"form-control\" id=\"emailField\"
                     type=\"email\" value=\"$\{pacientView.getEmail()!\"\"}\""
                         />
@@ -61,14 +61,15 @@
                         <div class="mt-2">
                             <label for="rustField">Rust</label>
                         </div>
-                        <input type="text" class="form-control" id="rustField" value="${pacientView.getRust()!""}">
+                        <@spring.formInput "pacientForm.rust" "class=\"form-control\" id=\"rustField\" value=\"$\{pacientView.getRust()!\"\"}\"" />
+                        <@spring.showErrors "" "validation-error-label" />
                     </div>
                     <div class="form-group col-lg-3">
                         <div class="mt-2">
                             <label for="hmotnostField">Hmotnost</label>
                         </div>
-                        <input type="text" class="form-control" id="hmotnostField"
-                               value="${pacientView.getHmotnost()!""}">
+                        <@spring.formInput "pacientForm.hmotnost" "class=\"form-control\" id=\"hmotnostField\" value=\"$\{pacientView.getHmotnost()!\"\"}\"" />
+                        <@spring.showErrors "" "validation-error-label" />
                     </div>
                     <div class="form-group col-lg-3">
                         <@form.selectOptions "pacientForm.idPokoj" pokojList "Pokoj"/>
@@ -93,7 +94,11 @@
                                value="${zdravotniKarta.getDatumVytvareni()!""}">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="row">
+                    <button type="submit" class="btn mb-1 btn-primary ml-3">Submit</button>
+                    <a class="btn mb-1 btn-success ml-5" href="/lekar/pacient/${pacientView.getUuid()}/zaznam/add" role="button">Novy Zaznam</a>
+                    <a class="btn mb-1 btn-secondary ml-5" href="/lekar/pacient/${pacientView.getUuid()}/zaznam/list" role="button">Seznam Zaznamu</a>
+                </div>
             </form>
             <hr>
             <h1>Pojisteni</h1>
