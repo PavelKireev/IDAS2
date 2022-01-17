@@ -1,7 +1,10 @@
 package com.idas2.zdravotnisystem.db.repository;
 
-import com.idas2.zdravotnisystem.db.entity.Kancelar;
+import com.idas2.zdravotnisystem.db.view.KancelarView;
 
-public interface KancelarRepository extends CrudRepository<Kancelar> {
-    
+import java.util.List;
+
+public interface KancelarRepository {
+
+    List<KancelarView> findAllView();
 }

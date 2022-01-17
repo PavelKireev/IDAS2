@@ -1,6 +1,6 @@
 package com.idas2.zdravotnisystem.service.form;
 
-import com.idas2.zdravotnisystem.form.lekar.LekarZaznamForm;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarZaznamForm;
 
 public interface LekarHospitalizaceFormService {
 

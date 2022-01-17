@@ -29,7 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     ) {
         this.userRepository = userRepository;
     }
-//    private final AuthorityService authorityService;
 
     @Override
     @Transactional(readOnly = true)

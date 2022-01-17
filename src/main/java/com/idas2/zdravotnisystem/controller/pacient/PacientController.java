@@ -1,6 +1,6 @@
 package com.idas2.zdravotnisystem.controller.pacient;
 
-import com.idas2.zdravotnisystem.form.pacient.PacientSignUpForm;
+import com.idas2.zdravotnisystem.form.uzivatel.pacient.PacientSignUpForm;
 import com.idas2.zdravotnisystem.service.form.PacientFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.springframework.beans.factory.annotation.Autowired;

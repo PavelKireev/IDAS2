@@ -7,7 +7,7 @@
 
     <div class="row">
         <h2>Pacient</h2>
-        <a class="btn btn-success ml-4" href="/admin/table/PACIENT/create" role="button">Create</a>
+        <a class="btn btn-success ml-4 mb-2" href="/admin/table/PACIENT/create" role="button">Create</a>
     </div>
 
     <table class="table">
@@ -36,11 +36,16 @@
                 <td>${item.getAdresa()!""}</td>
                 <td>${item.getIdOtec()!""}</td>
                 <td>${item.getIdMatka()!""}</td>
-                <td><a class="btn btn-primary ml-4" href="/admin/table/PACIENT/${item.getId()}/update" role="button">Update</a>
+                <td>
+                    <a class="btn btn-primary ml-4" href="/admin/table/PACIENT/${item.getId()}/update" role="button">Update</a>
                 </td>
-                <td><a class="btn btn-danger ml-4" href="/admin/table/PACIENT/${item.getId()}/delete" role="button">Delete</a>
+                <td>
+                    <a class="btn btn-danger ml-4" href="/admin/table/PACIENT/${item.getId()}/delete" role="button">Delete</a>
                 </td>
-
+                <td>
+                    <a class="btn btn-warning ml-4" href="/admin/table/PACIENT/${item.getId()}/simulate"
+                       role="button">Simulace</a>
+                </td>
 
                 <#--                <td>-->
                 <#--                    <div class="row">-->

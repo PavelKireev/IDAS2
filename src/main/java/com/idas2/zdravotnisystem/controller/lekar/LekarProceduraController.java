@@ -3,7 +3,7 @@ package com.idas2.zdravotnisystem.controller.lekar;
 import com.idas2.zdravotnisystem.component.AuthUser;
 import com.idas2.zdravotnisystem.db.repository.*;
 import com.idas2.zdravotnisystem.db.view.ProceduraView;
-import com.idas2.zdravotnisystem.form.ProceduraCreateForm;
+import com.idas2.zdravotnisystem.form.procedura.ProceduraCreateForm;
 import com.idas2.zdravotnisystem.service.form.ProceduraFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,8 @@ public class LekarProceduraController {
                 );
 
         return new ModelAndView("lekar/appointment/list")
-            .addObject("list", list);
+            .addObject("list", list)
+            .addObject("authUser", authUser);
     }
 
     @GetMapping("/minule")
@@ -64,7 +65,8 @@ public class LekarProceduraController {
                 );
 
         return new ModelAndView("lekar/appointment/list")
-            .addObject("list", list);
+            .addObject("list", list)
+            .addObject("authUser", authUser);
     }
 
     @GetMapping("/add")
@@ -72,6 +74,7 @@ public class LekarProceduraController {
         @AuthenticationPrincipal AuthUser authUser
     ) {
         return new ModelAndView("lekar/appointment/create")
+            .addObject("authUser", authUser)
             .addObject("form", new ProceduraCreateForm())
             .addObject("typProceduryList", typProceduryRepository.findAll())
             .addObject("zarizeniList", zarizeniRepository.findAll())

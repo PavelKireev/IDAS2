@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Component
 public class ZarizeniRepositoryImpl
-    extends AbstractCrudRepository<Zarizeni, ZarizeniMapper>
+    extends AbstractCrudRepository
     implements ZarizeniRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ZarizeniRepositoryImpl.class);
@@ -32,34 +32,8 @@ public class ZarizeniRepositoryImpl
         ZarizeniMapper zarizeniMapper,
         NamedParameterJdbcTemplate jdbcTemplate
     ) {
-        super(jdbcTemplate);
         this.zarizeniMapper = zarizeniMapper;
         this.jdbcTemplate = jdbcTemplate;
-    }
-
-    @Override
-    public @Nullable Zarizeni getOne(Integer id) {
-        return null;
-    }
-
-    @Override
-    public @NotNull Integer create(@NotNull Zarizeni entity) {
-        return null;
-    }
-
-    @Override
-    public @Nullable Zarizeni update(@NotNull Zarizeni entity) {
-        return null;
-    }
-
-    @Override
-    public void delete(@NotNull Integer id) {
-
-    }
-
-    @Override
-    public void delete(@NotNull Zarizeni entity) {
-
     }
 
     @Override

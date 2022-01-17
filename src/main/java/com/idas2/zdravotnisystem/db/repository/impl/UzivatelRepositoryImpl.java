@@ -127,6 +127,16 @@ public class UzivatelRepositoryImpl
 
     @NotNull
     @Override
+    public User findById(Integer id) {
+        return getOne(
+            "SELECT * FROM UZIVATEL WHERE ID_UZIVATEL = :ID",
+            mapParams("ID", id),
+            mapper
+        );
+    }
+
+    @NotNull
+    @Override
     public UzivatelView findViewByUuid(String uuid) {
         try {
             return namedParameterJdbcTemplate.queryForObject(

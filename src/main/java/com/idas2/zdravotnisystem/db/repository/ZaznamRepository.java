@@ -6,7 +6,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public interface ZaznamRepository extends CrudRepository<Zaznam> {
+public interface ZaznamRepository {
+
+    void delete(@NotNull Integer id);
 
     List<ZaznamView> findAllByHospitalizaceId(
         @NotNull Integer hospitalizaceId

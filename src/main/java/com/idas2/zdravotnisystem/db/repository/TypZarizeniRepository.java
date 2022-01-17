@@ -4,6 +4,6 @@ import com.idas2.zdravotnisystem.db.entity.TypZarizeni;
 
 import java.util.List;
 
-public interface TypZarizeniRepository extends CrudRepository<TypZarizeni> {
+public interface TypZarizeniRepository {
     List<TypZarizeni> findAll();
 }

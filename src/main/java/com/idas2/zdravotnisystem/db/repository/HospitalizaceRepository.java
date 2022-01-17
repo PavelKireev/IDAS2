@@ -7,11 +7,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public interface HospitalizaceRepository extends CrudRepository<Hospitalizace> {
+public interface HospitalizaceRepository {
 
     @Nullable HospitalizaceView findOne(Integer id);
 
-    void saveByEntity(
+    void saveFromEntity(
         Hospitalizace entity
     );
 
@@ -24,4 +24,6 @@ public interface HospitalizaceRepository extends CrudRepository<Hospitalizace> {
     );
 
     List<HospitalizaceView> findAll();
+
+    void delete(Integer id);
 }

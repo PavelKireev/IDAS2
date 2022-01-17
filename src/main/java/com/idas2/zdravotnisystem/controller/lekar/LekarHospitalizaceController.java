@@ -5,7 +5,7 @@ import com.idas2.zdravotnisystem.db.repository.HospitalizaceRepository;
 import com.idas2.zdravotnisystem.db.repository.ZaznamRepository;
 import com.idas2.zdravotnisystem.db.view.HospitalizaceView;
 import com.idas2.zdravotnisystem.db.view.ZaznamView;
-import com.idas2.zdravotnisystem.form.lekar.LekarZaznamForm;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarZaznamForm;
 import com.idas2.zdravotnisystem.service.form.LekarHospitalizaceFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,16 @@ public class LekarHospitalizaceController {
             hospitalizaceRepository.findAll();
 
         return new ModelAndView("lekar/hospitalizace/list")
+            .addObject("authUser", authUser)
             .addObject("list", list);
+    }
+
+    @GetMapping("/add")
+    public ModelAndView hospitalizaceAdd(
+        @AuthenticationPrincipal AuthUser authUser
+    ){
+
+        return new ModelAndView();
     }
 
     @GetMapping("/zaznam")
@@ -59,7 +68,9 @@ public class LekarHospitalizaceController {
 
         return new ModelAndView("lekar/hospitalizace/zaznam/create")
             .addObject("form", form)
-            .addObject("hospId", hospId);
+            .addObject("hospId", hospId)
+            .addObject("authUser", authUser);
+
     }
 
     @PostMapping("/zaznam/create")
@@ -82,14 +93,16 @@ public class LekarHospitalizaceController {
 
     @GetMapping("/zaznam/list")
     public ModelAndView zaznamList(
-        @RequestParam Integer hospId
+        @RequestParam Integer hospId,
+        @AuthenticationPrincipal AuthUser authUser
     ) {
         List<ZaznamView> zaznamList =
             zaznamRepository.findAllByHospitalizaceId(hospId);
 
         return new ModelAndView("lekar/hospitalizace/zaznam/list")
             .addObject("hospId", hospId)
-            .addObject("list", zaznamList);
+            .addObject("list", zaznamList)
+            .addObject("authUser", authUser);
     }
 
     @GetMapping("/zaznam/delete")

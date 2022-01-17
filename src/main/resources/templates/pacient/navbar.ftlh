@@ -94,6 +94,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
+
             <!-- Heading -->
             <div class="sidebar-heading">
                 Interface
@@ -222,6 +223,11 @@
                                 </div>
                             </form>
                         </div>
+
+                        <#if authUser.getSimulated()>
+                            <a class="btn mb-3 mt-3 btn-outline-danger ml-4" href="/admin/table/PACIENT/unsimulate?admId=${authUser.getAdminId()}" role="button">Ukoncit Simulace</a>
+                        </#if >
+
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 

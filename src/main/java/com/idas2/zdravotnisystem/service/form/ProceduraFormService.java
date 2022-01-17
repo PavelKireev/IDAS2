@@ -1,6 +1,6 @@
 package com.idas2.zdravotnisystem.service.form;
 
-import com.idas2.zdravotnisystem.form.ProceduraCreateForm;
+import com.idas2.zdravotnisystem.form.procedura.ProceduraCreateForm;
 import org.jetbrains.annotations.NotNull;
 
 public interface ProceduraFormService {

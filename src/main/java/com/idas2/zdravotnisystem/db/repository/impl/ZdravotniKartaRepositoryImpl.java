@@ -12,11 +12,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
-import java.util.Objects;
 
 @Component
 public class ZdravotniKartaRepositoryImpl
-    extends AbstractCrudRepository<ZdravortniKarta, ZdravotniKartaMapper>
+    extends AbstractCrudRepository
     implements ZdravotniKartaRepository {
 
     private final ZdravotniKartaMapper zdravotniKartaMapper;
@@ -27,33 +26,8 @@ public class ZdravotniKartaRepositoryImpl
         ZdravotniKartaMapper zdravotniKartaMapper,
         NamedParameterJdbcTemplate namedParameterJdbcTemplate
     ) {
-        super(namedParameterJdbcTemplate);
         this.zdravotniKartaMapper = zdravotniKartaMapper;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-    }
-
-    @Override
-    public @Nullable ZdravortniKarta getOne(Integer id) {
-        return null;
-    }
-
-    @Override
-    public @NotNull Integer create(@NotNull ZdravortniKarta entity) {
-        return null;
-    }
-
-    @Override
-    public @Nullable ZdravortniKarta update(@NotNull ZdravortniKarta entity) {
-        return null;
-    }
-
-    @Override
-    public void delete(@NotNull Integer id) {
-
-    }
-
-    @Override
-    public void delete(@NotNull ZdravortniKarta entity) {
     }
 
     @Override
@@ -81,7 +55,6 @@ public class ZdravotniKartaRepositoryImpl
         try {
             MapSqlParameterSource parameters = new MapSqlParameterSource();
 
-
             parameters
                 .addValue("ID", zdravortniKarta.getId())
                 .addValue("OD", Date.valueOf(zdravortniKarta.getKartaOd()))
@@ -89,7 +62,6 @@ public class ZdravotniKartaRepositoryImpl
                 .addValue("PACIENT_UZIVATEL_ID_UZIVATEL",
                     zdravortniKarta.getPacientUzivatelIdUzivatel()
                 );
-
 
             namedParameterJdbcTemplate.update(
                 "CALL ZDRAVOTNI_KARTA_PRC (" +

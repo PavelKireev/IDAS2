@@ -2,13 +2,12 @@ package com.idas2.zdravotnisystem.service.form;
 
 import com.idas2.zdravotnisystem.db.repository.ZaznamRepository;
 import com.idas2.zdravotnisystem.db.view.ZaznamView;
-import com.idas2.zdravotnisystem.form.lekar.LekarZaznamForm;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarZaznamForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Service
 public class LekarHospitalizaceFormServiceImpl implements LekarHospitalizaceFormService {

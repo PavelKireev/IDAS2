@@ -6,8 +6,8 @@ import com.idas2.zdravotnisystem.db.entity.User;
 import com.idas2.zdravotnisystem.db.entity.ZdravortniKarta;
 import com.idas2.zdravotnisystem.db.repository.*;
 import com.idas2.zdravotnisystem.db.view.PacientView;
-import com.idas2.zdravotnisystem.form.pacient.PacientInfoForm;
-import com.idas2.zdravotnisystem.form.pacient.PacientSignUpForm;
+import com.idas2.zdravotnisystem.form.uzivatel.pacient.PacientInfoForm;
+import com.idas2.zdravotnisystem.form.uzivatel.pacient.PacientSignUpForm;
 import com.idas2.zdravotnisystem.util.TimeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,7 +128,7 @@ public class PacientFormServiceImpl implements PacientFormService {
             .setHospitalizaceOd(Date.valueOf(LocalDate.now()))
             .setHospitalizaceDo(Date.valueOf(LocalDate.now()));
 
-        hospitalizaceRepository.saveByEntity(hospitalizace);
+        hospitalizaceRepository.saveFromEntity(hospitalizace);
 
         zdravortniKarta
             .setKartaOd(LocalDate.now().plusDays(1))

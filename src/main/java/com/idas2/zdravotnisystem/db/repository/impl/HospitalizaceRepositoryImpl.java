@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -21,7 +22,7 @@ import java.util.Map;
 
 @Service
 public class HospitalizaceRepositoryImpl
-    extends AbstractCrudRepository<Hospitalizace, HospitalizaceMapper>
+    extends AbstractCrudRepository
     implements HospitalizaceRepository {
 
     private static final Logger LOGGER =
@@ -30,11 +31,11 @@ public class HospitalizaceRepositoryImpl
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final HospitalizaceViewMapper hospitalizaceViewMapper;
 
+    @Autowired
     public HospitalizaceRepositoryImpl(
         NamedParameterJdbcTemplate namedParameterJdbcTemplate,
         HospitalizaceViewMapper hospitalizaceViewMapper
     ) {
-        super(namedParameterJdbcTemplate);
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
         this.hospitalizaceViewMapper = hospitalizaceViewMapper;
     }
@@ -56,32 +57,22 @@ public class HospitalizaceRepositoryImpl
     }
 
     @Override
-    public @Nullable Hospitalizace getOne(Integer id) {
-        return null;
-    }
-
-    @Override
-    public @NotNull Integer create(@NotNull Hospitalizace entity) {
-        return null;
-    }
-
-    @Override
-    public @Nullable Hospitalizace update(@NotNull Hospitalizace entity) {
-        return null;
-    }
-
-    @Override
     public void delete(@NotNull Integer id) {
 
+        try {
+            namedParameterJdbcTemplate
+                .update(
+                    "DELETE FROM HOSPITALIZACE WHERE ID_HOSPITALIZACE = :ID",
+                    mapParams("ID", id)
+                );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn("Delete pacient ex");
+        }
     }
 
     @Override
-    public void delete(@NotNull Hospitalizace entity) {
-
-    }
-
-    @Override
-    public void saveByEntity(
+    public void saveFromEntity(
         Hospitalizace entity
     ) {
         try {

@@ -1,12 +1,10 @@
 package com.idas2.zdravotnisystem.db.repository.impl;
 
-import com.idas2.zdravotnisystem.db.entity.Zaznam;
 import com.idas2.zdravotnisystem.db.mapper.entity.ZaznamMapper;
 import com.idas2.zdravotnisystem.db.mapper.view.ZaznamViewMapper;
 import com.idas2.zdravotnisystem.db.repository.ZaznamRepository;
 import com.idas2.zdravotnisystem.db.view.ZaznamView;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -19,7 +17,7 @@ import java.util.List;
 
 @Component
 public class ZaznamRepositoryImpl
-    extends AbstractCrudRepository<Zaznam, ZaznamMapper>
+    extends AbstractCrudRepository
     implements ZaznamRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ZaznamRepositoryImpl.class);
@@ -33,25 +31,9 @@ public class ZaznamRepositoryImpl
         ZaznamViewMapper zaznamViewMapper,
         NamedParameterJdbcTemplate namedParameterJdbcTemplate
     ) {
-        super(namedParameterJdbcTemplate);
         this.zaznamMapper = zaznamMapper;
         this.zaznamViewMapper = zaznamViewMapper;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-    }
-
-    @Override
-    public @Nullable Zaznam getOne(Integer id) {
-        return null;
-    }
-
-    @Override
-    public @NotNull Integer create(@NotNull Zaznam entity) {
-        return null;
-    }
-
-    @Override
-    public @Nullable Zaznam update(@NotNull Zaznam entity) {
-        return null;
     }
 
     @Override
@@ -67,11 +49,6 @@ public class ZaznamRepositoryImpl
         } catch (EmptyResultDataAccessException ex) {
             LOGGER.warn("Delete zaznam ex");
         }
-    }
-
-    @Override
-    public void delete(@NotNull Zaznam entity) {
-
     }
 
     @Override

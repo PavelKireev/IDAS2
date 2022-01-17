@@ -1,8 +1,8 @@
 package com.idas2.zdravotnisystem.service.form;
 
 import com.idas2.zdravotnisystem.db.view.PacientView;
-import com.idas2.zdravotnisystem.form.pacient.PacientInfoForm;
-import com.idas2.zdravotnisystem.form.pacient.PacientSignUpForm;
+import com.idas2.zdravotnisystem.form.uzivatel.pacient.PacientInfoForm;
+import com.idas2.zdravotnisystem.form.uzivatel.pacient.PacientSignUpForm;
 import org.jetbrains.annotations.NotNull;
 
 public interface PacientFormService {

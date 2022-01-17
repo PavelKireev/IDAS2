@@ -3,7 +3,7 @@ package com.idas2.zdravotnisystem.service.form;
 import com.idas2.zdravotnisystem.component.AuthUser;
 import com.idas2.zdravotnisystem.db.repository.ProceduraRepository;
 import com.idas2.zdravotnisystem.db.view.ProceduraView;
-import com.idas2.zdravotnisystem.form.ProceduraCreateForm;
+import com.idas2.zdravotnisystem.form.procedura.ProceduraCreateForm;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

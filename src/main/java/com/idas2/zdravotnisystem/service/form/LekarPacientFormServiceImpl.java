@@ -6,17 +6,14 @@ import com.idas2.zdravotnisystem.db.repository.PacientRepository;
 import com.idas2.zdravotnisystem.db.repository.PojisteniRepository;
 import com.idas2.zdravotnisystem.db.repository.ZdravotniKartaRepository;
 import com.idas2.zdravotnisystem.db.view.PacientView;
-import com.idas2.zdravotnisystem.form.lekar.LekarKartaUpdateForm;
-import com.idas2.zdravotnisystem.form.lekar.LekarPacientUpdateForm;
-import com.idas2.zdravotnisystem.form.lekar.LekarPojisteniForm;
-import com.idas2.zdravotnisystem.form.lekar.LekarZdravortniKartaForm;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarKartaUpdateForm;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarPacientUpdateForm;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarPojisteniForm;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Component
 public class LekarPacientFormServiceImpl implements LekarPacientFormService {

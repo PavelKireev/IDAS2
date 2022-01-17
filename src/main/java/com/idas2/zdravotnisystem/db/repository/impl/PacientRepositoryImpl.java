@@ -18,7 +18,7 @@ import java.util.*;
 
 @Service
 public class PacientRepositoryImpl
-    extends AbstractCrudRepository<Pacient, PacientMapper>
+    extends AbstractCrudRepository
     implements PacientRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PacientRepositoryImpl.class);
@@ -33,7 +33,6 @@ public class PacientRepositoryImpl
         PacientViewMapper pacientViewMapper,
         NamedParameterJdbcTemplate namedParameterJdbcTemplate
     ) {
-        super(namedParameterJdbcTemplate);
         this.pacientMapper = pacientMapper;
         this.pacientViewMapper = pacientViewMapper;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;

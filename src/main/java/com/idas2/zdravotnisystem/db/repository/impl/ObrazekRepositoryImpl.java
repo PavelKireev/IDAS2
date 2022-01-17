@@ -10,8 +10,10 @@ import org.apache.commons.io.FilenameUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.support.SqlLobValue;
 import org.springframework.jdbc.support.lob.DefaultLobHandler;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,7 @@ import java.sql.Date;
 
 @Service
 public class ObrazekRepositoryImpl
-    extends AbstractCrudRepository<Obrazek, AvatarMapper>
+    extends AbstractCrudRepository
     implements ObrazekRepository {
 
     private final AvatarMapper avatarMapper;
@@ -33,14 +35,13 @@ public class ObrazekRepositoryImpl
         AvatarMapper avatarMapper,
         NamedParameterJdbcTemplate jdbcTemplate
     ) {
-        super(jdbcTemplate);
         this.avatarMapper = avatarMapper;
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @NotNull
     @Override
-    public Integer create(
+    public void create(
         @NotNull Obrazek obrazek
     ) {
         try {
@@ -56,7 +57,7 @@ public class ObrazekRepositoryImpl
             parameters.addValue("PRIPONA", obrazek.getPripona());
             parameters.addValue("DATUM", obrazek.getDatum(), OracleTypes.DATE);
 
-            return jdbcTemplate.update(
+            jdbcTemplate.update(
                 "INSERT INTO OBRAZEK(DATA, NAZEV, PRIPONA, DATUM)" +
                     " VALUES (:DATA,:NAZEV, :PRIPONA, :DATUM)",
                 parameters
@@ -64,7 +65,6 @@ public class ObrazekRepositoryImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class ObrazekRepositoryImpl
     ) {
         try {
             MapSqlParameterSource parameters = new MapSqlParameterSource();
-// getPacientByUserId
+
             parameters
                 .addValue("USER_ID", user.getId())
                 .addValue("EMAIL", user.getEmail())
@@ -95,14 +95,7 @@ public class ObrazekRepositoryImpl
 
             parameters.addValue(
                 "DATA", obrazek.getBytes()
-//                new SqlLobValue(
-//                    new ByteArrayInputStream(obrazek.getBytes()),
-//                    obrazek.getBytes().length,
-//                    new DefaultLobHandler()
-//                ), OracleTypes.BLOB
             );
-
-
 
 
             jdbcTemplate.update(
@@ -147,14 +140,7 @@ public class ObrazekRepositoryImpl
 
             parameters.addValue(
                 "DATA", obrazek.getBytes()
-//                new SqlLobValue(
-//                    new ByteArrayInputStream(obrazek.getBytes()),
-//                    obrazek.getBytes().length,
-//                    new DefaultLobHandler()
-//                ), OracleTypes.BLOB
             );
-
-
 
 
             jdbcTemplate.update(
@@ -173,25 +159,17 @@ public class ObrazekRepositoryImpl
 
     @Override
     public @Nullable Obrazek getOne(Integer id) {
-        return getOne(
-            "SELECT * FROM OBRAZEK WHERE ID_OBRAZEK = :ID_OBRAZEK",
-            mapParams("ID_OBRAZEK", id),
-            avatarMapper
-        );
-    }
+        try {
+            return
+                jdbcTemplate
+                    .queryForObject(
+                        "SELECT * FROM OBRAZEK WHERE ID_OBRAZEK = :ID_OBRAZEK",
+                        mapViewParams("ID_OBRAZEK", id),
+                        avatarMapper
+                    );
 
-    @Override
-    public @Nullable Obrazek update(@NotNull Obrazek entity) {
-        return null;
-    }
-
-    @Override
-    public void delete(@NotNull Integer id) {
-
-    }
-
-    @Override
-    public void delete(@NotNull Obrazek entity) {
-
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
     }
 }

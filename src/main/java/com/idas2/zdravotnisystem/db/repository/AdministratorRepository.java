@@ -1,6 +1,13 @@
 package com.idas2.zdravotnisystem.db.repository;
 
 import com.idas2.zdravotnisystem.db.entity.Administrator;
+import com.idas2.zdravotnisystem.db.view.AdministratorView;
+import org.springframework.stereotype.Component;
 
-public interface AdministratorRepository extends CrudRepository<Administrator> {
+import java.util.List;
+
+@Component
+public interface AdministratorRepository {
+
+    List<AdministratorView> findAllView();
 }

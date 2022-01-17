@@ -38,7 +38,8 @@ public class PacientInfoTableController {
             proceduraRepository.getProceduraViewListByUserIdAfterNow(authUser.getUser().getId());
 
         return new ModelAndView("pacient/appointments")
-            .addObject("list", list);
+            .addObject("list", list)
+            .addObject("authUser", authUser);
     }
 
     @GetMapping("/procedury/minule")
@@ -49,7 +50,8 @@ public class PacientInfoTableController {
             proceduraRepository.getProceduraViewListByUserIdBeforeNow(authUser.getUser().getId());
 
         return new ModelAndView("pacient/appointments")
-            .addObject("list", list);
+            .addObject("list", list)
+            .addObject("authUser", authUser);
     }
 
     @GetMapping("/hospitalizace")
@@ -60,6 +62,7 @@ public class PacientInfoTableController {
             hospitalizaceRepository.findAllByPacientId(authUser.getUser().getId());
 
         return new ModelAndView("pacient/hospitalizace")
-            .addObject("list", list);
+            .addObject("list", list)
+            .addObject("authUser", authUser);
     }
 }

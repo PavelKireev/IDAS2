@@ -7,7 +7,7 @@ import com.idas2.zdravotnisystem.db.repository.ObrazekRepository;
 import com.idas2.zdravotnisystem.db.repository.PacientRepository;
 import com.idas2.zdravotnisystem.db.repository.ProceduraRepository;
 import com.idas2.zdravotnisystem.db.view.PacientView;
-import com.idas2.zdravotnisystem.form.pacient.PacientInfoForm;
+import com.idas2.zdravotnisystem.form.uzivatel.pacient.PacientInfoForm;
 import com.idas2.zdravotnisystem.service.form.PacientFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -72,6 +72,7 @@ public class PacientProfileController {
                 .addObject("user", user)
                 .addObject("avatar", file)
                 .addObject("pacientView", pacientView)
+                .addObject("authUser", authUser)
                 .addObject("pacientForm",
                     pacientFormService.buildInfoFormFromView(pacientView)
                 );
@@ -103,13 +104,15 @@ public class PacientProfileController {
         @AuthenticationPrincipal AuthUser authUser
     ) {
 
-        return new ModelAndView("");
+        return new ModelAndView("")
+            .addObject("authUser", authUser);
     }
 
     @GetMapping("/hospitalisation")
     public ModelAndView hospitalization(
         @AuthenticationPrincipal AuthUser authUser
     ) {
-        return null;
+        return new ModelAndView()
+            .addObject("authUser", authUser);
     }
 }

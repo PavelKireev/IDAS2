@@ -2,7 +2,7 @@ package com.idas2.zdravotnisystem.service.form;
 
 import com.idas2.zdravotnisystem.db.repository.LekarRepository;
 import com.idas2.zdravotnisystem.db.view.LekarView;
-import com.idas2.zdravotnisystem.form.lekar.LekarProfileUpdateForm;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarProfileUpdateForm;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

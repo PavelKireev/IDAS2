@@ -2,7 +2,11 @@ package com.idas2.zdravotnisystem.db.repository.impl;
 
 import com.idas2.zdravotnisystem.db.entity.Log;
 import com.idas2.zdravotnisystem.db.mapper.entity.LogMapper;
+import com.idas2.zdravotnisystem.db.mapper.view.LogTabulkyViewMapper;
+import com.idas2.zdravotnisystem.db.mapper.view.LogUzivatelViewMapper;
 import com.idas2.zdravotnisystem.db.repository.LogRepository;
+import com.idas2.zdravotnisystem.db.view.LogTabulkyView;
+import com.idas2.zdravotnisystem.db.view.LogUzivatelView;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -19,48 +23,27 @@ import java.util.Map;
 
 @Component
 public class LogRepositoryImpl
-    extends AbstractCrudRepository<Log, LogMapper>
+    extends AbstractCrudRepository
     implements LogRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LogRepositoryImpl.class);
 
-
     private final LogMapper logMapper;
+    private final LogTabulkyViewMapper logTabulkyViewMapper;
+    private final LogUzivatelViewMapper logUzivatelViewMapper;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
     public LogRepositoryImpl(
         LogMapper logMapper,
+        LogTabulkyViewMapper logTabulkyViewMapper,
+        LogUzivatelViewMapper logUzivatelViewMapper,
         NamedParameterJdbcTemplate namedParameterJdbcTemplate
     ) {
-        super(namedParameterJdbcTemplate);
         this.logMapper = logMapper;
+        this.logTabulkyViewMapper = logTabulkyViewMapper;
+        this.logUzivatelViewMapper = logUzivatelViewMapper;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-    }
-
-    @Override
-    public @Nullable Log getOne(Integer id) {
-        return null;
-    }
-
-    @Override
-    public @NotNull Integer create(@NotNull Log entity) {
-        return null;
-    }
-
-    @Override
-    public @Nullable Log update(@NotNull Log entity) {
-        return null;
-    }
-
-    @Override
-    public void delete(@NotNull Integer id) {
-
-    }
-
-    @Override
-    public void delete(@NotNull Log entity) {
-
     }
 
     @Override
@@ -74,6 +57,44 @@ public class LogRepositoryImpl
                         "SELECT * FROM LOG",
                         mapParams(map),
                         logMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn("EmptyResultDataAccessException");
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<LogTabulkyView> findAllTableLog() {
+        Map<String, Object> map = new HashMap<>();
+
+        try {
+            return
+                namedParameterJdbcTemplate
+                    .query(
+                        "SELECT * FROM LOG_TABULKY_V",
+                        mapParams(map),
+                        logTabulkyViewMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn("EmptyResultDataAccessException");
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<LogUzivatelView> findAllUserLog() {
+        Map<String, Object> map = new HashMap<>();
+
+        try {
+            return
+                namedParameterJdbcTemplate
+                    .query(
+                        "SELECT * FROM LOG_UZIVATEL_V",
+                        mapParams(map),
+                        logUzivatelViewMapper
                     );
 
         } catch (EmptyResultDataAccessException ex) {

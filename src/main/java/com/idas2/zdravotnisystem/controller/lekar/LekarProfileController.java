@@ -5,7 +5,7 @@ import com.idas2.zdravotnisystem.db.entity.User;
 import com.idas2.zdravotnisystem.db.repository.LekarRepository;
 import com.idas2.zdravotnisystem.db.repository.ObrazekRepository;
 import com.idas2.zdravotnisystem.db.view.LekarView;
-import com.idas2.zdravotnisystem.form.lekar.LekarProfileUpdateForm;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarProfileUpdateForm;
 import com.idas2.zdravotnisystem.service.form.LekarFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.apache.tomcat.util.codec.binary.Base64;

@@ -2,19 +2,26 @@ package com.idas2.zdravotnisystem.db.mapper.view;
 
 import com.idas2.zdravotnisystem.db.view.LogTabulkyView;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LogTabulkyViewMapper implements RowMapper {
+@Component
+public class LogTabulkyViewMapper implements RowMapper<LogTabulkyView> {
 
     @Override
-    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public LogTabulkyView mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-        LogTabulkyView view = new LogTabulkyView();
+        LogTabulkyView logTabulkyView = new LogTabulkyView();
 
-        view.setAkce(null);
+        logTabulkyView
+            .setText(rs.getString("TEXT"))
+            .setPrimarniKlic(rs.getInt("PRIMARNI_KLIC"))
+            .setTabulka(rs.getString("TABULKA"))
+            .setAkce(rs.getString("AKCE"))
+            .setDatum(rs.getDate("DATUM"));
 
-        return view;
+        return logTabulkyView;
     }
 }

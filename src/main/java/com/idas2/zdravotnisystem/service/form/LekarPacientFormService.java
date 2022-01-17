@@ -3,10 +3,9 @@ package com.idas2.zdravotnisystem.service.form;
 import com.idas2.zdravotnisystem.db.entity.Pojisteni;
 import com.idas2.zdravotnisystem.db.entity.ZdravortniKarta;
 import com.idas2.zdravotnisystem.db.view.PacientView;
-import com.idas2.zdravotnisystem.form.lekar.LekarKartaUpdateForm;
-import com.idas2.zdravotnisystem.form.lekar.LekarPacientUpdateForm;
-import com.idas2.zdravotnisystem.form.lekar.LekarPojisteniForm;
-import com.idas2.zdravotnisystem.form.lekar.LekarZdravortniKartaForm;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarKartaUpdateForm;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarPacientUpdateForm;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarPojisteniForm;
 import org.jetbrains.annotations.NotNull;
 
 public interface LekarPacientFormService {

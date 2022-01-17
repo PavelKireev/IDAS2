@@ -1,7 +1,7 @@
 package com.idas2.zdravotnisystem.service.form;
 
 import com.idas2.zdravotnisystem.db.view.LekarView;
-import com.idas2.zdravotnisystem.form.lekar.LekarProfileUpdateForm;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarProfileUpdateForm;
 import org.jetbrains.annotations.NotNull;
 
 public interface LekarFormService {

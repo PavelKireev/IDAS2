@@ -1,12 +1,8 @@
 package com.idas2.zdravotnisystem.db.repository.impl;
 
-import com.idas2.zdravotnisystem.db.entity.NemocnicniPokoj;
-import com.idas2.zdravotnisystem.db.mapper.entity.NemocnicniPokojMapper;
 import com.idas2.zdravotnisystem.db.mapper.view.NemocnicniPokojViewMapper;
 import com.idas2.zdravotnisystem.db.repository.NemocnicniPokojRepository;
 import com.idas2.zdravotnisystem.db.view.NemocnicniPokojView;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +17,8 @@ import java.util.Map;
 
 @Component
 public class NemocnicniPokojRepositoryImpl
-extends AbstractCrudRepository<NemocnicniPokoj, NemocnicniPokojMapper>
-implements NemocnicniPokojRepository {
+    extends AbstractCrudRepository
+    implements NemocnicniPokojRepository {
 
     private static final Logger LOGGER =
         LoggerFactory.getLogger(NemocnicniPokojRepositoryImpl.class);
@@ -35,34 +31,8 @@ implements NemocnicniPokojRepository {
         NemocnicniPokojViewMapper nemocnicniPokojViewMapper,
         NamedParameterJdbcTemplate namedParameterJdbcTemplate
     ) {
-        super(namedParameterJdbcTemplate);
         this.nemocnicniPokojViewMapper = nemocnicniPokojViewMapper;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-    }
-
-    @Override
-    public @Nullable NemocnicniPokoj getOne(Integer id) {
-        return null;
-    }
-
-    @Override
-    public @NotNull Integer create(@NotNull NemocnicniPokoj entity) {
-        return null;
-    }
-
-    @Override
-    public @Nullable NemocnicniPokoj update(@NotNull NemocnicniPokoj entity) {
-        return null;
-    }
-
-    @Override
-    public void delete(@NotNull Integer id) {
-
-    }
-
-    @Override
-    public void delete(@NotNull NemocnicniPokoj entity) {
-
     }
 
     @Override

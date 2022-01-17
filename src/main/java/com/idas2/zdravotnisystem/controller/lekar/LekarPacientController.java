@@ -7,9 +7,8 @@ import com.idas2.zdravotnisystem.db.entity.ZdravortniKarta;
 import com.idas2.zdravotnisystem.db.repository.*;
 import com.idas2.zdravotnisystem.db.repository.impl.NemocnicniPokojRepositoryImpl;
 import com.idas2.zdravotnisystem.db.view.PacientView;
-import com.idas2.zdravotnisystem.form.lekar.*;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.*;
 import com.idas2.zdravotnisystem.service.form.LekarPacientFormService;
-import com.idas2.zdravotnisystem.service.form.PacientFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +58,8 @@ public class LekarPacientController {
     ) {
         List<PacientView> list = pacientRepository.findAllView();
         return new ModelAndView("lekar/pacient/list")
-            .addObject("list", list);
+            .addObject("list", list)
+            .addObject("authUser", authUser);
     }
 
     @GetMapping("/delete")
@@ -109,6 +109,7 @@ public class LekarPacientController {
 
         return new ModelAndView("lekar/pacient/info")
             .addObject("avatar", avatar)
+            .addObject("authUser", authUser)
             .addObject("kartaForm", kartaForm)
             .addObject("pojisteni", pojisteni)
             .addObject("pacientForm", pacientForm)
@@ -117,14 +118,6 @@ public class LekarPacientController {
             .addObject("pojistovnaList", pojistovnaList)
             .addObject("zdravotniKarta", zdravortniKarta)
             .addObject("pokojList", nemocnicniPokojRepository.findAll());
-    }
-
-    @GetMapping("/{pacientUuid}/zaznam/add")
-    public ModelAndView zaznamAdd(
-
-    ){
-
-        return new ModelAndView();
     }
 
     @PostMapping("/{pacientUuid}/profile/update")

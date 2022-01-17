@@ -11,5 +11,7 @@ public interface UzivatelRepository extends CrudRepository<User> {
 
     @NotNull User findByUuid(String uuid);
 
+    @NotNull User findById(Integer id);
+
     @NotNull UzivatelView findViewByUuid(String uuid);
 }
