@@ -7,16 +7,25 @@ import com.idas2.zdravotnisystem.db.repository.LekarRepository;
 import com.idas2.zdravotnisystem.db.view.LekarView;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class LekarRepositoryImpl
-    extends AbstractCrudRepository<Lekar, LekarMapper>
+    extends AbstractCrudRepository
     implements LekarRepository {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LekarRepositoryImpl.class);
 
     private final LekarViewMapper lekarViewMapper;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -26,44 +35,22 @@ public class LekarRepositoryImpl
         LekarViewMapper lekarViewMapper,
         NamedParameterJdbcTemplate namedParameterJdbcTemplate
     ) {
-        super(namedParameterJdbcTemplate);
         this.lekarViewMapper = lekarViewMapper;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-    }
-
-    @Override
-    public @Nullable Lekar getOne(Integer id) {
-        return null;
-    }
-
-    @Override
-    public @NotNull Integer create(@NotNull Lekar entity) {
-        return null;
-    }
-
-    @Override
-    public @Nullable Lekar update(@NotNull Lekar entity) {
-        return null;
-    }
-
-    @Override
-    public void delete(@NotNull Integer id) {
-
-    }
-
-    @Override
-    public void delete(@NotNull Lekar entity) {
     }
 
 
     @Override
     public @NotNull LekarView getViewById(@NotNull Integer id) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+        parameters.addValue("ID", id);
         try {
             return
                 namedParameterJdbcTemplate
                     .queryForObject(
                         "SELECT * FROM LEKAR_V WHERE ID = :ID",
-                        mapViewParams("ID", id),
+                        parameters,
                         lekarViewMapper
                     );
 
@@ -105,5 +92,24 @@ public class LekarRepositoryImpl
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public @NotNull List<LekarView> findAllView() {
+        Map<String, Object> map = new HashMap<>();
+
+        try {
+            return
+                namedParameterJdbcTemplate
+                    .query(
+                        "SELECT * FROM LEKAR_V",
+                        mapParams(map),
+                        lekarViewMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn("EmptyResultDataAccessException");
+            return new ArrayList<>();
+        }
     }
 }

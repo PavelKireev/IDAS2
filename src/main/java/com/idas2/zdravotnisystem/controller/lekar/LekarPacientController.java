@@ -79,8 +79,8 @@ public class LekarPacientController {
         PacientView pacientView =
             pacientRepository.getPacientViewByUzivatelUuid(pacientUuid);
 
-        LekarPacientUpdateForm pacientForm =
-            lekarPacientFormService.buildPacientForm(pacientView, new LekarPacientUpdateForm());
+        PacientUpdateForm pacientForm =
+            lekarPacientFormService.buildPacientForm(pacientView, new PacientUpdateForm());
 
         ZdravortniKarta zdravortniKarta =
             zdravotniKartaRepository.findByPacientId(pacientView.getId());
@@ -124,7 +124,7 @@ public class LekarPacientController {
     public ModelAndView updateProfile(
         @PathVariable String pacientUuid,
         @AuthenticationPrincipal AuthUser authUser,
-        @ModelAttribute("pacientForm") LekarPacientUpdateForm pacientForm
+        @ModelAttribute("pacientForm") PacientUpdateForm pacientForm
     ) {
         PacientView pacientView =
             pacientRepository.getPacientViewByUzivatelUuid(pacientUuid);

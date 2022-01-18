@@ -7,7 +7,7 @@ import com.idas2.zdravotnisystem.db.repository.PojisteniRepository;
 import com.idas2.zdravotnisystem.db.repository.ZdravotniKartaRepository;
 import com.idas2.zdravotnisystem.db.view.PacientView;
 import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarKartaUpdateForm;
-import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarPacientUpdateForm;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.PacientUpdateForm;
 import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarPojisteniForm;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,9 +94,9 @@ public class LekarPacientFormServiceImpl implements LekarPacientFormService {
     }
 
     @Override
-    public @NotNull LekarPacientUpdateForm buildPacientForm(
+    public @NotNull PacientUpdateForm buildPacientForm(
         @NotNull PacientView source,
-        @NotNull LekarPacientUpdateForm target
+        @NotNull PacientUpdateForm target
     ) {
         return target
             .setEmail(source.getEmail())
@@ -114,7 +114,7 @@ public class LekarPacientFormServiceImpl implements LekarPacientFormService {
     @Override
     public @NotNull void updatePacientForm(
         @NotNull Integer pacientId,
-        @NotNull LekarPacientUpdateForm source
+        @NotNull PacientUpdateForm source
     ) {
         PacientView pacientView =
             pacientRepository.getPacientViewByUzivatelId(pacientId);

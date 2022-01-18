@@ -1,6 +1,7 @@
 package com.idas2.zdravotnisystem.service.form;
 
 import com.idas2.zdravotnisystem.db.view.PacientView;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.PacientUpdateForm;
 import com.idas2.zdravotnisystem.form.uzivatel.pacient.PacientInfoForm;
 import com.idas2.zdravotnisystem.form.uzivatel.pacient.PacientSignUpForm;
 import org.jetbrains.annotations.NotNull;
@@ -18,10 +19,10 @@ public interface PacientFormService {
         @NotNull PacientView source
     );
 
-    void updateProfileInfo(
-        @NotNull String userUuid,
-        @NotNull PacientInfoForm form
-    );
+//    void updateProfileInfo(
+//        @NotNull String userUuid,
+//        @NotNull PacientInfoForm form
+//    );
 
     void updateInfoPaient(
         @NotNull Integer pacientId,
@@ -31,4 +32,6 @@ public interface PacientFormService {
     void signUp(
         @NotNull PacientSignUpForm form
     );
+
+    PacientUpdateForm buildPacientUpdateForm(PacientView view);
 }

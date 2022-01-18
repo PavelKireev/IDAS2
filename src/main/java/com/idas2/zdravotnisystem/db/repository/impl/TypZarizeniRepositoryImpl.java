@@ -3,14 +3,11 @@ package com.idas2.zdravotnisystem.db.repository.impl;
 import com.idas2.zdravotnisystem.db.entity.TypZarizeni;
 import com.idas2.zdravotnisystem.db.mapper.entity.TypZarizeniMapper;
 import com.idas2.zdravotnisystem.db.repository.TypZarizeniRepository;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,7 +17,7 @@ import java.util.Map;
 
 @Service
 public class TypZarizeniRepositoryImpl
-    extends AbstractCrudRepository<TypZarizeni, TypZarizeniMapper>
+    extends AbstractCrudRepository
     implements TypZarizeniRepository {
 
     private static final Logger LOGGER =
@@ -34,35 +31,8 @@ public class TypZarizeniRepositoryImpl
         TypZarizeniMapper typZarizeniMapper,
         NamedParameterJdbcTemplate jdbcTemplate
     ) {
-        super(jdbcTemplate);
         this.typZarizeniMapper = typZarizeniMapper;
         this.jdbcTemplate = jdbcTemplate;
-    }
-
-
-    @Override
-    public @Nullable TypZarizeni getOne(Integer id) {
-        return null;
-    }
-
-    @Override
-    public @NotNull Integer create(@NotNull TypZarizeni entity) {
-        return null;
-    }
-
-    @Override
-    public @Nullable TypZarizeni update(@NotNull TypZarizeni entity) {
-        return null;
-    }
-
-    @Override
-    public void delete(@NotNull Integer id) {
-
-    }
-
-    @Override
-    public void delete(@NotNull TypZarizeni entity) {
-
     }
 
     @Override

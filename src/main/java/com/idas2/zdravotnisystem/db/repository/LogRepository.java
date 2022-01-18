@@ -6,9 +6,11 @@ import com.idas2.zdravotnisystem.db.view.LogUzivatelView;
 
 import java.util.List;
 
-public interface LogRepository extends CrudRepository<Log> {
+public interface LogRepository {
 
     List<Log> findAll();
+
     List<LogTabulkyView> findAllTableLog();
+
     List<LogUzivatelView> findAllUserLog();
 }

@@ -4,7 +4,7 @@ import com.idas2.zdravotnisystem.db.entity.Pojisteni;
 import com.idas2.zdravotnisystem.db.entity.ZdravortniKarta;
 import com.idas2.zdravotnisystem.db.view.PacientView;
 import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarKartaUpdateForm;
-import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarPacientUpdateForm;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.PacientUpdateForm;
 import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarPojisteniForm;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,14 +34,14 @@ public interface LekarPacientFormService {
 
 
     @NotNull
-    LekarPacientUpdateForm buildPacientForm(
+    PacientUpdateForm buildPacientForm(
         @NotNull PacientView source,
-        @NotNull LekarPacientUpdateForm target
+        @NotNull PacientUpdateForm target
     );
 
     void updatePacientForm(
         @NotNull Integer pacientId,
-        @NotNull LekarPacientUpdateForm source
+        @NotNull PacientUpdateForm source
     );
 
 }

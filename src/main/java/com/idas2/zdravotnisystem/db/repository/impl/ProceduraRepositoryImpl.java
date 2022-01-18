@@ -24,7 +24,7 @@ import java.util.Map;
 
 @Service
 public class ProceduraRepositoryImpl
-    extends AbstractCrudRepository<Procedura, ProceduraMapper>
+    extends AbstractCrudRepository
     implements ProceduraRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProceduraRepositoryImpl.class);
@@ -38,7 +38,6 @@ public class ProceduraRepositoryImpl
         ProceduraMapper proceduraMapper, NamedParameterJdbcTemplate jdbcTemplate,
         ProceduraViewMapper proceduraViewMapper
     ) {
-        super(jdbcTemplate);
         this.proceduraMapper = proceduraMapper;
         this.jdbcTemplate = jdbcTemplate;
         this.proceduraViewMapper = proceduraViewMapper;

@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Component
 public class TypProceduryRepositoryImpl
-    extends AbstractCrudRepository<TypProcedury, TypProceduryMapper>
+    extends AbstractCrudRepository
     implements TypProceduryRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TypProceduryRepositoryImpl.class);
@@ -30,7 +30,6 @@ public class TypProceduryRepositoryImpl
         TypProceduryMapper typProceduryMapper,
         NamedParameterJdbcTemplate namedParameterJdbcTemplate
     ) {
-        super(namedParameterJdbcTemplate);
         this.typProceduryMapper = typProceduryMapper;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }

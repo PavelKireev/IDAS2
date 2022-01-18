@@ -52,5 +52,6 @@ public class AdministratorRepositoryImpl
         } catch (EmptyResultDataAccessException ex) {
             LOGGER.warn("EmptyResultDataAccessException");
             return new ArrayList<>();
-        }    }
+        }
+    }
 }

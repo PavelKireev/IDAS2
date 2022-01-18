@@ -1,6 +1,6 @@
 package com.idas2.zdravotnisystem.form.uzivatel.lekar;
 
-public class LekarPacientUpdateForm {
+public class PacientUpdateForm {
 
     private String email;
 
@@ -23,7 +23,7 @@ public class LekarPacientUpdateForm {
         return jmeno;
     }
 
-    public LekarPacientUpdateForm setJmeno(String jmeno) {
+    public PacientUpdateForm setJmeno(String jmeno) {
         this.jmeno = jmeno;
         return this;
     }
@@ -32,7 +32,7 @@ public class LekarPacientUpdateForm {
         return prijmeni;
     }
 
-    public LekarPacientUpdateForm setPrijmeni(String prijmeni) {
+    public PacientUpdateForm setPrijmeni(String prijmeni) {
         this.prijmeni = prijmeni;
         return this;
     }
@@ -41,7 +41,7 @@ public class LekarPacientUpdateForm {
         return email;
     }
 
-    public LekarPacientUpdateForm setEmail(String email) {
+    public PacientUpdateForm setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -50,7 +50,7 @@ public class LekarPacientUpdateForm {
         return adresa;
     }
 
-    public LekarPacientUpdateForm setAdresa(String adresa) {
+    public PacientUpdateForm setAdresa(String adresa) {
         this.adresa = adresa;
         return this;
     }
@@ -59,7 +59,7 @@ public class LekarPacientUpdateForm {
         return telCislo;
     }
 
-    public LekarPacientUpdateForm setTelCislo(String telCislo) {
+    public PacientUpdateForm setTelCislo(String telCislo) {
         this.telCislo = telCislo;
         return this;
     }
@@ -68,7 +68,7 @@ public class LekarPacientUpdateForm {
         return rust;
     }
 
-    public LekarPacientUpdateForm setRust(Integer rust) {
+    public PacientUpdateForm setRust(Integer rust) {
         this.rust = rust;
         return this;
     }
@@ -77,7 +77,7 @@ public class LekarPacientUpdateForm {
         return hmotnost;
     }
 
-    public LekarPacientUpdateForm setHmotnost(Integer hmotnost) {
+    public PacientUpdateForm setHmotnost(Integer hmotnost) {
         this.hmotnost = hmotnost;
         return this;
     }
@@ -86,7 +86,7 @@ public class LekarPacientUpdateForm {
         return datumNarozeni;
     }
 
-    public LekarPacientUpdateForm setDatumNarozeni(String datumNarozeni) {
+    public PacientUpdateForm setDatumNarozeni(String datumNarozeni) {
         this.datumNarozeni = datumNarozeni;
         return this;
     }
@@ -95,7 +95,7 @@ public class LekarPacientUpdateForm {
         return idPokoj;
     }
 
-    public LekarPacientUpdateForm setIdPokoj(Integer idPokoj) {
+    public PacientUpdateForm setIdPokoj(Integer idPokoj) {
         this.idPokoj = idPokoj;
         return this;
     }

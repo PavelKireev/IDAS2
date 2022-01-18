@@ -6,6 +6,7 @@ import com.idas2.zdravotnisystem.db.entity.User;
 import com.idas2.zdravotnisystem.db.entity.ZdravortniKarta;
 import com.idas2.zdravotnisystem.db.repository.*;
 import com.idas2.zdravotnisystem.db.view.PacientView;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.PacientUpdateForm;
 import com.idas2.zdravotnisystem.form.uzivatel.pacient.PacientInfoForm;
 import com.idas2.zdravotnisystem.form.uzivatel.pacient.PacientSignUpForm;
 import com.idas2.zdravotnisystem.util.TimeUtil;
@@ -63,18 +64,18 @@ public class PacientFormServiceImpl implements PacientFormService {
         return buildInfoFormFromView(new PacientInfoForm(), source);
     }
 
-    @Override
-    public void updateProfileInfo(
-        @NotNull String userUuid,
-        @NotNull PacientInfoForm form
-    ) {
-        User user =
-            uzivatelRepository.findByUuid(userUuid)
-                .setAdresa(form.getAdresa())
-                .setTelCislo(form.getTelCislo());
-
-        uzivatelRepository.update(user);
-    }
+//    @Override
+//    public void updateProfileInfo(
+//        @NotNull String userUuid,
+//        @NotNull PacientInfoForm form
+//    ) {
+//        User user =
+//            uzivatelRepository.findByUuid(userUuid)
+//                .setAdresa(form.getAdresa())
+//                .setTelCislo(form.getTelCislo());
+//
+//        uzivatelRepository.update(user);
+//    }
 
 
     @Override
@@ -151,6 +152,23 @@ public class PacientFormServiceImpl implements PacientFormService {
             .setZdravotniKartaIdKarta(karta.getId());
 
         pojisteniRepository.updateByEntity(pojisteni);
+    }
+
+    @Override
+    public PacientUpdateForm buildPacientUpdateForm(PacientView view){
+
+        PacientUpdateForm form = new PacientUpdateForm();
+
+        return form
+            .setJmeno(view.getJmeno())
+            .setPrijmeni(view.getPrijmeni())
+            .setEmail(view.getEmail())
+            .setAdresa(view.getAdresa())
+            .setTelCislo(view.getTelCislo())
+            .setDatumNarozeni(view.getDatumNarozeni().toLocalDate().toString())
+            .setHmotnost(view.getHmotnost())
+            .setRust(view.getRust())
+            .setIdPokoj(view.getPokojIdMistnost());
 
     }
 

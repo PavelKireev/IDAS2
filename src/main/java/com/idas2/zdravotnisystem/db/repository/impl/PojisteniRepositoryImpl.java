@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PojisteniRepositoryImpl
-    extends AbstractCrudRepository<Pojisteni, PojisteniMapper>
+    extends AbstractCrudRepository
     implements PojisteniRepository {
 
     private final PojisteniMapper pojisteniMapper;
@@ -24,34 +24,8 @@ public class PojisteniRepositoryImpl
         PojisteniMapper pojisteniMapper,
         NamedParameterJdbcTemplate namedParameterJdbcTemplate
     ) {
-        super(namedParameterJdbcTemplate);
         this.pojisteniMapper = pojisteniMapper;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-    }
-
-    @Override
-    public @Nullable Pojisteni getOne(Integer id) {
-        return null;
-    }
-
-    @Override
-    public @NotNull Integer create(@NotNull Pojisteni entity) {
-        return null;
-    }
-
-    @Override
-    public @Nullable Pojisteni update(@NotNull Pojisteni entity) {
-        return null;
-    }
-
-    @Override
-    public void delete(@NotNull Integer id) {
-
-    }
-
-    @Override
-    public void delete(@NotNull Pojisteni entity) {
-
     }
 
     @Override

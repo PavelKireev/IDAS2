@@ -2,28 +2,82 @@ package com.idas2.zdravotnisystem.controller.admin;
 
 import com.idas2.zdravotnisystem.component.AuthUser;
 import com.idas2.zdravotnisystem.db.entity.User;
+import com.idas2.zdravotnisystem.db.repository.LekarRepository;
 import com.idas2.zdravotnisystem.db.repository.UzivatelRepository;
+import com.idas2.zdravotnisystem.db.view.LekarView;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarCreateForm;
+import com.idas2.zdravotnisystem.service.form.LekarFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
-@RequestMapping("/admin/lekar")
+@RequestMapping("/admin/uzivatel/lekar")
 public class AdminLekarController {
 
+    private final LekarRepository lekarRepository;
+    private final LekarFormService lekarFormService;
     private final UzivatelRepository uzivatelRepository;
 
     @Autowired
     public AdminLekarController(
+        LekarRepository lekarRepository,
+        LekarFormService lekarFormService,
         UzivatelRepository uzivatelRepository
     ) {
+        this.lekarRepository = lekarRepository;
+        this.lekarFormService = lekarFormService;
         this.uzivatelRepository = uzivatelRepository;
+    }
+
+    @GetMapping("")
+    public ModelAndView info(
+        @AuthenticationPrincipal AuthUser authUser
+    ){
+        List<LekarView> list = lekarRepository.findAllView();
+        return new ModelAndView("admin/overview/lekar/list")
+            .addObject("list", list)
+            .addObject("authUser", authUser);
+    }
+
+    @GetMapping("/create")
+    public ModelAndView create(
+        @AuthenticationPrincipal AuthUser authUser
+    ) {
+        return new ModelAndView()
+            .addObject("form", new LekarCreateForm());
+    }
+
+    @PostMapping("/save")
+    public ModelAndView save(
+        @ModelAttribute LekarCreateForm form,
+        @AuthenticationPrincipal AuthUser authUser
+    ){
+        lekarFormService.save(form);
+        return RedirectUtil.redirect("/admin/uzivatel/lekar");
+    }
+
+    @GetMapping("/{lekarId}/edit")
+    public ModelAndView edit(
+        @PathVariable Integer lekarId,
+        @AuthenticationPrincipal AuthUser authUser
+    ) {
+        LekarView view = lekarRepository.getViewById(lekarId);
+        return new ModelAndView("admin/overview/lekar/edit")
+            .addObject("view", view);
+    }
+
+    @PostMapping("/{lekarId}/update")
+    public  ModelAndView update(
+        @PathVariable Integer lekarId,
+        @AuthenticationPrincipal AuthUser authUser
+    ){
+        return RedirectUtil.redirect("/admin/uzivatel/lekar");
     }
 
     @GetMapping("/{lekarId}/simulate")

@@ -6,7 +6,6 @@ import com.idas2.zdravotnisystem.db.mapper.view.UzivatelViewMapper;
 import com.idas2.zdravotnisystem.db.repository.UzivatelRepository;
 import com.idas2.zdravotnisystem.db.view.UzivatelView;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UzivatelRepositoryImpl
-    extends AbstractCrudRepository<User, UserMapper>
+    extends AbstractCrudRepository
     implements UzivatelRepository {
 
     private final UserMapper mapper;
@@ -27,20 +26,9 @@ public class UzivatelRepositoryImpl
         UserMapper mapper,
         UzivatelViewMapper uzivatelViewMapper
     ) {
-        super(namedParameterJdbcTemplate);
         this.mapper = mapper;
         this.uzivatelViewMapper = uzivatelViewMapper;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-    }
-
-    @Override
-    public @Nullable User getOne(Integer id) {
-        return null;
-    }
-
-    @Override
-    public @NotNull Integer create(@NotNull User entity) {
-        return null;
     }
 
     @Override
@@ -97,42 +85,44 @@ public class UzivatelRepositoryImpl
     }
 
     @Override
-    public void delete(@NotNull Integer id) {
-
-    }
-
-    @Override
-    public void delete(@NotNull User entity) {
-
-    }
-
-    @Override
     public User findByEmail(String email) {
-        return getOne(
-            "SELECT * FROM UZIVATEL WHERE EMAIL = :EMAIL",
-            mapParams("EMAIL", email),
-            mapper
-        );
+        try {
+            return namedParameterJdbcTemplate.queryForObject(
+                "SELECT * FROM UZIVATEL WHERE EMAIL = :EMAIL",
+                mapParams("EMAIL", email),
+                mapper
+            );
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
     }
 
     @NotNull
     @Override
     public User findByUuid(String uuid) {
-        return getOne(
-            "SELECT * FROM UZIVATEL WHERE UUID = :UUID",
-            mapParams("UUID", uuid),
-            mapper
-        );
+        try {
+            return namedParameterJdbcTemplate.queryForObject(
+                "SELECT * FROM UZIVATEL WHERE UUID = :UUID",
+                mapParams("UUID", uuid),
+                mapper
+            );
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
     }
 
     @NotNull
     @Override
     public User findById(Integer id) {
-        return getOne(
-            "SELECT * FROM UZIVATEL WHERE ID_UZIVATEL = :ID",
-            mapParams("ID", id),
-            mapper
-        );
+        try {
+            return namedParameterJdbcTemplate.queryForObject(
+                "SELECT * FROM UZIVATEL WHERE ID_UZIVATEL = :ID",
+                mapParams("ID", id),
+                mapper
+            );
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
     }
 
     @NotNull
