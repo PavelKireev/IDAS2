@@ -19,4 +19,8 @@ public interface LekarRepository {
 
     @NotNull
     List<LekarView> findAllView();
+
+    void delete(
+        @NotNull Integer id
+    );
 }

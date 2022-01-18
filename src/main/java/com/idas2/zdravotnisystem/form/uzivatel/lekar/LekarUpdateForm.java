@@ -1,6 +1,8 @@
 package com.idas2.zdravotnisystem.form.uzivatel.lekar;
 
-public class LekarCreateForm {
+public class LekarUpdateForm {
+
+    private Integer id;
 
     private String email;
     private String heslo;
@@ -11,15 +13,28 @@ public class LekarCreateForm {
 
     private String telCislo;
 
+    private byte[] obrazek;
+    private String nazev;
+    private String pripona;
+
     private Integer plat;
     private Integer idKancelar;
     private Integer idSpecializace;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public LekarUpdateForm setId(Integer id) {
+        this.id = id;
+        return this;
+    }
 
     public String getEmail() {
         return email;
     }
 
-    public LekarCreateForm setEmail(String email) {
+    public LekarUpdateForm setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -28,7 +43,7 @@ public class LekarCreateForm {
         return heslo;
     }
 
-    public LekarCreateForm setHeslo(String heslo) {
+    public LekarUpdateForm setHeslo(String heslo) {
         this.heslo = heslo;
         return this;
     }
@@ -37,7 +52,7 @@ public class LekarCreateForm {
         return hesloPotvrzeni;
     }
 
-    public LekarCreateForm setHesloPotvrzeni(String hesloPotvrzeni) {
+    public LekarUpdateForm setHesloPotvrzeni(String hesloPotvrzeni) {
         this.hesloPotvrzeni = hesloPotvrzeni;
         return this;
     }
@@ -46,7 +61,7 @@ public class LekarCreateForm {
         return jmeno;
     }
 
-    public LekarCreateForm setJmeno(String jmeno) {
+    public LekarUpdateForm setJmeno(String jmeno) {
         this.jmeno = jmeno;
         return this;
     }
@@ -55,7 +70,7 @@ public class LekarCreateForm {
         return prijmeni;
     }
 
-    public LekarCreateForm setPrijmeni(String prijmeni) {
+    public LekarUpdateForm setPrijmeni(String prijmeni) {
         this.prijmeni = prijmeni;
         return this;
     }
@@ -64,8 +79,35 @@ public class LekarCreateForm {
         return telCislo;
     }
 
-    public LekarCreateForm setTelCislo(String telCislo) {
+    public LekarUpdateForm setTelCislo(String telCislo) {
         this.telCislo = telCislo;
+        return this;
+    }
+
+    public byte[] getObrazek() {
+        return obrazek;
+    }
+
+    public LekarUpdateForm setObrazek(byte[] obrazek) {
+        this.obrazek = obrazek;
+        return this;
+    }
+
+    public String getNazev() {
+        return nazev;
+    }
+
+    public LekarUpdateForm setNazev(String nazev) {
+        this.nazev = nazev;
+        return this;
+    }
+
+    public String getPripona() {
+        return pripona;
+    }
+
+    public LekarUpdateForm setPripona(String pripona) {
+        this.pripona = pripona;
         return this;
     }
 
@@ -73,7 +115,7 @@ public class LekarCreateForm {
         return plat;
     }
 
-    public LekarCreateForm setPlat(Integer plat) {
+    public LekarUpdateForm setPlat(Integer plat) {
         this.plat = plat;
         return this;
     }
@@ -82,7 +124,7 @@ public class LekarCreateForm {
         return idKancelar;
     }
 
-    public LekarCreateForm setIdKancelar(Integer idKancelar) {
+    public LekarUpdateForm setIdKancelar(Integer idKancelar) {
         this.idKancelar = idKancelar;
         return this;
     }
@@ -91,7 +133,7 @@ public class LekarCreateForm {
         return idSpecializace;
     }
 
-    public LekarCreateForm setIdSpecializace(Integer idSpecializace) {
+    public LekarUpdateForm setIdSpecializace(Integer idSpecializace) {
         this.idSpecializace = idSpecializace;
         return this;
     }

@@ -112,4 +112,25 @@ public class LekarRepositoryImpl
             return new ArrayList<>();
         }
     }
+
+    @Override
+    public void delete(@NotNull Integer id) {
+
+        try {
+            namedParameterJdbcTemplate
+                .update(
+                    "DELETE FROM LEKAR WHERE UZIVATEL_ID_UZIVATEL = :ID",
+                    mapParams("ID", id)
+                );
+
+            namedParameterJdbcTemplate
+                .update(
+                    "DELETE FROM UZIVATEL WHERE ID_UZIVATEL = :ID",
+                    mapParams("ID", id)
+                );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn("Delete lekar ex");
+        }
+    }
 }

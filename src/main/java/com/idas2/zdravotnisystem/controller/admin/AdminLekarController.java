@@ -6,6 +6,7 @@ import com.idas2.zdravotnisystem.db.repository.LekarRepository;
 import com.idas2.zdravotnisystem.db.repository.UzivatelRepository;
 import com.idas2.zdravotnisystem.db.view.LekarView;
 import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarCreateForm;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarUpdateForm;
 import com.idas2.zdravotnisystem.service.form.LekarFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class AdminLekarController {
     @GetMapping("")
     public ModelAndView info(
         @AuthenticationPrincipal AuthUser authUser
-    ){
+    ) {
         List<LekarView> list = lekarRepository.findAllView();
         return new ModelAndView("admin/overview/lekar/list")
             .addObject("list", list)
@@ -50,6 +51,7 @@ public class AdminLekarController {
         @AuthenticationPrincipal AuthUser authUser
     ) {
         return new ModelAndView()
+            .addObject("authUser", authUser)
             .addObject("form", new LekarCreateForm());
     }
 
@@ -57,7 +59,7 @@ public class AdminLekarController {
     public ModelAndView save(
         @ModelAttribute LekarCreateForm form,
         @AuthenticationPrincipal AuthUser authUser
-    ){
+    ) {
         lekarFormService.save(form);
         return RedirectUtil.redirect("/admin/uzivatel/lekar");
     }
@@ -68,15 +70,31 @@ public class AdminLekarController {
         @AuthenticationPrincipal AuthUser authUser
     ) {
         LekarView view = lekarRepository.getViewById(lekarId);
+        LekarUpdateForm form = lekarFormService.buildUpdateForm(view);
+
         return new ModelAndView("admin/overview/lekar/edit")
-            .addObject("view", view);
+            .addObject("form", form)
+            .addObject("authUser", authUser);
     }
 
     @PostMapping("/{lekarId}/update")
-    public  ModelAndView update(
+    public ModelAndView update(
+        @PathVariable Integer lekarId,
+        @AuthenticationPrincipal AuthUser authUser,
+        @ModelAttribute LekarUpdateForm form
+    ) {
+        form.setId(lekarId);
+        lekarFormService.update(form);
+
+        return RedirectUtil.redirect("/admin/uzivatel/lekar");
+    }
+
+    @GetMapping("/{lekarId}/delete")
+    public ModelAndView delete(
         @PathVariable Integer lekarId,
         @AuthenticationPrincipal AuthUser authUser
-    ){
+    ) {
+        lekarRepository.delete(lekarId);
         return RedirectUtil.redirect("/admin/uzivatel/lekar");
     }
 
