@@ -51,7 +51,8 @@ public class AdministratorRepositoryImpl
 
         } catch (EmptyResultDataAccessException ex) {
             return null;
-        }    }
+        }
+    }
 
     @Override
     public List<AdministratorView> findAllView() {

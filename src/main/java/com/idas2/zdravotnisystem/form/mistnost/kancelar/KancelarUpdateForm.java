@@ -6,7 +6,7 @@ public class KancelarUpdateForm {
     private String nazev;
     private Integer cislo;
     private String plocha;
-    private String jeObsazena;
+    private Boolean jeObsazena;
 
     public Integer getId() {
         return id;
@@ -44,11 +44,11 @@ public class KancelarUpdateForm {
         return this;
     }
 
-    public String getJeObsazena() {
+    public Boolean getJeObsazena() {
         return jeObsazena;
     }
 
-    public KancelarUpdateForm setJeObsazena(String jeObsazena) {
+    public KancelarUpdateForm setJeObsazena(Boolean jeObsazena) {
         this.jeObsazena = jeObsazena;
         return this;
     }

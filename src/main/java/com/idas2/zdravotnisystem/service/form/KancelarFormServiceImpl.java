@@ -21,14 +21,23 @@ public class KancelarFormServiceImpl implements KancelarFormService {
 
     @Override
     public @NotNull KancelarCreateForm buildCreateForm() {
-        return null;
+        return new KancelarCreateForm();
     }
 
     @Override
     public @NotNull KancelarUpdateForm buildUpdateForm(
         @NotNull KancelarView view
     ) {
-        return null;
+        KancelarUpdateForm form = new KancelarUpdateForm();
+
+        form
+            .setId(view.getId())
+            .setNazev(view.getNazev())
+            .setCislo(view.getCislo())
+            .setPlocha(view.getPlocha())
+            .setJeObsazena(view.getJeObsazena());
+
+        return form;
     }
 
     @Override
@@ -42,7 +51,7 @@ public class KancelarFormServiceImpl implements KancelarFormService {
             .setPlocha(form.getPlocha())
             .setJeObsazena(Boolean.valueOf(form.getJeObsazena()));
 
-//        kancelarRepository.saveFromView()
+        kancelarRepository.saveFromView(view);
     }
 
     @Override
@@ -56,6 +65,6 @@ public class KancelarFormServiceImpl implements KancelarFormService {
             .setPlocha(form.getPlocha())
             .setJeObsazena(Boolean.valueOf(form.getJeObsazena()));
 
-//        kancelarRepository.saveFromView()
+        kancelarRepository.saveFromView(view);
     }
 }

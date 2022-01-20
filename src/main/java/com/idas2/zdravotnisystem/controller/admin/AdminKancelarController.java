@@ -3,15 +3,14 @@ package com.idas2.zdravotnisystem.controller.admin;
 import com.idas2.zdravotnisystem.component.AuthUser;
 import com.idas2.zdravotnisystem.db.repository.KancelarRepository;
 import com.idas2.zdravotnisystem.db.view.KancelarView;
+import com.idas2.zdravotnisystem.form.mistnost.kancelar.KancelarCreateForm;
+import com.idas2.zdravotnisystem.form.mistnost.kancelar.KancelarUpdateForm;
 import com.idas2.zdravotnisystem.service.form.KancelarFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -44,34 +43,46 @@ public class AdminKancelarController {
     }
 
     @GetMapping("/create")
-    public ModelAndView create() {
+    public ModelAndView create(
+        @AuthenticationPrincipal AuthUser authUser
+    ) {
 
-        return new ModelAndView("admin/overview/kancelar/create");
+        return new ModelAndView("admin/overview/kancelar/create")
+            .addObject("authUser", authUser)
+            .addObject("form", kancelarFormService.buildCreateForm());
     }
 
     @PostMapping("/save")
-    public ModelAndView save() {
-
+    public ModelAndView save(
+        @ModelAttribute KancelarCreateForm form
+    ) {
+        kancelarFormService.create(form);
         return RedirectUtil.redirect("/admin/mistnost/kancelar");
     }
 
     @GetMapping("/{kancelarId}/edit")
     public ModelAndView edit(
-        @PathVariable Integer kancelarId
+        @PathVariable Integer kancelarId,
+        @AuthenticationPrincipal AuthUser authUser
     ) {
-        return new ModelAndView("admin/overview/kancelar/edit");
+
+        return new ModelAndView("admin/overview/kancelar/edit")
+            .addObject("form", kancelarFormService.buildUpdateForm(null));
     }
 
-    @PostMapping("/update")
+    @PostMapping("/{kancelarId}/update")
     public ModelAndView update(
-
+        @PathVariable Integer kancelarId,
+        @ModelAttribute KancelarUpdateForm form
     ) {
-        return RedirectUtil.redirect("");
+        form.setId(kancelarId);
+        kancelarFormService.update(form);
+        return RedirectUtil.redirect("/admin/mistnost/kancelar");
     }
 
-    @GetMapping("/delete")
+    @GetMapping("{kancelarId}/delete")
     public ModelAndView delete(
-
+        @PathVariable Integer kancelarId
     ) {
         return RedirectUtil.redirect("");
     }
