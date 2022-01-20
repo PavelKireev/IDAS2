@@ -1,11 +1,25 @@
 package com.idas2.zdravotnisystem.db.repository;
 
-import com.idas2.zdravotnisystem.db.entity.Ordinace;
+import com.idas2.zdravotnisystem.db.view.OrdinaceView;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public interface OrdinaceRepository {
 
-    List<Ordinace> findAll();
-    void saveFromEntity(Ordinace entity);
+    @NotNull
+    List<OrdinaceView> findAll();
+
+    @NotNull
+    OrdinaceView findById(
+        @NotNull Integer id
+    );
+
+    void delete(
+        @NotNull Integer id
+    );
+
+    void saveFromView(
+        @NotNull OrdinaceView view
+    );
 }

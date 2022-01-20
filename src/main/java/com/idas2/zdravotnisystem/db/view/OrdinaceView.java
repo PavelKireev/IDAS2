@@ -1,18 +1,18 @@
-package com.idas2.zdravotnisystem.form.mistnost.ordinace;
+package com.idas2.zdravotnisystem.db.view;
 
-public class OrdinaceUpdateForm {
+public class OrdinaceView {
 
     private Integer id;
     private String nazev;
-    private String cislo;
-    private String plocha;
+    private Integer cislo;
+    private Integer plocha;
     private Boolean jeVProvozu;
 
     public Integer getId() {
         return id;
     }
 
-    public OrdinaceUpdateForm setId(Integer id) {
+    public OrdinaceView setId(Integer id) {
         this.id = id;
         return this;
     }
@@ -21,25 +21,25 @@ public class OrdinaceUpdateForm {
         return nazev;
     }
 
-    public OrdinaceUpdateForm setNazev(String nazev) {
+    public OrdinaceView setNazev(String nazev) {
         this.nazev = nazev;
         return this;
     }
 
-    public String getCislo() {
+    public Integer getCislo() {
         return cislo;
     }
 
-    public OrdinaceUpdateForm setCislo(String cislo) {
+    public OrdinaceView setCislo(Integer cislo) {
         this.cislo = cislo;
         return this;
     }
 
-    public String getPlocha() {
+    public Integer getPlocha() {
         return plocha;
     }
 
-    public OrdinaceUpdateForm setPlocha(String plocha) {
+    public OrdinaceView setPlocha(Integer plocha) {
         this.plocha = plocha;
         return this;
     }
@@ -48,7 +48,7 @@ public class OrdinaceUpdateForm {
         return jeVProvozu;
     }
 
-    public OrdinaceUpdateForm setJeVProvozu(Boolean jeVProvozu) {
+    public OrdinaceView setJeVProvozu(Boolean jeVProvozu) {
         this.jeVProvozu = jeVProvozu;
         return this;
     }

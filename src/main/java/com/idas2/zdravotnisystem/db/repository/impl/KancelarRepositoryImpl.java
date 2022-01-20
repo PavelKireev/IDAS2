@@ -76,7 +76,6 @@ public class KancelarRepositoryImpl
 
     @Override
     public void delete(@NotNull Integer id) {
-
         try {
             jdbcTemplate
                 .update(
@@ -90,8 +89,8 @@ public class KancelarRepositoryImpl
                     mapParams("ID", id)
                 );
 
-        } catch (EmptyResultDataAccessException ex) {
-            LOGGER.warn("Delete lekar ex");
+        } catch (RuntimeException ex) {
+            LOGGER.warn("Delete kancelar ex");
         }
     }
 

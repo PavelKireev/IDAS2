@@ -65,9 +65,9 @@ public class AdminKancelarController {
         @PathVariable Integer kancelarId,
         @AuthenticationPrincipal AuthUser authUser
     ) {
-
+        KancelarView view = kancelarRepository.findById(kancelarId);
         return new ModelAndView("admin/overview/kancelar/edit")
-            .addObject("form", kancelarFormService.buildUpdateForm(null));
+            .addObject("form", kancelarFormService.buildUpdateForm(view));
     }
 
     @PostMapping("/{kancelarId}/update")
@@ -84,7 +84,8 @@ public class AdminKancelarController {
     public ModelAndView delete(
         @PathVariable Integer kancelarId
     ) {
-        return RedirectUtil.redirect("");
+        kancelarRepository.delete(kancelarId);
+        return RedirectUtil.redirect("/admin/mistnost/kancelar");
     }
 
 }
