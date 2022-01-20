@@ -8,6 +8,7 @@ public class AdministratorView {
     private String uuid;
 
     private String email;
+    private String heslo;
 
     private String jmeno;
     private String prijmeni;
@@ -62,6 +63,15 @@ public class AdministratorView {
 
     public AdministratorView setPrijmeni(String prijmeni) {
         this.prijmeni = prijmeni;
+        return this;
+    }
+
+    public String getHeslo() {
+        return heslo;
+    }
+
+    public AdministratorView setHeslo(String heslo) {
+        this.heslo = heslo;
         return this;
     }
 

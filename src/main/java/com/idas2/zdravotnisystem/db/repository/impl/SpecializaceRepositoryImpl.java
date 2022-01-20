@@ -1,8 +1,8 @@
 package com.idas2.zdravotnisystem.db.repository.impl;
 
-import com.idas2.zdravotnisystem.db.mapper.view.KancelarViewMapper;
-import com.idas2.zdravotnisystem.db.repository.KancelarRepository;
-import com.idas2.zdravotnisystem.db.view.KancelarView;
+import com.idas2.zdravotnisystem.db.entity.Specializace;
+import com.idas2.zdravotnisystem.db.mapper.entity.SpecializaceMapper;
+import com.idas2.zdravotnisystem.db.repository.SpecializaceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,35 +16,37 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class KancelarRepositoryImpl
+public class SpecializaceRepositoryImpl
     extends AbstractCrudRepository
-    implements KancelarRepository {
+    implements SpecializaceRepository {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(KancelarRepositoryImpl.class);
+    private static final Logger LOGGER =
+        LoggerFactory.getLogger(SpecializaceRepositoryImpl.class);
 
-    private final KancelarViewMapper kancelarViewMapper;
+
+    private final SpecializaceMapper mapper;
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     @Autowired
-    public KancelarRepositoryImpl(
-        KancelarViewMapper kancelarViewMapper,
+    public SpecializaceRepositoryImpl(
+        SpecializaceMapper mapper,
         NamedParameterJdbcTemplate jdbcTemplate
     ) {
-        this.kancelarViewMapper = kancelarViewMapper;
+        this.mapper = mapper;
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    public List<KancelarView> findAllView() {
+    public List<Specializace> findAll() {
         Map<String, Object> map = new HashMap<>();
 
         try {
             return
                 jdbcTemplate
                     .query(
-                        "SELECT * FROM KANCELAR_V",
+                        "SELECT * FROM SPECIALIZACE",
                         mapParams(map),
-                        kancelarViewMapper
+                        mapper
                     );
 
         } catch (EmptyResultDataAccessException ex) {

@@ -15,10 +15,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class LekarRepositoryImpl
@@ -71,20 +68,24 @@ public class LekarRepositoryImpl
                 .addValue("JMENO", view.getJmeno())
                 .addValue("PRIJMENI", view.getPrijmeni())
                 .addValue("TEL_CISLO", view.getTelCislo())
-                .addValue("DATA", view.getObrazek())
                 .addValue("NAZEV", view.getObrazekNazev())
                 .addValue("PRIPONA", view.getObrazekPripona())
                 .addValue("PLAT", view.getPlat())
                 .addValue("SPECIALIZACE_ID", view.getIdSpecializace())
-                .addValue("KANCELAR_ID", view.getIdKancelar())
-                .addValue("SPECIALIZACE_NAZEV", view.getSpecializaceNazev());
+                .addValue("KANCELAR_ID", view.getIdKancelar());
+
+            if (Objects.isNull(view.getObrazek())) {
+                parameters.addValue("DATA", new byte[0]);
+            } else {
+                parameters.addValue("DATA", view.getObrazek());
+            }
 
 
             namedParameterJdbcTemplate.update(
                 "CALL LEKAR_PRC (" +
                     ":USER_ID, :EMAIL, :HESLO, :JMENO, :PRIJMENI, :TEL_CISLO, " +
                     ":DATA, :NAZEV, :PRIPONA, :PLAT, " +
-                    ":ID_KANCELAR, :ID_SPECIALIZACE)",
+                    ":KANCELAR_ID, :SPECIALIZACE_ID )",
                 parameters
             );
 

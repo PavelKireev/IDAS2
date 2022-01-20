@@ -21,6 +21,7 @@ public class AdministratorViewMapper implements RowMapper<AdministratorView> {
             .setUuid(rs.getString("UUID"))
             .setId(rs.getInt("ID"))
             .setEmail(rs.getString("EMAIL"))
+            .setHeslo(rs.getString("HESLO"))
             .setPrijmeni(rs.getString("PRIJMENI"))
             .setObrazekIdObrazek(rs.getInt("OBRAZEK_ID_OBRAZEK"))
             .setObrazekData(rs.getBytes("OBRAZEK_DATA"))

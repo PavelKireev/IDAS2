@@ -1,9 +1,14 @@
 package com.idas2.zdravotnisystem.controller.admin;
 
 import com.idas2.zdravotnisystem.component.AuthUser;
+import com.idas2.zdravotnisystem.db.entity.Kancelar;
+import com.idas2.zdravotnisystem.db.entity.Specializace;
 import com.idas2.zdravotnisystem.db.entity.User;
+import com.idas2.zdravotnisystem.db.repository.KancelarRepository;
 import com.idas2.zdravotnisystem.db.repository.LekarRepository;
+import com.idas2.zdravotnisystem.db.repository.SpecializaceRepository;
 import com.idas2.zdravotnisystem.db.repository.UzivatelRepository;
+import com.idas2.zdravotnisystem.db.view.KancelarView;
 import com.idas2.zdravotnisystem.db.view.LekarView;
 import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarCreateForm;
 import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarUpdateForm;
@@ -23,17 +28,23 @@ public class AdminLekarController {
 
     private final LekarRepository lekarRepository;
     private final LekarFormService lekarFormService;
+    private final KancelarRepository kancelarRepository;
     private final UzivatelRepository uzivatelRepository;
+    private final SpecializaceRepository specializaceRepository;
 
     @Autowired
     public AdminLekarController(
         LekarRepository lekarRepository,
         LekarFormService lekarFormService,
-        UzivatelRepository uzivatelRepository
+        KancelarRepository kancelarRepository,
+        UzivatelRepository uzivatelRepository,
+        SpecializaceRepository specializaceRepository
     ) {
         this.lekarRepository = lekarRepository;
         this.lekarFormService = lekarFormService;
+        this.kancelarRepository = kancelarRepository;
         this.uzivatelRepository = uzivatelRepository;
+        this.specializaceRepository = specializaceRepository;
     }
 
     @GetMapping("")
@@ -50,9 +61,14 @@ public class AdminLekarController {
     public ModelAndView create(
         @AuthenticationPrincipal AuthUser authUser
     ) {
-        return new ModelAndView()
+        List<Specializace> specializaceList = specializaceRepository.findAll();
+        List<KancelarView> kancelarList = kancelarRepository.findAllView();
+
+        return new ModelAndView("admin/overview/lekar/create")
             .addObject("authUser", authUser)
-            .addObject("form", new LekarCreateForm());
+            .addObject("form", new LekarCreateForm())
+            .addObject("specializaceList", specializaceList)
+            .addObject("kancelarList", kancelarList);
     }
 
     @PostMapping("/save")
@@ -123,6 +139,6 @@ public class AdminLekarController {
         authUser.setSimulated(false);
         authUser.setUser(user);
 
-        return RedirectUtil.redirect("/admin/lekar/list");
+        return RedirectUtil.redirect("/admin/uzivatel/lekar");
     }
 }

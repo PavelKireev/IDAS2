@@ -14,11 +14,10 @@
                     <@spring.formInput "form.popis" "class=\"form-control\" id=\"popisField\" " />
                     <@spring.showErrors "" "validation-error-label" />
                 </div>
-                <@form.inputDate "form.datum" "Datum"/>
+                <@form.inputDate "form.datum" "Datum" "class=\"form-control\""/>
                 <@form.selectOptions "form.hospitalizace" hospitalizaceList "Pacient"/>
                 <@form.selectOptions "form.idTypProcedury"  typProceduryList "Procedura" />
                 <@form.selectOptions "form.idZarizeni" zarizeniList "Zarizeni" />
-
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
             </form>
         </div>

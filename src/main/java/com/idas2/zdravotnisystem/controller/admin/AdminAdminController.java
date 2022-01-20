@@ -3,30 +3,36 @@ package com.idas2.zdravotnisystem.controller.admin;
 import com.idas2.zdravotnisystem.component.AuthUser;
 import com.idas2.zdravotnisystem.db.repository.AdministratorRepository;
 import com.idas2.zdravotnisystem.db.view.AdministratorView;
+import com.idas2.zdravotnisystem.form.uzivatel.admin.AdminCreateForm;
+import com.idas2.zdravotnisystem.form.uzivatel.admin.AdminUpdateForm;
+import com.idas2.zdravotnisystem.service.form.AdminFormService;
+import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/admin")
+@RequestMapping("/admin/uzivatel/admin")
 public class AdminAdminController {
 
+    private final AdminFormService adminFormService;
     private final AdministratorRepository administratorRepository;
+
 
     @Autowired
     public AdminAdminController(
+        AdminFormService adminFormService,
         AdministratorRepository administratorRepository
     ) {
+        this.adminFormService = adminFormService;
         this.administratorRepository = administratorRepository;
     }
 
-    @GetMapping("/list")
+    @GetMapping("")
     public ModelAndView list(
         @AuthenticationPrincipal AuthUser authUser
     ) {
@@ -37,49 +43,47 @@ public class AdminAdminController {
             .addObject("authUser", authUser);
     }
 
-    @GetMapping("/add")
+    @GetMapping("/create")
     public ModelAndView add(
         @AuthenticationPrincipal AuthUser authUser
     ) {
-        List<AdministratorView> list = administratorRepository.findAllView();
-
-        return new ModelAndView("admin/overview/administrator/list")
-            .addObject("list", list)
-            .addObject("authUser", authUser);
+        return new ModelAndView("admin/overview/administrator/create")
+            .addObject("authUser", authUser)
+            .addObject("form", adminFormService.buildCreateForm());
     }
 
-    @PostMapping("/create")
-    public ModelAndView create(
+    @PostMapping("/save")
+    public ModelAndView save(
+        @ModelAttribute AdminCreateForm form,
         @AuthenticationPrincipal AuthUser authUser
     ) {
-        List<AdministratorView> list = administratorRepository.findAllView();
-
-        return new ModelAndView("admin/overview/administrator/list")
-            .addObject("list", list)
-            .addObject("authUser", authUser);
+        adminFormService.save(form);
+        return RedirectUtil.redirect("/admin/uzivatel/admin");
     }
 
-    @GetMapping("/edit")
+    @GetMapping("{adminId}/edit")
     public ModelAndView edit(
+        @PathVariable Integer adminId,
         @AuthenticationPrincipal AuthUser authUser
     ) {
-        List<AdministratorView> list = administratorRepository.findAllView();
+        AdministratorView view = administratorRepository.findById(adminId);
 
-        return new ModelAndView("admin/overview/administrator/list")
-            .addObject("list", list)
-            .addObject("authUser", authUser);
+        return new ModelAndView("admin/overview/administrator/edit")
+            .addObject("authUser", authUser)
+            .addObject("view", view)
+            .addObject("form", adminFormService.buildUpdateForm(view));
     }
 
-    @GetMapping("/update")
+    @PostMapping("/{adminId}/update")
     public ModelAndView update(
+        @PathVariable Integer adminId,
+        @ModelAttribute AdminUpdateForm form,
         @AuthenticationPrincipal AuthUser authUser
     ) {
-        List<AdministratorView> list = administratorRepository.findAllView();
+        form.setId(adminId);
+        adminFormService.update(form);
 
-        return new ModelAndView("admin/overview/administrator/list")
-            .addObject("list", list)
-            .addObject("authUser", authUser);
+        return RedirectUtil.redirect("/admin/uzivatel/admin");
     }
-
 
 }

@@ -230,7 +230,7 @@
                         </div>
 
                         <#if authUser.getSimulated()>
-                            <a class="btn mb-3 mt-3 btn-outline-danger ml-4" href="/admin/uzivatel/pacient/unsimulate?admId=${authUser.getAdminId()}" role="button">Ukoncit Simulace</a>
+                            <a class="btn mb-3 mt-3 btn-outline-danger ml-4" href="/admin/uzivatel/lekar/unsimulate?admId=${authUser.getAdminId()}" role="button">Ukoncit Simulace</a>
                         </#if >
 
                         <div class="topbar-divider d-none d-sm-block"></div>
