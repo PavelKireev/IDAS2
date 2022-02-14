@@ -1,6 +1,5 @@
 package com.idas2.zdravotnisystem.service.form;
 
-import com.idas2.zdravotnisystem.db.entity.Ordinace;
 import com.idas2.zdravotnisystem.db.view.OrdinaceView;
 import com.idas2.zdravotnisystem.form.mistnost.ordinace.OrdinaceCreateForm;
 import com.idas2.zdravotnisystem.form.mistnost.ordinace.OrdinaceUpdateForm;

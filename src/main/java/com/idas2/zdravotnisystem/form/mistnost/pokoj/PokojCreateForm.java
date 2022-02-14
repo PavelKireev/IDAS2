@@ -5,7 +5,7 @@ public class PokojCreateForm {
     private String nazev;
     private String cislo;
     private String plocha;
-    private Integer kapacite;
+    private Integer kapacita;
     private Integer pocetPacientu;
 
     public String getNazev() {
@@ -35,12 +35,12 @@ public class PokojCreateForm {
         return this;
     }
 
-    public Integer getKapacite() {
-        return kapacite;
+    public Integer getKapacita() {
+        return kapacita;
     }
 
-    public PokojCreateForm setKapacite(Integer kapacite) {
-        this.kapacite = kapacite;
+    public PokojCreateForm setKapacita(Integer kapacita) {
+        this.kapacita = kapacita;
         return this;
     }
 
