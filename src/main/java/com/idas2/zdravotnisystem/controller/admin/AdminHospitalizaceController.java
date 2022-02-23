@@ -113,7 +113,7 @@ public class AdminHospitalizaceController {
         List<ZaznamView> zaznamList =
             zaznamRepository.findAllByHospitalizaceId(id);
 
-        return new ModelAndView("lekar/hospitalizace/zaznam/list")
+        return new ModelAndView("admin/overview/hospitalizace/zaznam/list")
             .addObject("hospId", id)
             .addObject("list", zaznamList)
             .addObject("authUser", authUser);
@@ -126,7 +126,7 @@ public class AdminHospitalizaceController {
     ) {
         List<LekarView> lekarList = lekarRepository.findAllView();
 
-        return new ModelAndView("lekar/hospitalizace/zaznam/create")
+        return new ModelAndView("admin/overview/hospitalizace/zaznam/create")
             .addObject("hospId", id)
             .addObject("authUser", authUser)
             .addObject("lekarList", lekarList)
