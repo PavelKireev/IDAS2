@@ -4,7 +4,7 @@ public class OrdinaceUpdateForm {
 
     private Integer id;
     private String nazev;
-    private String cislo;
+    private Integer cislo;
     private String plocha;
     private Boolean jeVProvozu;
 
@@ -26,11 +26,11 @@ public class OrdinaceUpdateForm {
         return this;
     }
 
-    public String getCislo() {
+    public Integer getCislo() {
         return cislo;
     }
 
-    public OrdinaceUpdateForm setCislo(String cislo) {
+    public OrdinaceUpdateForm setCislo(Integer cislo) {
         this.cislo = cislo;
         return this;
     }

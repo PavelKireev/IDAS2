@@ -1,5 +1,7 @@
 package com.idas2.zdravotnisystem.form.hospitalizace;
 
+import java.sql.Date;
+
 public class HospitalizaceUpdateForm {
 
     private Integer id;

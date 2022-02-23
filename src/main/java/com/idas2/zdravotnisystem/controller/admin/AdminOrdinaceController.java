@@ -67,24 +67,25 @@ public class AdminOrdinaceController {
         OrdinaceView view = ordinaceRepository.findById(id);
 
         return new ModelAndView("admin/overview/ordinace/edit")
+            .addObject("id", view.getId())
             .addObject("form", ordinaceFormService.buildUpdateForm(view));
     }
 
-    @PostMapping("/{kancelarId}/update")
+    @PostMapping("/{ordinaceId}/update")
     public ModelAndView update(
-        @PathVariable Integer kancelarId,
+        @PathVariable Integer ordinaceId,
         @ModelAttribute OrdinaceUpdateForm form
     ) {
-        form.setId(kancelarId);
+        form.setId(ordinaceId);
         ordinaceFormService.update(form);
         return RedirectUtil.redirect("/admin/mistnost/ordinace");
     }
 
-    @GetMapping("{kancelarId}/delete")
+    @GetMapping("{ordinaceId}/delete")
     public ModelAndView delete(
-        @PathVariable Integer kancelarId
+        @PathVariable Integer ordinaceId
     ) {
-        ordinaceRepository.delete(kancelarId);
+        ordinaceRepository.delete(ordinaceId);
         return RedirectUtil.redirect("/admin/mistnost/ordinace");
     }
 }

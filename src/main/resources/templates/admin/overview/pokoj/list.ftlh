@@ -6,8 +6,8 @@
     <#assign count = 1>
 
     <div class="row">
-        <h2>Administrator</h2>
-        <a class="btn btn-success ml-4 mb-2" href="/admin/uzivatel/admin/create" role="button">Create</a>
+        <h2>Pokoj</h2>
+        <a class="btn btn-success ml-4 mb-2" href="/admin/mistnost/pokoj/create" role="button">Create</a>
     </div>
 
     <table class="table">

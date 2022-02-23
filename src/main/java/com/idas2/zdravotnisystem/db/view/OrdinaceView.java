@@ -5,7 +5,7 @@ public class OrdinaceView {
     private Integer id;
     private String nazev;
     private Integer cislo;
-    private Integer plocha;
+    private String plocha;
     private Boolean jeVProvozu;
 
     public Integer getId() {
@@ -35,11 +35,11 @@ public class OrdinaceView {
         return this;
     }
 
-    public Integer getPlocha() {
+    public String getPlocha() {
         return plocha;
     }
 
-    public OrdinaceView setPlocha(Integer plocha) {
+    public OrdinaceView setPlocha(String plocha) {
         this.plocha = plocha;
         return this;
     }

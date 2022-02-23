@@ -17,7 +17,7 @@ public class OrdinaceViewMapper implements RowMapper<OrdinaceView> {
         view
             .setNazev(rs.getString("NAZEV"))
             .setCislo(rs.getInt("CISLO"))
-            .setPlocha(rs.getInt("CISLO"))
+            .setPlocha(rs.getString("PLOCHA"))
             .setJeVProvozu(rs.getBoolean("JEVPROVOZU"))
             .setId(rs.getInt("ID"));
 

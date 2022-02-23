@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="bg-light border rounded p-4 mb-3">
-                <form class="form-signin user" action="/admin/mistnost/kancelar/save" method="POST">
+                <form class="form-signin user" action="/admin/mistnost/ordinace/${id}/update" method="POST">
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="nazev">
@@ -40,14 +40,14 @@
                     <div class="form-row">
                         <div class="form-group ml-2 row">
                             <div class="form-check">
-                                <@spring.formCheckbox "form.jeObsazena" "class=\"form-check-input\" type=\"checkbox\" id=\"flexCheckDefault\""/>
+                                <@spring.formCheckbox "form.jeVProvozu" "class=\"form-check-input\" type=\"checkbox\" id=\"flexCheckDefault\""/>
                                 <label class="form-check-label" for="flexCheckDefault">
-                                    Je Obsazena
+                                    Je V Provozu
                                 </label>
                             </div>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-lg btn-success mt-3" value="Create"/>
+                    <input type="submit" class="btn btn-lg btn-success mt-3" value="Update"/>
                 </form>
             </div>
         </div>

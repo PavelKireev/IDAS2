@@ -61,10 +61,11 @@ public class AdminPokojController {
             .addObject("form", pokojFormService.buildUpdateForm(view));
     }
 
-    @PostMapping("/update")
+    @PostMapping("/{id}/update")
     public ModelAndView update(
-        @ModelAttribute("form") PokojUpdateForm form,
-        @AuthenticationPrincipal AuthUser authUser
+        @PathVariable("id") Integer id,
+        @AuthenticationPrincipal AuthUser authUser,
+        @ModelAttribute("form") PokojUpdateForm form
     ) {
         pokojFormService.update(form);
         return RedirectUtil.redirect("/admin/mistnost/pokoj");

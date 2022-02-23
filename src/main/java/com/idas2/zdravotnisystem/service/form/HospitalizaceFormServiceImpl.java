@@ -2,6 +2,7 @@ package com.idas2.zdravotnisystem.service.form;
 
 import com.idas2.zdravotnisystem.db.entity.Hospitalizace;
 import com.idas2.zdravotnisystem.db.repository.HospitalizaceRepository;
+import com.idas2.zdravotnisystem.db.view.HospitalizaceView;
 import com.idas2.zdravotnisystem.form.hospitalizace.HospitalizaceCreateForm;
 import com.idas2.zdravotnisystem.form.hospitalizace.HospitalizaceUpdateForm;
 import org.jetbrains.annotations.NotNull;
@@ -21,6 +22,23 @@ public class HospitalizaceFormServiceImpl
         HospitalizaceRepository hospitalizaceRepository
     ) {
         this.hospitalizaceRepository = hospitalizaceRepository;
+    }
+
+    @Override
+    public @NotNull HospitalizaceUpdateForm buildUpdateForm(
+        @NotNull HospitalizaceView view
+    ) {
+
+        HospitalizaceUpdateForm form = new HospitalizaceUpdateForm();
+
+        form
+            .setDuvod(view.getDuvod())
+            .setHospitalizaceOd(view.getHospitalozaceOd().toLocalDate().toString())
+            .setHospitalizaceDo(view.getHospitalizaceDo().toLocalDate().toString())
+            .setStavPacienta(view.getStavPacienta())
+            .setPacientUzivatelIdUzivatel(view.getPacientId());
+
+        return null;
     }
 
     @Override

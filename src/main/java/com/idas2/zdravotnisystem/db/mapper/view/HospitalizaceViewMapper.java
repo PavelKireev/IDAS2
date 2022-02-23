@@ -22,6 +22,8 @@ public class HospitalizaceViewMapper implements RowMapper<HospitalizaceView> {
             .setPacientPrijmeni(rs.getString("PACIENT_PRIJMENI"))
             .setStavPacienta(rs.getString("STAVPACIENTA"))
             .setHospitalozaceOd(rs.getDate("OD"))
-            .setHospitalizaceDo(rs.getDate("DO"));
+            .setHospitalizaceDo(rs.getDate("DO"))
+            .setPokojCislo(rs.getInt("POKOJ_CISLO"))
+            .setPokojNazev(rs.getString("POKOJ_NAZEV"));
     }
 }

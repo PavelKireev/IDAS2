@@ -6,8 +6,8 @@
     <#assign count = 1>
 
     <div class="row">
-        <h2>Administrator</h2>
-        <a class="btn btn-success ml-4 mb-2" href="/admin/misnost/kancelar/create" role="button">Create</a>
+        <h2>Kancelar</h2>
+        <a class="btn btn-success ml-4 mb-2" href="/admin/mistnost/kancelar/create" role="button">Create</a>
     </div>
 
     <table class="table">
@@ -17,6 +17,7 @@
             <th scope="col">Id</th>
             <th scope="col">Cislo a Nazev</th>
             <th scope="col">Plocha</th>
+            <th scope="col">Je Obsazena</th>
         </tr>
         </thead>
         <tbody>
@@ -26,11 +27,16 @@
                 <td>${item.getId()!""}</td>
                 <td>${item.getCislo()!""} ${item.getNazev()!""}</td>
                 <td>${item.getPlocha()!""}</td>
+                <#if item.getJeObsazena()>
+                    <td>Ano</td>
+                <#else>
+                    <td>Ne</td>
+                </#if>
                 <td>
-                    <a class="btn btn-primary ml-4" href="/admin/uzivatel/admin/${item.getId()}/edit" role="button">Update</a>
+                    <a class="btn btn-primary ml-4" href="/admin/mistnost/kancelar/${item.getId()}/edit" role="button">Update</a>
                 </td>
                 <td>
-                    <a class="btn btn-danger ml-4" href="/admin/uzivatel/admin/${item.getId()}/delete" role="button">Delete</a>
+                    <a class="btn btn-danger ml-4" href="/admin/mistnost/kancelar/${item.getId()}/delete" role="button">Delete</a>
                 </td>
             </tr>
             <#assign count = count + 1 >

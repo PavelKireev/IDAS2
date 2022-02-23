@@ -7,30 +7,24 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="bg-light border rounded p-4 mb-3">
-                <form class="form-signin user" action="/admin/uzivatel/admin/save" method="POST">
-                    <label for="email">
-                        Email
-                    </label>
-                    <div class="form-group">
-                        <@spring.formInput "form.email" "required class=\"form-control form-control-sm\" placeholder=\"Email\"" "email"/>
-                        <@spring.showErrors "<br>" "small"/>
-                    </div>
+                <form class="form-signin user" action="/admin/mistnost/pokoj/save" method="POST">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label>
-                                Heslo
+                            <label for="nazev">
+                                Nazev
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.heslo" "required class=\"form-control form-control-sm\" placeholder=\"Password\"" "password"/>
+                                <@spring.formInput "form.nazev" "required class=\"form-control form-control-sm\" placeholder=\"Nazev\"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label>
-                                Heslo Potvrzeni
+
+                            <label for="cislo">
+                                Cislo
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.hesloPotvrzeni" "required class=\"form-control form-control-sm\" placeholder=\"Confirm Password\"" "password"/>
+                                <@spring.formInput "form.cislo" "required class=\"form-control form-control-sm\" placeholder=\"Cislo\"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
@@ -38,28 +32,28 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label>
-                                Jmeno
+                                Plocha
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.jmeno" "required class=\"form-control form-control-sm\" placeholder=\"Jmeno\"" />
+                                <@spring.formInput "form.plocha" "required class=\"form-control form-control-sm\" placeholder=\"Plocha\"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
                         <div class="form-group col-md-4">
                             <label>
-                                Prijmeni
+                                Kapacita
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.prijmeni" "required class=\"form-control form-control-sm\" placeholder=\"Pijmeni\"" />
+                                <@spring.formInput "form.kapacita" "required class=\"form-control form-control-sm\" placeholder=\"Kapacita \"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
                         <div class="form-group col-md-4">
                             <label>
-                                Telefonni Cislo
+                                Pocet Pacientu
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.telCislo" "required class=\"form-control form-control-sm\" placeholder=\"Telefonni Cislo\"" />
+                                <@spring.formInput "form.pocetPacientu" "required class=\"form-control form-control-sm\" placeholder=\"Pocet Pacientu \"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>

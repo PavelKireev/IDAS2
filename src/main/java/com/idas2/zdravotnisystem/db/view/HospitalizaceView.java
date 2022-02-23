@@ -19,7 +19,10 @@ public class HospitalizaceView implements Selectable {
 
     private String duvod;
     private String stavPacienta;
-    private String pokojCislo;
+    private Integer pokojCislo;
+    private String pokojNazev;
+
+    private Integer pacientId;
 
     public Integer getId() {
         return id;
@@ -84,12 +87,30 @@ public class HospitalizaceView implements Selectable {
         return this;
     }
 
-    public String getPokojCislo() {
+    public Integer getPokojCislo() {
         return pokojCislo;
     }
 
-    public HospitalizaceView setPokojCislo(String pokojCislo) {
+    public HospitalizaceView setPokojCislo(Integer pokojCislo) {
         this.pokojCislo = pokojCislo;
+        return this;
+    }
+
+    public String getPokojNazev() {
+        return pokojNazev;
+    }
+
+    public HospitalizaceView setPokojNazev(String pokojNazev) {
+        this.pokojNazev = pokojNazev;
+        return this;
+    }
+
+    public Integer getPacientId() {
+        return pacientId;
+    }
+
+    public HospitalizaceView setPacientId(Integer pacientId) {
+        this.pacientId = pacientId;
         return this;
     }
 

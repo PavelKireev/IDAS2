@@ -7,6 +7,8 @@ import com.idas2.zdravotnisystem.form.mistnost.kancelar.KancelarUpdateForm;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class KancelarFormServiceImpl implements KancelarFormService {
 
@@ -45,11 +47,14 @@ public class KancelarFormServiceImpl implements KancelarFormService {
 
         KancelarView view = new KancelarView();
 
+        Boolean obsazena =
+            Objects.nonNull(form.getJeObsazena()) && form.getJeObsazena().equals("on");
+        
         view
             .setNazev(form.getNazev())
             .setCislo(form.getCislo())
             .setPlocha(form.getPlocha())
-            .setJeObsazena(Boolean.valueOf(form.getJeObsazena()));
+            .setJeObsazena(obsazena);
 
         kancelarRepository.saveFromView(view);
     }
@@ -63,7 +68,7 @@ public class KancelarFormServiceImpl implements KancelarFormService {
             .setNazev(form.getNazev())
             .setCislo(form.getCislo())
             .setPlocha(form.getPlocha())
-            .setJeObsazena(Boolean.valueOf(form.getJeObsazena()));
+            .setJeObsazena(form.getJeObsazena());
 
         kancelarRepository.saveFromView(view);
     }

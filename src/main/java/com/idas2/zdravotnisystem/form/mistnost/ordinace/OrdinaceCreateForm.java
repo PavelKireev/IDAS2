@@ -3,7 +3,7 @@ package com.idas2.zdravotnisystem.form.mistnost.ordinace;
 public class OrdinaceCreateForm {
 
     private String nazev;
-    private String cislo;
+    private Integer cislo;
     private String plocha;
     private String jeVProvozu;
 
@@ -16,11 +16,11 @@ public class OrdinaceCreateForm {
         return this;
     }
 
-    public String getCislo() {
+    public Integer getCislo() {
         return cislo;
     }
 
-    public OrdinaceCreateForm setCislo(String cislo) {
+    public OrdinaceCreateForm setCislo(Integer cislo) {
         this.cislo = cislo;
         return this;
     }
