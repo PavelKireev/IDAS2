@@ -37,6 +37,29 @@ public class ZaznamRepositoryImpl
     }
 
     @Override
+    public @NotNull ZaznamView findById(
+        @NotNull Integer id
+    ) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+        parameters.addValue("ID", id);
+
+        try {
+            return
+                namedParameterJdbcTemplate
+                    .queryForObject(
+                        "SELECT * FROM ZAZNAM_V WHERE ID = :ID",
+                        parameters,
+                        zaznamViewMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn(ex.getMessage());
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
     public void delete(@NotNull Integer id) {
 
         try {

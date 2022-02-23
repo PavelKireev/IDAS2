@@ -1,6 +1,8 @@
 package com.idas2.zdravotnisystem.db.view;
 
-public class LekarView {
+import com.idas2.zdravotnisystem.util.Selectable;
+
+public class LekarView implements Selectable {
 
     private Integer id;
     private String uuid;
@@ -162,5 +164,15 @@ public class LekarView {
     public LekarView setIdSpecializace(Integer idSpecializace) {
         this.idSpecializace = idSpecializace;
         return this;
+    }
+
+    @Override
+    public String getSelectorId() {
+        return getId().toString();
+    }
+
+    @Override
+    public String getSelectorTitle() {
+        return String.format("%s %s", getJmeno(), getPrijmeni());
     }
 }
