@@ -33,12 +33,12 @@ public class HospitalizaceFormServiceImpl
 
         form
             .setDuvod(view.getDuvod())
-            .setHospitalizaceOd(view.getHospitalozaceOd().toLocalDate().toString())
-            .setHospitalizaceDo(view.getHospitalizaceDo().toLocalDate().toString())
+            .setHospitalizaceOd(view.getHospitalozaceOd().toLocalDate())
+            .setHospitalizaceDo(view.getHospitalizaceDo().toLocalDate())
             .setStavPacienta(view.getStavPacienta())
             .setPacientUzivatelIdUzivatel(view.getPacientId());
 
-        return null;
+        return form;
     }
 
     @Override

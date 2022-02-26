@@ -1,6 +1,5 @@
 package com.idas2.zdravotnisystem.db.repository;
 
-import com.idas2.zdravotnisystem.db.entity.Lekar;
 import com.idas2.zdravotnisystem.db.view.LekarView;
 import org.jetbrains.annotations.NotNull;
 

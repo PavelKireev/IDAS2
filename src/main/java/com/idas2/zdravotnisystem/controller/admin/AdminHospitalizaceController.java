@@ -3,13 +3,15 @@ package com.idas2.zdravotnisystem.controller.admin;
 import com.idas2.zdravotnisystem.component.AuthUser;
 import com.idas2.zdravotnisystem.db.repository.HospitalizaceRepository;
 import com.idas2.zdravotnisystem.db.repository.LekarRepository;
+import com.idas2.zdravotnisystem.db.repository.PacientRepository;
 import com.idas2.zdravotnisystem.db.repository.ZaznamRepository;
+import com.idas2.zdravotnisystem.db.view.HospitalizaceView;
 import com.idas2.zdravotnisystem.db.view.LekarView;
+import com.idas2.zdravotnisystem.db.view.PacientView;
 import com.idas2.zdravotnisystem.db.view.ZaznamView;
 import com.idas2.zdravotnisystem.form.hospitalizace.HospitalizaceCreateForm;
 import com.idas2.zdravotnisystem.form.hospitalizace.HospitalizaceUpdateForm;
 import com.idas2.zdravotnisystem.form.hospitalizace.zaznam.ZaznamCreateForm;
-import com.idas2.zdravotnisystem.form.hospitalizace.zaznam.ZaznamUpdateForm;
 import com.idas2.zdravotnisystem.service.form.HospitalizaceFormService;
 import com.idas2.zdravotnisystem.service.form.ZaznamFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
@@ -27,6 +29,7 @@ public class AdminHospitalizaceController {
 
     private final LekarRepository lekarRepository;
     private final ZaznamRepository zaznamRepository;
+    private final PacientRepository pacientRepository;
     private final ZaznamFormService zaznamFormService;
     private final HospitalizaceRepository hospitalizaceRepository;
     private final HospitalizaceFormService hospitalizaceFormService;
@@ -35,12 +38,14 @@ public class AdminHospitalizaceController {
     public AdminHospitalizaceController(
         LekarRepository lekarRepository,
         ZaznamRepository zaznamRepository,
+        PacientRepository pacientRepository,
         ZaznamFormService zaznamFormService,
         HospitalizaceRepository hospitalizaceRepository,
         HospitalizaceFormService hospitalizaceFormService
     ) {
         this.lekarRepository = lekarRepository;
         this.zaznamRepository = zaznamRepository;
+        this.pacientRepository = pacientRepository;
         this.zaznamFormService = zaznamFormService;
         this.hospitalizaceRepository = hospitalizaceRepository;
         this.hospitalizaceFormService = hospitalizaceFormService;
@@ -59,9 +64,11 @@ public class AdminHospitalizaceController {
     public ModelAndView create(
         @AuthenticationPrincipal AuthUser authUser
     ) {
+        List<PacientView> pacientList = pacientRepository.findAllView();
 
         return new ModelAndView("admin/overview/hospitalizace/create")
             .addObject("authUser", authUser)
+            .addObject("pacientList", pacientList)
             .addObject("create", new HospitalizaceCreateForm());
     }
 
@@ -79,10 +86,15 @@ public class AdminHospitalizaceController {
         @PathVariable Integer id,
         @AuthenticationPrincipal AuthUser authUser
     ) {
+        HospitalizaceView view =
+            hospitalizaceRepository.findOne(id);
 
         return new ModelAndView("/admin/overview/hospitalizace/edit")
             .addObject("authUser", authUser)
-            .addObject("form", new HospitalizaceUpdateForm());
+            .addObject(
+                "form",
+                hospitalizaceFormService.buildUpdateForm(view)
+            );
     }
 
     @PostMapping("/{id}/update")
@@ -150,51 +162,56 @@ public class AdminHospitalizaceController {
         );
     }
 
-    @GetMapping("/{hospId}/zaznam/{zazId}/edit")
-    public ModelAndView zaznamEdit(
-        @PathVariable Integer zazId,
-        @PathVariable Integer hospId,
-        @AuthenticationPrincipal AuthUser authUser
-    ) {
-        ZaznamView view = zaznamRepository.findById(zazId);
-
-        return new ModelAndView("/admin/overview/hospitalizace/edit")
-            .addObject("authUser", authUser)
-            .addObject(
-                "form",
-                zaznamFormService.buildUpdateForm(view)
-            );
-    }
-
-    @PostMapping("/{hospId}/zaznam/{zazId}/update")
-    public ModelAndView zaznamUpdate(
-        @PathVariable Integer hospId,
-        @PathVariable Integer zazId,
-        @AuthenticationPrincipal AuthUser authUser,
-        @ModelAttribute("form") ZaznamUpdateForm form
-    ) {
-        form.setId(zazId);
-        zaznamFormService.update(form);
-
-        return RedirectUtil.redirect(
-            String.format(
-                "/admin/hospitalizace/%d/zaznam",
-                hospId
-            )
-        );
-    }
+//    @GetMapping("/{hospId}/zaznam/{zazId}/edit")
+//    public ModelAndView zaznamEdit(
+//        @PathVariable Integer zazId,
+//        @PathVariable Integer hospId,
+//        @AuthenticationPrincipal AuthUser authUser
+//    ) {
+//        ZaznamView view = zaznamRepository.findById(zazId);
+//        List<LekarView> lekarList = lekarRepository.findAllView();
+//
+//        return new ModelAndView("/admin/overview/hospitalizace/zaznam/edit")
+//            .addObject("authUser", authUser)
+//            .addObject("lekarList", lekarList)
+//            .addObject(
+//                "form",
+//                zaznamFormService.buildUpdateForm(view)
+//            );
+//    }
+//
+//    @PostMapping("/{hospId}/zaznam/{zazId}/update")
+//    public ModelAndView zaznamUpdate(
+//        @PathVariable Integer hospId,
+//        @PathVariable Integer zazId,
+//        @AuthenticationPrincipal AuthUser authUser,
+//        @ModelAttribute("form") ZaznamUpdateForm form
+//    ) {
+//        form
+//            .setId(zazId)
+//            .setIdHospitalizace(hospId);
+//
+//        zaznamFormService.update(form);
+//
+//        return RedirectUtil.redirect(
+//            String.format(
+//                "/admin/hospitalizace/%d/zaznam",
+//                hospId
+//            )
+//        );
+//    }
 
 
     @GetMapping("/{hospId}/zaznam/{zazId}/delete")
-    public ModelAndView zaznamList(
-        @RequestParam Integer zazId,
-        @RequestParam Integer hospId
+    public ModelAndView zaznamDelete(
+        @PathVariable Integer zazId,
+        @PathVariable Integer hospId
     ) {
         zaznamRepository.delete(zazId);
 
         return RedirectUtil.redirect(
             String.format(
-                "/lekar/hospitalizace/zaznam/list?hospId=%s",
+                "/admin/hospitalizace/%d/zaznam",
                 hospId
             )
         );

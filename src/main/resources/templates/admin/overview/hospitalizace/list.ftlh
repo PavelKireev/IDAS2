@@ -6,7 +6,7 @@
     <#assign count = 1>
 
     <div class="row">
-        <h2>Administrator</h2>
+        <h2>Hospitalizace</h2>
         <a class="btn btn-success ml-4 mb-2" href="/admin/hospitalizace/create" role="button">Create</a>
     </div>
 
@@ -38,10 +38,10 @@
                        role="button">Zaznamy</a>
                 </td>
                 <td>
-                    <a class="btn btn-primary ml-4" href="/admin/uzivatel/admin/${item.getId()}/edit" role="button">Update</a>
+                    <a class="btn btn-primary ml-4" href="/admin/hospitalizace/${item.getId()}/edit" role="button">Update</a>
                 </td>
                 <td>
-                    <a class="btn btn-danger ml-4" href="/admin/uzivatel/admin/${item.getId()}/delete" role="button">Delete</a>
+                    <a class="btn btn-danger ml-4" href="/admin/hospitalizace/${item.getId()}/delete" role="button">Delete</a>
                 </td>
             </tr>
             <#assign count = count + 1 >

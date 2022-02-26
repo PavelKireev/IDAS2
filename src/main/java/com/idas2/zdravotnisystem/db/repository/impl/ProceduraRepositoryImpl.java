@@ -1,11 +1,9 @@
 package com.idas2.zdravotnisystem.db.repository.impl;
 
-import com.idas2.zdravotnisystem.db.entity.Procedura;
 import com.idas2.zdravotnisystem.db.mapper.entity.ProceduraMapper;
 import com.idas2.zdravotnisystem.db.mapper.view.ProceduraViewMapper;
 import com.idas2.zdravotnisystem.db.repository.ProceduraRepository;
 import com.idas2.zdravotnisystem.db.view.ProceduraView;
-import com.idas2.zdravotnisystem.db.view.UzivatelView;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -140,6 +138,43 @@ public class ProceduraRepositoryImpl
     }
 
     @Override
+    public @NotNull List<ProceduraView> findAll() {
+        Map<String, Object> map = new HashMap<>();
+
+        try {
+            return
+                jdbcTemplate
+                    .query(
+                        "SELECT * FROM PROCEDURA_V",
+                        mapParams(map),
+                        proceduraViewMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn("EmptyResultDataAccessException");
+            return new ArrayList<>();
+        }    }
+
+    @Override
+    public @NotNull ProceduraView findOne(Integer id) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+        parameters.addValue("ID", id);
+        try {
+            return
+                jdbcTemplate
+                    .queryForObject(
+                        "SELECT * FROM PROCEDURA_V WHERE ID = :ID",
+                        parameters,
+                        proceduraViewMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
+    }
+
+    @Override
     public void saveFromView(ProceduraView view) {
         try {
             MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -176,6 +211,18 @@ public class ProceduraRepositoryImpl
         } catch (EmptyResultDataAccessException ex) {
             LOGGER.error(ex.getMessage());
         }
+    }
 
+
+    @Override
+    public void delete(@NotNull Integer id) {
+        try {
+            jdbcTemplate.update(
+                "DELETE FROM PROCEDURA WHERE ID = :ID",
+                mapParams("ID", id)
+            );
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.error(ex.getMessage());
+        }
     }
 }

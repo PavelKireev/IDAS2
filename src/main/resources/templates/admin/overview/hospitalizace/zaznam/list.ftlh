@@ -7,10 +7,10 @@
 
     <#assign count = 1>
 
-    <div class="row mb-2">
+    <div class="row mb-2 ml-1">
         <h2>Zaznamy</h2>
         <a
-                class="btn btn-success mb-1 ml-5"
+                class="btn btn-success mb-1 ml-3"
                 href="/admin/hospitalizace/${hospId}/zaznam/create"
                 role="button">Pridat</a>
     </div>
@@ -32,12 +32,12 @@
                 <td>${item.getText()!""}</td>
                 <td>${item.getJmeno()!""} ${item.getPrijmeni()!""}</td>
                 <td>${item.getDatumVytvareni()!""}</td>
-                <td>
-                    <a
-                            class="btn mb-1 btn-primary ml-5"
-                            href="/admin/hospitalizace/${hospId}/zaznam/${item.getId()}/edit"
-                            role="button">Update</a>
-                </td>
+<#--                <td>-->
+<#--                    <a-->
+<#--                            class="btn mb-1 btn-primary ml-5"-->
+<#--                            href="/admin/hospitalizace/${hospId}/zaznam/${item.getId()}/edit"-->
+<#--                            role="button">Update</a>-->
+<#--                </td>-->
                 <td>
                     <a
                             class="btn mb-1 btn-danger ml-5"

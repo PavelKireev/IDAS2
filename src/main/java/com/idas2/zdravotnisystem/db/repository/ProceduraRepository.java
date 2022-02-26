@@ -24,8 +24,15 @@ public interface ProceduraRepository{
         @NotNull Integer lekarId
     );
 
+    @NotNull
+    List<ProceduraView> findAll();
+
+    @NotNull
+    ProceduraView findOne(Integer id);
+
     void saveFromView(ProceduraView view);
 
     void deleteByUuid(@NotNull String uuid);
 
+    void delete(@NotNull Integer id);
 }

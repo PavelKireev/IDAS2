@@ -5,7 +5,7 @@ public class ProceduraUpdateForm {
     private Integer id;
     private String datum;
     private String popis;
-    private String hospitalizace;
+    private String idHospitalizace;
     private String idTypProcedury;
     private String idZarizeni;
     private String idLekar;
@@ -37,12 +37,12 @@ public class ProceduraUpdateForm {
         return this;
     }
 
-    public String getHospitalizace() {
-        return hospitalizace;
+    public String getIdHospitalizace() {
+        return idHospitalizace;
     }
 
-    public ProceduraUpdateForm setHospitalizace(String hospitalizace) {
-        this.hospitalizace = hospitalizace;
+    public ProceduraUpdateForm setIdHospitalizace(String idHospitalizace) {
+        this.idHospitalizace = idHospitalizace;
         return this;
     }
 
