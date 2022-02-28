@@ -29,7 +29,7 @@
                 <td>${item.getId()!""}</td>
                 <td>${item.getPacientJmeno()!""} ${item.getPacientPrijmeni()!""}</td>
                 <td>${item.getDuvod()!""}</td>
-                <td>Od: ${item.getHospitalozaceOd()!""} <br> Do: ${item.getHospitalizaceDo()!""}</td>
+                <td>Od: ${item.getHospitalizaceOd()!""} <br> Do: ${item.getHospitalizaceDo()!""}</td>
                 <td>${item.getStavPacienta()!""}</td>
                 <td>${item.getPokojCislo()!""} ${item.getPokojNazev()!""}</td>
                 <td>

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.Objects;
 
 @Service
 public class HospitalizaceFormServiceImpl
@@ -33,10 +34,14 @@ public class HospitalizaceFormServiceImpl
 
         form
             .setDuvod(view.getDuvod())
-            .setHospitalizaceOd(view.getHospitalozaceOd().toLocalDate())
-            .setHospitalizaceDo(view.getHospitalizaceDo().toLocalDate())
             .setStavPacienta(view.getStavPacienta())
             .setPacientUzivatelIdUzivatel(view.getPacientId());
+
+        if(Objects.nonNull(view.getHospitalizaceOd()))
+            form.setHospitalizaceOd(view.getHospitalizaceOd().toString());
+
+        if(Objects.nonNull(view.getHospitalizaceDo()))
+            form.setHospitalizaceDo(view.getHospitalizaceDo().toString());
 
         return form;
     }
@@ -66,10 +71,20 @@ public class HospitalizaceFormServiceImpl
         hospitalizace
             .setDuvod(form.getDuvod())
             .setStavPacienta(form.getStavPacienta())
-            .setHospitalizaceOd(Date.valueOf(form.getHospitalizaceOd()))
-            .setHospitalizaceDo(Date.valueOf(form.getHospitalizaceDo()))
             .setPacientUzivatelIdUzivatel(form.getPacientUzivatelIdUzivatel())
             .setId(form.getId());
+
+        if(Objects.nonNull(form.getHospitalizaceOd()) &&
+            !form.getHospitalizaceOd().isEmpty())
+            hospitalizace.setHospitalizaceOd(
+                Date.valueOf(form.getHospitalizaceOd())
+            );
+
+        if(Objects.nonNull(form.getHospitalizaceDo()) &&
+            !form.getHospitalizaceDo().isEmpty())
+            hospitalizace.setHospitalizaceDo(
+                Date.valueOf(form.getHospitalizaceDo())
+            );
 
         hospitalizaceRepository.saveFromEntity(hospitalizace);
     }

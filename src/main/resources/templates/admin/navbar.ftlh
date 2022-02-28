@@ -177,8 +177,8 @@
                 <div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Typ:</h6>
-                        <a class="collapse-item" href="/admin/procedury">Procedury</a>
-                        <a class="collapse-item" href="/admin/procedury/typ">Typy procedur</a>
+                        <a class="collapse-item" href="/admin/procedura">Procedury</a>
+                        <a class="collapse-item" href="/admin/procedura/typ">Typy procedur</a>
                     </div>
                 </div>
             </li>

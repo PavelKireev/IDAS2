@@ -22,7 +22,7 @@
         <#list list as item>
             <tr>
                 <th scope="row">${count}</th>
-                <td>${item.getHospitalozaceOd()!""}</td>
+                <td>${item.getHospitalizaceOd()!""}</td>
                 <td>${item.getDuvod()!""}</td>
                 <td>${item.getStavPacienta()!""}</td>
                 <td>${item.getHospitalizaceDo()!""}</td>

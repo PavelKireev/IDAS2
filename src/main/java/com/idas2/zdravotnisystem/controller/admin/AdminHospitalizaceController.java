@@ -69,7 +69,7 @@ public class AdminHospitalizaceController {
         return new ModelAndView("admin/overview/hospitalizace/create")
             .addObject("authUser", authUser)
             .addObject("pacientList", pacientList)
-            .addObject("create", new HospitalizaceCreateForm());
+            .addObject("form", new HospitalizaceCreateForm());
     }
 
     @PostMapping("/save")
@@ -78,7 +78,7 @@ public class AdminHospitalizaceController {
         @ModelAttribute("form") HospitalizaceCreateForm form
     ) {
         hospitalizaceFormService.create(form);
-        return RedirectUtil.redirect("/admin/hospitalizace/list");
+        return RedirectUtil.redirect("/admin/hospitalizace");
     }
 
     @GetMapping("/{id}/edit")
@@ -89,8 +89,13 @@ public class AdminHospitalizaceController {
         HospitalizaceView view =
             hospitalizaceRepository.findOne(id);
 
+        List<PacientView> pacientList = pacientRepository.findAllView();
+
+
         return new ModelAndView("/admin/overview/hospitalizace/edit")
             .addObject("authUser", authUser)
+            .addObject("pacientList", pacientList)
+            .addObject("id", view.getId())
             .addObject(
                 "form",
                 hospitalizaceFormService.buildUpdateForm(view)
@@ -99,13 +104,13 @@ public class AdminHospitalizaceController {
 
     @PostMapping("/{id}/update")
     public ModelAndView update(
-        @RequestParam Integer hospId,
+        @PathVariable Integer id,
         @AuthenticationPrincipal AuthUser authUser,
         @ModelAttribute("form") HospitalizaceUpdateForm form
     ) {
-        form.setId(hospId);
+        form.setId(id);
         hospitalizaceFormService.update(form);
-        return RedirectUtil.redirect("/admin/hospitalizace/list");
+        return RedirectUtil.redirect("/admin/hospitalizace");
     }
 
     @GetMapping("/{id}/delete")
@@ -114,7 +119,7 @@ public class AdminHospitalizaceController {
         @AuthenticationPrincipal AuthUser authUser
     ) {
         hospitalizaceRepository.delete(id);
-        return RedirectUtil.redirect("/admin/hospitalizace/list");
+        return RedirectUtil.redirect("/admin/hospitalizace");
     }
 
     @GetMapping("/{id}/zaznam")

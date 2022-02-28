@@ -9,7 +9,7 @@
             <div class="bg-light border rounded p-4 mb-3">
                 <form class="form-signin user" action="/admin/hospitalizace/save" method="POST">
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             <label for="nazev">
                                 Duvod
                             </label>
@@ -18,7 +18,7 @@
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             <label for="cislo">
                                 Stav Pacienta
                             </label>
@@ -27,29 +27,17 @@
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label>
-                                Od
-                            </label>
-                            <div class="form-group">
-                                <@spring.formInput "form.hospitalizaceOd" "required class=\"form-control form-control-sm\" placeholder=\"Plocha\"" />
-                                <@spring.showErrors "<br>" "small"/>
-                            </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-6">
+                            <@form.inputDate "form.hospitalizaceOd" "Od" "class=\"form-control\""/>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label>
-                                Do
-                            </label>
-                            <div class="form-group">
-                                <@spring.formInput "form.hospitalizaceDo" "required class=\"form-control form-control-sm\" placeholder=\"Do\"" />
-                                <@spring.showErrors "<br>" "small"/>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <@form.selectOptions "form.pacientUzivatelIdUzivatel" pacientList "Pacient" />
+                        <div class="form-group col-lg-6">
+                            <@form.inputDate "form.hospitalizaceDo" "Do" "class=\"form-control\""/>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-lg btn-success mt-3" value="Create"/>
+                    <@form.selectOptions "form.pacientUzivatelIdUzivatel" pacientList "Pacient" />
+                    <input type="submit" class="btn btn-lg btn-success mt-4" value="Create"/>
                 </form>
             </div>
         </div>

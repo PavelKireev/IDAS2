@@ -7,7 +7,7 @@
 
     <div class="row">
         <h2>Pacient</h2>
-        <a class="btn btn-success ml-4 mb-2" href="/admin/uzivatel/pacient/create" role="button">Create</a>
+        <a class="btn btn-success ml-4 mb-2" href="/admin/procedura/create" role="button">Create</a>
     </div>
 
     <table class="table">
@@ -33,11 +33,11 @@
                 <td>${item.getNazevZarizeni()!""} ${item.getTypZarizeniNazev()!""}</td>
                 <td>${item.getDatum()!""}</td>
                 <td>
-                    <a class="btn btn-primary ml-4" href="/admin/procedura/${item.getId()}/edit"
+                    <a class="btn btn-primary ml-4" href="/admin/procedura/${item.getIdProcedura()}/edit"
                        role="button">Update</a>
                 </td>
                 <td>
-                    <a class="btn btn-danger ml-4" href="/admin/procedura/${item.getId()}/delete"
+                    <a class="btn btn-danger ml-4" href="/admin/procedura/${item.getIdProcedura()}/delete"
                        role="button">Delete</a>
                 </td>
             </tr>

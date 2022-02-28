@@ -1,8 +1,10 @@
 package com.idas2.zdravotnisystem.db.view;
 
+import com.idas2.zdravotnisystem.util.Selectable;
+
 import java.sql.Date;
 
-public class PacientView {
+public class PacientView implements Selectable {
 
     private Integer id;
     private String password;
@@ -238,5 +240,15 @@ public class PacientView {
     public PacientView setPacientUzivatelIdMatka(Integer pacientUzivatelIdMatka) {
         this.pacientUzivatelIdMatka = pacientUzivatelIdMatka;
         return this;
+    }
+
+    @Override
+    public String getSelectorId() {
+        return getId().toString();
+    }
+
+    @Override
+    public String getSelectorTitle() {
+        return String.format("%s %s", getJmeno(), getPrijmeni());
     }
 }

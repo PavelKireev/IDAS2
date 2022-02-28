@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 @Service
 public class ProceduraFormServiceImpl implements ProceduraFormService {
@@ -33,13 +34,22 @@ public class ProceduraFormServiceImpl implements ProceduraFormService {
     ) {
         ProceduraUpdateForm form = new ProceduraUpdateForm();
 
-        form
-            .setPopis(view.getPopis())
-            .setDatum(view.getDatum().toLocalDate().toString())
-            .setIdTypProcedury(view.getIdTypProcedury().toString())
-            .setIdZarizeni(view.getIdZarizeni().toString())
-            .setIdLekar(view.getIdLekar().toString())
-            .setIdHospitalizace(view.getIdHospitalizace().toString());
+        form.setPopis(view.getPopis());
+
+        if(Objects.nonNull(view.getDatum()))
+            form.setDatum(view.getDatum().toLocalDate().toString());
+
+        if(Objects.nonNull(view.getIdTypProcedury()))
+            form.setIdTypProcedury(view.getIdTypProcedury().toString());
+
+        if(Objects.nonNull(view.getIdZarizeni()))
+            form.setIdZarizeni(view.getIdZarizeni().toString());
+
+        if(Objects.nonNull(view.getIdLekar()))
+            form.setIdLekar(view.getIdLekar().toString());
+
+        if(Objects.nonNull(view.getIdHospitalizace()))
+            form.setIdHospitalizace(view.getIdHospitalizace().toString());
 
         return form;
     }
@@ -60,7 +70,7 @@ public class ProceduraFormServiceImpl implements ProceduraFormService {
             .setPopis(form.getPopis())
             .setIdTypProcedury(Integer.valueOf(form.getIdTypProcedury()))
             .setIdZarizeni(Integer.valueOf(form.getIdZarizeni()))
-            .setIdHospitalizace(Integer.valueOf(form.getHospitalizace()))
+            .setIdHospitalizace(Integer.valueOf(form.getIdHospitalizace()))
             .setIdLekar(authUser.getUser().getId());
 
         proceduraRepository.saveFromView(view);
@@ -81,7 +91,7 @@ public class ProceduraFormServiceImpl implements ProceduraFormService {
             .setPopis(form.getPopis())
             .setIdTypProcedury(Integer.valueOf(form.getIdTypProcedury()))
             .setIdZarizeni(Integer.valueOf(form.getIdZarizeni()))
-            .setIdHospitalizace(Integer.valueOf(form.getHospitalizace()))
+            .setIdHospitalizace(Integer.valueOf(form.getIdHospitalizace()))
             .setIdLekar(Integer.valueOf(form.getIdLekar()));
 
         proceduraRepository.saveFromView(view);

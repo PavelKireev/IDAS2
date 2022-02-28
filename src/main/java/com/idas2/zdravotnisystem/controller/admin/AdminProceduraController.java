@@ -65,7 +65,7 @@ public class AdminProceduraController {
         List<TypProcedury> typProceduryList = typProceduryRepository.findAll();
         List<HospitalizaceView> hospitalizaceList = hospitalizaceRepository.findAll();
 
-        return new ModelAndView("admin/overview/hospitalizace/create")
+        return new ModelAndView("admin/overview/procedura/create")
             .addObject("authUser", authUser)
             .addObject("lekarList", lekarList)
             .addObject("zarizeniList", zarizeniList)
@@ -97,7 +97,8 @@ public class AdminProceduraController {
         List<HospitalizaceView> hospitalizaceList = hospitalizaceRepository.findAll();
 
 
-        return new ModelAndView("/admin/overview/hospitalizace/edit")
+        return new ModelAndView("/admin/overview/procedura/edit")
+            .addObject("id", id)
             .addObject("authUser", authUser)
             .addObject("lekarList", lekarList)
             .addObject("zarizeniList", zarizeniList)

@@ -164,7 +164,7 @@ public class ProceduraRepositoryImpl
             return
                 jdbcTemplate
                     .queryForObject(
-                        "SELECT * FROM PROCEDURA_V WHERE ID = :ID",
+                        "SELECT * FROM PROCEDURA_V WHERE ID_PROCEDURA = :ID",
                         parameters,
                         proceduraViewMapper
                     );

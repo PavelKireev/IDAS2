@@ -1,14 +1,12 @@
 package com.idas2.zdravotnisystem.form.hospitalizace;
 
-import java.time.LocalDate;
-
 public class HospitalizaceUpdateForm {
 
     private Integer id;
     private String duvod;
     private String stavPacienta;
-    private LocalDate hospitalizaceOd;
-    private LocalDate hospitalizaceDo;
+    private String hospitalizaceOd;
+    private String hospitalizaceDo;
     private Integer pacientUzivatelIdUzivatel;
 
     public Integer getId() {
@@ -38,20 +36,20 @@ public class HospitalizaceUpdateForm {
         return this;
     }
 
-    public LocalDate getHospitalizaceOd() {
+    public String getHospitalizaceOd() {
         return hospitalizaceOd;
     }
 
-    public HospitalizaceUpdateForm setHospitalizaceOd(LocalDate hospitalizaceOd) {
+    public HospitalizaceUpdateForm setHospitalizaceOd(String hospitalizaceOd) {
         this.hospitalizaceOd = hospitalizaceOd;
         return this;
     }
 
-    public LocalDate getHospitalizaceDo() {
+    public String getHospitalizaceDo() {
         return hospitalizaceDo;
     }
 
-    public HospitalizaceUpdateForm setHospitalizaceDo(LocalDate hospitalizaceDo) {
+    public HospitalizaceUpdateForm setHospitalizaceDo(String hospitalizaceDo) {
         this.hospitalizaceDo = hospitalizaceDo;
         return this;
     }

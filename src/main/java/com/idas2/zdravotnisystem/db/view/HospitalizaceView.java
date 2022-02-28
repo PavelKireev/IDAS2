@@ -1,11 +1,8 @@
 package com.idas2.zdravotnisystem.db.view;
 
 import com.idas2.zdravotnisystem.util.Selectable;
-import com.idas2.zdravotnisystem.util.TimeUtil;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
 
 public class HospitalizaceView implements Selectable {
 
@@ -51,7 +48,7 @@ public class HospitalizaceView implements Selectable {
         return this;
     }
 
-    public Date getHospitalozaceOd() {
+    public Date getHospitalizaceOd() {
         return hospitalozaceOd;
     }
 

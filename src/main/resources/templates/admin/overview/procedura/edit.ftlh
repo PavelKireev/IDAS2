@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="bg-light border rounded p-4 mb-3">
-                <form class="form-signin user" action="/admin/procedura/save" method="POST">
+                <form class="form-signin user" action="/admin/procedura/${id}/update" method="POST">
                     <div class="form-row">
                         <div class="col-lg-6">
                             <label for="nazev">
@@ -36,7 +36,7 @@
                             <@form.selectOptions "form.idLekar" lekarList "Lekar" />
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-lg btn-success mt-4" value="Create"/>
+                    <input type="submit" class="btn btn-lg btn-success mt-4" value="Update"/>
                 </form>
             </div>
         </div>
