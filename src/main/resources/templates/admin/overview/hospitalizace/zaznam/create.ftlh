@@ -8,7 +8,6 @@
     <h1>Create Zaznam</h1>
     <hr>
     <form method="post" action="/admin/hospitalizace/${id}/zaznam/save">
-
         <div class="form-row">
             <div class="col-lg-6">
                 <div class="mt-2">

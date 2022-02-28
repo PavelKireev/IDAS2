@@ -6,7 +6,7 @@
     <#assign count = 1>
 
     <div class="row">
-        <h2>Pacient</h2>
+        <h2>Procedury</h2>
         <a class="btn btn-success ml-4 mb-2" href="/admin/procedura/create" role="button">Create</a>
     </div>
 

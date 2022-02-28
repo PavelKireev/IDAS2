@@ -155,18 +155,9 @@
                     <span>Hospitalizace</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4"
-                   aria-expanded="true" aria-controls="collapse4">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Pojisteni</span>
-                </a>
-                <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Typ:</h6>
-                        <a class="collapse-item" href="/admin/pojisteni">Pojisteni</a>
-                        <a class="collapse-item" href="/admin/pojistovny">Pojistovny</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="/admin/pojistovna">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Pojistovny</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5"

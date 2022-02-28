@@ -240,4 +240,20 @@ public class AdminPacientController {
         return RedirectUtil.redirect("/admin/uzivatel/pacient");
     }
 
+    @GetMapping("/{pacientUuid}/zdravotni-karta")
+    public ModelAndView pojisteniList(
+        @PathVariable String pacientUuid
+    ){
+        PacientView view =
+            repository.getPacientViewByUzivatelUuid(pacientUuid);
+
+        ZdravortniKarta zdravortniKarta =
+            zdravotniKartaRepository.findByPacientId(view.getId());
+
+
+
+        pojisteniRepository.findByZdravorniKartaId(zdravortniKarta.getId());
+        return new ModelAndView("");
+    }
+
 }

@@ -5,9 +5,9 @@
 
 <@layout.render>
 
-    <h1>Create Pojistovna</h1>
+    <h1>Update Pojistovna</h1>
     <hr>
-    <form method="post" action="/admin/pojistovna/save">
+    <form method="post" action="/admin/pojistovna/${id}/update">
         <div class="form-row">
             <div class="col-lg-3">
                 <div class="mt-2">
@@ -35,7 +35,6 @@
                 </div>
             </div>
         </div>
-
         <button type="submit" class="btn btn-primary mt-2">Submit</button>
     </form>
 

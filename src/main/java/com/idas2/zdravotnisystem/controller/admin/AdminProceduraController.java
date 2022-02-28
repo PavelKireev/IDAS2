@@ -126,4 +126,11 @@ public class AdminProceduraController {
         proceduraRepository.delete(id);
         return RedirectUtil.redirect("/admin/procedura");
     }
+
+    @GetMapping("/typ")
+    public ModelAndView typList(){
+        List<TypProcedury> list = typProceduryRepository.findAll();
+        return new ModelAndView("")
+            .addObject("list", list);
+    }
 }

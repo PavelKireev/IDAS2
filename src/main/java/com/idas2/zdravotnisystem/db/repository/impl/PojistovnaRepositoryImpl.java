@@ -3,11 +3,13 @@ package com.idas2.zdravotnisystem.db.repository.impl;
 import com.idas2.zdravotnisystem.db.entity.Pojistovna;
 import com.idas2.zdravotnisystem.db.mapper.entity.PojistovnaMapper;
 import com.idas2.zdravotnisystem.db.repository.PojistovnaRepository;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -52,6 +54,28 @@ public class PojistovnaRepositoryImpl
     }
 
     @Override
+    public void save(@NotNull Pojistovna pojistovna) {
+        try {
+            MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+            parameters
+                .addValue("ID", pojistovna.getId())
+                .addValue("NAZEV", pojistovna.getNazev())
+                .addValue("ADRESA", pojistovna.getAdresa())
+                .addValue("TEL_CISLO", pojistovna.getTelCislo());
+
+            namedParameterJdbcTemplate.update(
+                "CALL POJISTOVNA_PRC (" +
+                    ":ID, :NAZEV, :ADRESA, :TEL_CISLO )",
+                parameters
+            );
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public List<Pojistovna> findAll(){
         Map<String, Object> map = new HashMap<>();
 
@@ -67,6 +91,21 @@ public class PojistovnaRepositoryImpl
         } catch (EmptyResultDataAccessException ex) {
             LOGGER.warn("EmptyResultDataAccessException");
             return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public void delete(@NotNull Integer id) {
+
+        try {
+            namedParameterJdbcTemplate
+                .update(
+                    "DELETE FROM POJISTOVNA WHERE ID_POJISTOVNA = :ID",
+                    mapParams("ID", id)
+                );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn("Delete pojistovna ex");
         }
     }
 
