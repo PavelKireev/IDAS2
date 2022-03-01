@@ -13,4 +13,6 @@ public interface TypProceduryRepository{
     @Nullable TypProcedury getOne(Integer id);
 
     void save(@NotNull TypProcedury typProcedury);
+
+    void delete(@NotNull Integer id);
 }

@@ -9,11 +9,15 @@ import com.idas2.zdravotnisystem.db.view.LekarView;
 import com.idas2.zdravotnisystem.db.view.ProceduraView;
 import com.idas2.zdravotnisystem.form.procedura.ProceduraCreateForm;
 import com.idas2.zdravotnisystem.form.procedura.ProceduraUpdateForm;
+import com.idas2.zdravotnisystem.form.procedura.typ.ProceduraTypCreateForm;
+import com.idas2.zdravotnisystem.form.procedura.typ.ProceduraTypUpdateForm;
 import com.idas2.zdravotnisystem.service.form.ProceduraFormService;
+import com.idas2.zdravotnisystem.service.form.ProceduraTypFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,6 +34,8 @@ public class AdminProceduraController {
     private final TypProceduryRepository typProceduryRepository;
     private final HospitalizaceRepository hospitalizaceRepository;
 
+    private final ProceduraTypFormService proceduraTypFormService;
+
     @Autowired
     public AdminProceduraController(
         LekarRepository lekarRepository,
@@ -37,7 +43,8 @@ public class AdminProceduraController {
         ProceduraRepository proceduraRepository,
         ProceduraFormService proceduraFormService,
         TypProceduryRepository typProceduryRepository,
-        HospitalizaceRepository hospitalizaceRepository
+        HospitalizaceRepository hospitalizaceRepository,
+        ProceduraTypFormService proceduraTypFormService
     ) {
         this.lekarRepository = lekarRepository;
         this.typProceduryRepository = typProceduryRepository;
@@ -45,6 +52,7 @@ public class AdminProceduraController {
         this.zarizeniRepository = zarizeniRepository;
         this.proceduraRepository = proceduraRepository;
         this.proceduraFormService = proceduraFormService;
+        this.proceduraTypFormService = proceduraTypFormService;
     }
 
     @GetMapping("")
@@ -128,9 +136,56 @@ public class AdminProceduraController {
     }
 
     @GetMapping("/typ")
-    public ModelAndView typList(){
+    public ModelAndView typList() {
         List<TypProcedury> list = typProceduryRepository.findAll();
-        return new ModelAndView("")
+        return new ModelAndView("/admin/overview/procedura/typ/list")
             .addObject("list", list);
     }
+
+    @GetMapping("/typ/create")
+    public ModelAndView typCreate() {
+        return new ModelAndView("/admin/overview/procedura/typ/create")
+            .addObject("form", new ProceduraTypCreateForm());
+    }
+
+    @PostMapping("/typ/save")
+    public ModelAndView typSave(
+        @ModelAttribute ProceduraTypCreateForm form
+    ) {
+        proceduraTypFormService.create(form);
+        return RedirectUtil.redirect("/admin/procedura/typ");
+    }
+
+    @GetMapping("/typ/{id}/edit")
+    public ModelAndView typEdit(
+        @PathVariable Integer id
+    ) {
+        return new ModelAndView("/admin/overview/procedura/typ/edit")
+            .addObject("id", id)
+            .addObject(
+                "form",
+                proceduraTypFormService.buildUpdateForm(
+                    typProceduryRepository.getOne(id))
+            );
+    }
+
+    @PostMapping("/typ/{id}/update")
+    public ModelAndView update(
+        @PathVariable Integer id,
+        @ModelAttribute ProceduraTypUpdateForm form
+    ) {
+        form.setId(id);
+        proceduraTypFormService.update(form);
+        return RedirectUtil.redirect("/admin/procedura/typ");
+    }
+
+    @GetMapping("/typ/{id}/delete")
+    public ModelAndView delete(
+        @PathVariable Integer id
+    ) {
+        typProceduryRepository.delete(id);
+        return RedirectUtil.redirect("/admin/procedura/typ");
+    }
+
+
 }

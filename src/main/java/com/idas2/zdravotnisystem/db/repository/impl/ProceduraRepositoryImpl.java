@@ -218,7 +218,7 @@ public class ProceduraRepositoryImpl
     public void delete(@NotNull Integer id) {
         try {
             jdbcTemplate.update(
-                "DELETE FROM PROCEDURA WHERE ID = :ID",
+                "DELETE FROM PROCEDURA WHERE ID_PROCEDURA = :ID",
                 mapParams("ID", id)
             );
         } catch (EmptyResultDataAccessException ex) {

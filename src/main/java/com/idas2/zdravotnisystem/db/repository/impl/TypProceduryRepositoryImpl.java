@@ -94,4 +94,16 @@ public class TypProceduryRepositoryImpl
         }
     }
 
+    @Override
+    public void delete(@NotNull Integer id) {
+        try {
+            namedParameterJdbcTemplate.update(
+                "DELETE FROM TYP_PROCEDURY WHERE ID_TYPPROCEDURY = :ID",
+                mapParams("ID", id)
+            );
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.error(ex.getMessage());
+        }
+    }
+
 }

@@ -6,7 +6,9 @@ import com.idas2.zdravotnisystem.form.procedura.typ.ProceduraTypCreateForm;
 import com.idas2.zdravotnisystem.form.procedura.typ.ProceduraTypUpdateForm;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ProceduraTypFormServiceImpl implements ProceduraTypFormService {
 
     private final TypProceduryRepository repository;
