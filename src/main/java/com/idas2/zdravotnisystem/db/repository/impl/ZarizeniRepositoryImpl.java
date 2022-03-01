@@ -81,6 +81,27 @@ public class ZarizeniRepositoryImpl
     }
 
     @Override
+    public @NotNull ZarizeniView getOne(@NotNull Integer id) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+        parameters.addValue("ID", id);
+
+        try {
+            return
+                jdbcTemplate
+                    .queryForObject(
+                        "SELECT * FROM ZARIZENI_V WHERE ID = :ID",
+                        parameters,
+                        zarizeniViewMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn(ex.getMessage());
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
     public void save(@NotNull Zarizeni view) {
 
     }
