@@ -1,6 +1,8 @@
 package com.idas2.zdravotnisystem.db.view;
 
-public class OrdinaceView {
+import com.idas2.zdravotnisystem.util.Selectable;
+
+public class OrdinaceView implements Selectable {
 
     private Integer id;
     private String nazev;
@@ -51,5 +53,15 @@ public class OrdinaceView {
     public OrdinaceView setJeVProvozu(Boolean jeVProvozu) {
         this.jeVProvozu = jeVProvozu;
         return this;
+    }
+
+    @Override
+    public String getSelectorId() {
+        return getId().toString();
+    }
+
+    @Override
+    public String getSelectorTitle() {
+        return String.format("%d %s", getCislo(), getNazev());
     }
 }

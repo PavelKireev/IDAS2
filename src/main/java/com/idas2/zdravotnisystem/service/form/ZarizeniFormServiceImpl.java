@@ -1,7 +1,11 @@
 package com.idas2.zdravotnisystem.service.form;
 
+import com.idas2.zdravotnisystem.db.entity.TypZarizeni;
+import com.idas2.zdravotnisystem.db.repository.TypZarizeniRepository;
 import com.idas2.zdravotnisystem.db.repository.ZarizeniRepository;
 import com.idas2.zdravotnisystem.db.view.ZarizeniView;
+import com.idas2.zdravotnisystem.form.zarizeni.TypZarizeniCreateForm;
+import com.idas2.zdravotnisystem.form.zarizeni.TypZarizeniUpdateForm;
 import com.idas2.zdravotnisystem.form.zarizeni.ZarizeniCreateForm;
 import com.idas2.zdravotnisystem.form.zarizeni.ZarizeniUpdateForm;
 import org.jetbrains.annotations.NotNull;
@@ -16,12 +20,15 @@ import java.util.Objects;
 public class ZarizeniFormServiceImpl implements ZarizeniFormService {
 
     private final ZarizeniRepository zarizeniRepository;
+    private final TypZarizeniRepository typZarizeniRepository;
 
     @Autowired
     public ZarizeniFormServiceImpl(
-        ZarizeniRepository zarizeniRepository
+        ZarizeniRepository zarizeniRepository,
+        TypZarizeniRepository typZarizeniRepository
     ) {
         this.zarizeniRepository = zarizeniRepository;
+        this.typZarizeniRepository = typZarizeniRepository;
     }
 
     @Override
@@ -77,5 +84,41 @@ public class ZarizeniFormServiceImpl implements ZarizeniFormService {
 
 
         zarizeniRepository.saveFromView(view);
+    }
+
+    @Override
+    public void createTyp(@NotNull TypZarizeniCreateForm form) {
+
+        TypZarizeni entity = new TypZarizeni();
+
+        entity
+            .setNazev(form.getNazev())
+            .setCilenePouziti(form.getCilenePouziti())
+            .setPopis(form.getPopis());
+
+        typZarizeniRepository.save(entity);
+    }
+
+    @Override
+    public @NotNull TypZarizeniUpdateForm buildUpdateTypForm(
+        @NotNull TypZarizeni typZarizeni
+    ) {
+        return new TypZarizeniUpdateForm()
+            .setNazev(typZarizeni.getNazev())
+            .setCilenePouziti(typZarizeni.getCilenePouziti())
+            .setPopis(typZarizeni.getPopis());
+    }
+
+    @Override
+    public void updateTyp(@NotNull TypZarizeniUpdateForm form) {
+        TypZarizeni entity = new TypZarizeni();
+
+        entity
+            .setNazev(form.getNazev())
+            .setCilenePouziti(form.getCilenePouziti())
+            .setPopis(form.getPopis())
+            .setId(form.getId());
+
+        typZarizeniRepository.save(entity);
     }
 }

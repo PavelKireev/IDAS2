@@ -1,7 +1,13 @@
 package com.idas2.zdravotnisystem.controller.admin;
 
+import com.idas2.zdravotnisystem.db.entity.TypZarizeni;
+import com.idas2.zdravotnisystem.db.repository.OrdinaceRepository;
+import com.idas2.zdravotnisystem.db.repository.TypZarizeniRepository;
 import com.idas2.zdravotnisystem.db.repository.ZarizeniRepository;
+import com.idas2.zdravotnisystem.db.view.OrdinaceView;
 import com.idas2.zdravotnisystem.db.view.ZarizeniView;
+import com.idas2.zdravotnisystem.form.zarizeni.TypZarizeniCreateForm;
+import com.idas2.zdravotnisystem.form.zarizeni.TypZarizeniUpdateForm;
 import com.idas2.zdravotnisystem.form.zarizeni.ZarizeniCreateForm;
 import com.idas2.zdravotnisystem.form.zarizeni.ZarizeniUpdateForm;
 import com.idas2.zdravotnisystem.service.form.ZarizeniFormService;
@@ -18,15 +24,21 @@ import java.util.List;
 public class AdminZarizeniController {
 
     private final ZarizeniRepository zarizeniRepository;
+    private final OrdinaceRepository ordinaceRepository;
     private final ZarizeniFormService zarizeniFormService;
+    private final TypZarizeniRepository typZarizeniRepository;
 
     @Autowired
     public AdminZarizeniController(
         ZarizeniRepository zarizeniRepository,
-        ZarizeniFormService zarizeniFormService
+        OrdinaceRepository ordinaceRepository,
+        ZarizeniFormService zarizeniFormService,
+        TypZarizeniRepository typZarizeniRepository
     ) {
         this.zarizeniRepository = zarizeniRepository;
+        this.ordinaceRepository = ordinaceRepository;
         this.zarizeniFormService = zarizeniFormService;
+        this.typZarizeniRepository = typZarizeniRepository;
     }
 
     @GetMapping("")
@@ -39,8 +51,13 @@ public class AdminZarizeniController {
     @GetMapping("/create")
     public ModelAndView create(
     ) {
-        return new ModelAndView()
-            .addObject("form", new ZarizeniCreateForm());
+        List<OrdinaceView> ordinaceList = ordinaceRepository.findAll();
+        List<TypZarizeni> typZarizeniList = typZarizeniRepository.findAll();
+
+        return new ModelAndView("/admin/overview/zarizeni/create")
+            .addObject("ordinaceList", ordinaceList)
+            .addObject("form", new ZarizeniCreateForm())
+            .addObject("typZarizeniList", typZarizeniList);
     }
 
     @PostMapping("/save")
@@ -54,9 +71,16 @@ public class AdminZarizeniController {
     @GetMapping("/{id}/edit")
     public ModelAndView edit(
         @PathVariable Integer id
-    ){
+    ) {
         ZarizeniView view = zarizeniRepository.getOne(id);
+
+        List<OrdinaceView> ordinaceList = ordinaceRepository.findAll();
+        List<TypZarizeni> typZarizeniList = typZarizeniRepository.findAll();
+
         return new ModelAndView("/admin/overview/zarizeni/edit")
+            .addObject("id", id)
+            .addObject("ordinaceList", ordinaceList)
+            .addObject("typZarizeniList", typZarizeniList)
             .addObject("form", zarizeniFormService.buildUpdateForm(view));
     }
 
@@ -76,6 +100,57 @@ public class AdminZarizeniController {
     ) {
         zarizeniRepository.delete(id);
         return RedirectUtil.redirect("/admin/zarizeni");
+    }
+
+    @GetMapping("/typ")
+    public ModelAndView typList() {
+
+        List<TypZarizeni> list = typZarizeniRepository.findAll();
+
+        return new ModelAndView("/admin/overview/zarizeni/typ/list")
+            .addObject("list", list);
+    }
+
+    @GetMapping("/typ/create")
+    public ModelAndView typCreate(
+    ) {
+        return new ModelAndView("/admin/overview/zarizeni/typ/create")
+            .addObject("form", new TypZarizeniCreateForm());
+    }
+
+    @PostMapping("/typ/save")
+    public ModelAndView typSave(
+        @ModelAttribute TypZarizeniCreateForm form
+    ) {
+        zarizeniFormService.createTyp(form);
+        return RedirectUtil.redirect("/admin/zarizeni/typ");
+    }
+
+    @GetMapping("/typ/{id}/edit")
+    public ModelAndView typEdit(
+        @PathVariable Integer id
+    ) {
+        TypZarizeni entity = typZarizeniRepository.getOne(id);
+        return new ModelAndView("/admin/overview/zarizeni/typ/edit")
+            .addObject("form", zarizeniFormService.buildUpdateTypForm(entity));
+    }
+
+    @PostMapping("/typ/{id}/update")
+    public ModelAndView typUpdate(
+        @PathVariable Integer id,
+        @ModelAttribute TypZarizeniUpdateForm form
+    ) {
+        form.setId(id);
+        zarizeniFormService.updateTyp(form);
+        return RedirectUtil.redirect("/admin/zarizeni/typ");
+    }
+
+    @GetMapping("/typ/{id}/delete")
+    public ModelAndView typDelete(
+        @PathVariable Integer id
+    ) {
+        typZarizeniRepository.delete(id);
+        return RedirectUtil.redirect("/admin/zarizeni/typ");
     }
 
 }

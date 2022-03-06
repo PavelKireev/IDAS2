@@ -4,9 +4,9 @@
 
 
 <@layout.render>
-    <h1>Create Typ Zarizeni</h1>
+    <h1>Edit Typ Zarizeni</h1>
     <hr>
-    <form method="post" action="/admin/zarizeni/typ/save">
+    <form method="post" action="/admin/zarizeni/typ/${id}/update">
         <div class="form-row">
             <div class="col-lg-3">
                 <div class="mt-2">
