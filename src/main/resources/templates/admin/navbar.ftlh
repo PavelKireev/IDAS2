@@ -188,25 +188,6 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse7"
-                   aria-expanded="true" aria-controls="collapse7">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Zaznamy</span>
-                </a>
-                <div id="collapse7" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Typ:</h6>
-                        <a class="collapse-item" href="/admin/zaznamy">Zaznamy</a>
-                        <a class="collapse-item" href="/admin/zaznamy/typ">Typy Zaznamu</a>
-                    </div>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/specializace">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Specializace</span></a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="/admin/specializace">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Specializace</span></a>
