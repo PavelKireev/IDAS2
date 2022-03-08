@@ -7,9 +7,14 @@ import com.idas2.zdravotnisystem.form.specializace.SpecializaceCreateForm;
 import com.idas2.zdravotnisystem.form.specializace.SpecializaceUpdateForm;
 import com.idas2.zdravotnisystem.service.form.SpecializaceFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
+import com.idas2.zdravotnisystem.validator.specializace.SpecializaceCreateFormValidator;
+import com.idas2.zdravotnisystem.validator.specializace.SpecializaceUpdateFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,13 +27,30 @@ public class AdminSpecializaceController {
     private final SpecializaceRepository specializaceRepository;
     private final SpecializaceFormService specializaceFormService;
 
+    private final SpecializaceCreateFormValidator specializaceCreateFormValidator;
+    private final SpecializaceUpdateFormValidator specializaceUpdateFormValidator;
+
     @Autowired
     public AdminSpecializaceController(
         SpecializaceRepository specializaceRepository,
-        SpecializaceFormService specializaceFormService
+        SpecializaceFormService specializaceFormService,
+        SpecializaceCreateFormValidator specializaceCreateFormValidator,
+        SpecializaceUpdateFormValidator specializaceUpdateFormValidator
     ) {
         this.specializaceRepository = specializaceRepository;
         this.specializaceFormService = specializaceFormService;
+        this.specializaceCreateFormValidator = specializaceCreateFormValidator;
+        this.specializaceUpdateFormValidator = specializaceUpdateFormValidator;
+    }
+
+    @InitBinder("createForm")
+    protected void initCreateBinder(WebDataBinder binder) {
+        binder.addValidators(specializaceCreateFormValidator);
+    }
+
+    @InitBinder("updateForm")
+    protected void initUpdateBinder(WebDataBinder binder) {
+        binder.addValidators(specializaceUpdateFormValidator);
     }
 
     @GetMapping("")
@@ -46,14 +68,19 @@ public class AdminSpecializaceController {
     ) {
         return new ModelAndView("admin/overview/specializace/create")
             .addObject("authUser", authUser)
-            .addObject("form", new SpecializaceCreateForm());
+            .addObject("createForm", new SpecializaceCreateForm());
     }
 
     @PostMapping("/save")
     public ModelAndView save(
         @AuthenticationPrincipal AuthUser authUser,
-        @ModelAttribute("form") SpecializaceCreateForm form
+        @Validated @ModelAttribute("createForm") SpecializaceCreateForm form,
+        BindingResult bindingResult
     ) {
+        if (bindingResult.hasErrors())
+            return new ModelAndView("admin/overview/specializace/create")
+                .addObject("createForm", form);
+
         specializaceFormService.create(form);
         return RedirectUtil.redirect("/admin/specializace");
     }
@@ -69,15 +96,22 @@ public class AdminSpecializaceController {
         return new ModelAndView("/admin/overview/specializace/edit")
             .addObject("id", id)
             .addObject("authUser", authUser)
-            .addObject("form", specializaceFormService.buildUpdateForm(entity));
+            .addObject("updateForm", specializaceFormService.buildUpdateForm(entity));
     }
 
     @PostMapping("/{id}/update")
     public ModelAndView update(
         @PathVariable Integer id,
         @AuthenticationPrincipal AuthUser authUser,
-        @ModelAttribute("form") SpecializaceUpdateForm form
+        @Validated @ModelAttribute("updateForm")
+            SpecializaceUpdateForm form,
+        BindingResult bindingResult
     ) {
+
+        if (bindingResult.hasErrors())
+            return new ModelAndView("admin/overview/specializace/create")
+                .addObject("updateForm", form);
+
         form.setId(id);
         specializaceFormService.update(form);
         return RedirectUtil.redirect("/admin/specializace");
