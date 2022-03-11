@@ -1,18 +1,19 @@
-package com.idas2.zdravotnisystem.validator;
+package com.idas2.zdravotnisystem.validator.zarizeni;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
-public class SignInValidator implements Validator {
+public class ZarizeniUpdateFormValidator implements Validator {
+
     @Override
-    public boolean supports(Class<?> aClass) {
+    public boolean supports(Class<?> clazz) {
         return false;
     }
 
     @Override
-    public void validate(Object o, Errors errors) {
+    public void validate(Object target, Errors errors) {
 
     }
 }

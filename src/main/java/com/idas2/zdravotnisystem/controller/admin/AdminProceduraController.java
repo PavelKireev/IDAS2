@@ -14,10 +14,13 @@ import com.idas2.zdravotnisystem.form.procedura.typ.ProceduraTypUpdateForm;
 import com.idas2.zdravotnisystem.service.form.ProceduraFormService;
 import com.idas2.zdravotnisystem.service.form.ProceduraTypFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
+import com.idas2.zdravotnisystem.validator.procedura.ProceduraCreateFormValidator;
+import com.idas2.zdravotnisystem.validator.procedura.ProceduraUpdateFormValidator;
+import com.idas2.zdravotnisystem.validator.procedura.typ.ProceduraTypCreateFormValidator;
+import com.idas2.zdravotnisystem.validator.procedura.typ.ProceduraTypUpdateFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,6 +37,11 @@ public class AdminProceduraController {
     private final TypProceduryRepository typProceduryRepository;
     private final HospitalizaceRepository hospitalizaceRepository;
 
+    private final ProceduraCreateFormValidator proceduraCreateFormValidator;
+    private final ProceduraUpdateFormValidator proceduraUpdateFormValidator;
+    private final ProceduraTypCreateFormValidator proceduraTypCreateFormValidator;
+    private final ProceduraTypUpdateFormValidator proceduraTypUpdateFormValidator;
+
     private final ProceduraTypFormService proceduraTypFormService;
 
     @Autowired
@@ -43,8 +51,12 @@ public class AdminProceduraController {
         ProceduraRepository proceduraRepository,
         ProceduraFormService proceduraFormService,
         TypProceduryRepository typProceduryRepository,
+        ProceduraTypFormService proceduraTypFormService,
         HospitalizaceRepository hospitalizaceRepository,
-        ProceduraTypFormService proceduraTypFormService
+        ProceduraCreateFormValidator proceduraCreateFormValidator,
+        ProceduraUpdateFormValidator proceduraUpdateFormValidator,
+        ProceduraTypCreateFormValidator proceduraTypCreateFormValidator,
+        ProceduraTypUpdateFormValidator proceduraTypUpdateFormValidator
     ) {
         this.lekarRepository = lekarRepository;
         this.typProceduryRepository = typProceduryRepository;
@@ -52,6 +64,10 @@ public class AdminProceduraController {
         this.zarizeniRepository = zarizeniRepository;
         this.proceduraRepository = proceduraRepository;
         this.proceduraFormService = proceduraFormService;
+        this.proceduraCreateFormValidator = proceduraCreateFormValidator;
+        this.proceduraUpdateFormValidator = proceduraUpdateFormValidator;
+        this.proceduraTypCreateFormValidator = proceduraTypCreateFormValidator;
+        this.proceduraTypUpdateFormValidator = proceduraTypUpdateFormValidator;
         this.proceduraTypFormService = proceduraTypFormService;
     }
 

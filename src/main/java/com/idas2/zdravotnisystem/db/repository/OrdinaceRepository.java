@@ -15,6 +15,11 @@ public interface OrdinaceRepository {
         @NotNull Integer id
     );
 
+    OrdinaceView findByCislo(
+        @NotNull Integer cislo
+    );
+
+
     void delete(
         @NotNull Integer id
     );

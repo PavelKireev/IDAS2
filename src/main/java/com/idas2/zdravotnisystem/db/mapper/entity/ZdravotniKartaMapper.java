@@ -1,6 +1,6 @@
 package com.idas2.zdravotnisystem.db.mapper.entity;
 
-import com.idas2.zdravotnisystem.db.entity.ZdravortniKarta;
+import com.idas2.zdravotnisystem.db.entity.ZdravotniKarta;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
@@ -8,20 +8,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Component
-public class ZdravotniKartaMapper implements RowMapper<ZdravortniKarta> {
+public class ZdravotniKartaMapper implements RowMapper<ZdravotniKarta> {
 
     @Override
-    public ZdravortniKarta mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public ZdravotniKarta mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-        ZdravortniKarta zdravortniKarta = new ZdravortniKarta();
+        ZdravotniKarta zdravotniKarta = new ZdravotniKarta();
 
-        zdravortniKarta
+        zdravotniKarta
             .setKartaOd(rs.getDate("OD").toLocalDate())
             .setKartaDo(rs.getDate("DO").toLocalDate())
             .setDatumVytvareni(rs.getDate("DATUMVYTVARENI").toLocalDate())
             .setPacientUzivatelIdUzivatel(rs.getInt("PACIENT_UZIVATEL_ID_UZIVATEL"))
             .setId(rs.getInt("ID_KARTA"));
 
-        return zdravortniKarta;
+        return zdravotniKarta;
     }
 }

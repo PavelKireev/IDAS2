@@ -1,15 +1,15 @@
 package com.idas2.zdravotnisystem.db.repository;
 
-import com.idas2.zdravotnisystem.db.entity.ZdravortniKarta;
+import com.idas2.zdravotnisystem.db.entity.ZdravotniKarta;
 import org.jetbrains.annotations.NotNull;
 
 public interface ZdravotniKartaRepository {
 
-    ZdravortniKarta findByPacientId(
+    ZdravotniKarta findByPacientId(
         @NotNull Integer pacientId
     );
 
     void updateByEntity(
-        @NotNull ZdravortniKarta zdravortniKarta
+        @NotNull ZdravotniKarta zdravotniKarta
     );
 }

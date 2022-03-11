@@ -7,6 +7,8 @@ import com.idas2.zdravotnisystem.form.uzivatel.admin.AdminCreateForm;
 import com.idas2.zdravotnisystem.form.uzivatel.admin.AdminUpdateForm;
 import com.idas2.zdravotnisystem.service.form.AdminFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
+import com.idas2.zdravotnisystem.validator.uzivatel.admin.AdminCreateFormValidator;
+import com.idas2.zdravotnisystem.validator.uzivatel.admin.AdminUpdateFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -21,15 +23,21 @@ public class AdminAdminController {
 
     private final AdminFormService adminFormService;
     private final AdministratorRepository administratorRepository;
+    private final AdminCreateFormValidator adminCreateFormValidator;
+    private final AdminUpdateFormValidator adminUpdateFormValidator;
 
 
     @Autowired
     public AdminAdminController(
         AdminFormService adminFormService,
-        AdministratorRepository administratorRepository
+        AdministratorRepository administratorRepository,
+        AdminCreateFormValidator adminCreateFormValidator,
+        AdminUpdateFormValidator adminUpdateFormValidator
     ) {
         this.adminFormService = adminFormService;
         this.administratorRepository = administratorRepository;
+        this.adminCreateFormValidator = adminCreateFormValidator;
+        this.adminUpdateFormValidator = adminUpdateFormValidator;
     }
 
     @GetMapping("")

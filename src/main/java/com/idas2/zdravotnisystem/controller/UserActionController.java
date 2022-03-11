@@ -1,6 +1,6 @@
 package com.idas2.zdravotnisystem.controller;
 
-import com.idas2.zdravotnisystem.validator.SignInValidator;
+import com.idas2.zdravotnisystem.validator.uzivatel.SignInValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;

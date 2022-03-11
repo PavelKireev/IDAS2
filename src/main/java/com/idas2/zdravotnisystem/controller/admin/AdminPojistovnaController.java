@@ -6,6 +6,8 @@ import com.idas2.zdravotnisystem.form.pojistovna.PojistovnaCreateForm;
 import com.idas2.zdravotnisystem.form.pojistovna.PojistovnaUpdateForm;
 import com.idas2.zdravotnisystem.service.form.PojistovnaFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
+import com.idas2.zdravotnisystem.validator.pojistovna.PojistovnaCreateFormValidator;
+import com.idas2.zdravotnisystem.validator.pojistovna.PojistovnaUpdateFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +21,20 @@ public class AdminPojistovnaController {
 
     private final PojistovnaRepository pojistovnaRepository;
     private final PojistovnaFormService pojistovnaFormService;
+    private final PojistovnaCreateFormValidator pojistovnaCreateFormValidator;
+    private final PojistovnaUpdateFormValidator pojistovnaUpdateFormValidator;
 
     @Autowired
     public AdminPojistovnaController(
         PojistovnaRepository pojistovnaRepository,
-        PojistovnaFormService pojistovnaFormService
+        PojistovnaFormService pojistovnaFormService,
+        PojistovnaCreateFormValidator pojistovnaCreateFormValidator,
+        PojistovnaUpdateFormValidator pojistovnaUpdateFormValidator
     ) {
         this.pojistovnaRepository = pojistovnaRepository;
         this.pojistovnaFormService = pojistovnaFormService;
+        this.pojistovnaCreateFormValidator = pojistovnaCreateFormValidator;
+        this.pojistovnaUpdateFormValidator = pojistovnaUpdateFormValidator;
     }
 
     @GetMapping("")

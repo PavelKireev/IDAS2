@@ -3,7 +3,7 @@ package com.idas2.zdravotnisystem.controller.lekar;
 import com.idas2.zdravotnisystem.component.AuthUser;
 import com.idas2.zdravotnisystem.db.entity.Pojisteni;
 import com.idas2.zdravotnisystem.db.entity.Pojistovna;
-import com.idas2.zdravotnisystem.db.entity.ZdravortniKarta;
+import com.idas2.zdravotnisystem.db.entity.ZdravotniKarta;
 import com.idas2.zdravotnisystem.db.repository.*;
 import com.idas2.zdravotnisystem.db.repository.impl.NemocnicniPokojRepositoryImpl;
 import com.idas2.zdravotnisystem.db.view.PacientView;
@@ -82,16 +82,16 @@ public class LekarPacientController {
         PacientUpdateForm pacientForm =
             lekarPacientFormService.buildPacientForm(pacientView, new PacientUpdateForm());
 
-        ZdravortniKarta zdravortniKarta =
+        ZdravotniKarta zdravotniKarta =
             zdravotniKartaRepository.findByPacientId(pacientView.getId());
 
         List<Pojistovna> pojistovnaList = pojistovnaRepository.findAll();
 
         Pojisteni pojisteni =
-            pojisteniRepository.findByZdravorniKartaId(zdravortniKarta.getId());
+            pojisteniRepository.findByZdravorniKartaId(zdravotniKarta.getId());
 
         LekarKartaUpdateForm kartaForm =
-            lekarPacientFormService.buildKartaForm(zdravortniKarta, new LekarKartaUpdateForm());
+            lekarPacientFormService.buildKartaForm(zdravotniKarta, new LekarKartaUpdateForm());
 
         LekarPojisteniForm pojisteniForm =
             lekarPacientFormService.buildPojisteniForm(pojisteni, new LekarPojisteniForm());
@@ -116,7 +116,7 @@ public class LekarPacientController {
             .addObject("pacientView", pacientView)
             .addObject("pojisteniForm", pojisteniForm)
             .addObject("pojistovnaList", pojistovnaList)
-            .addObject("zdravotniKarta", zdravortniKarta)
+            .addObject("zdravotniKarta", zdravotniKarta)
             .addObject("pokojList", nemocnicniPokojRepository.findAll());
     }
 
@@ -160,12 +160,12 @@ public class LekarPacientController {
         PacientView pacientView =
             pacientRepository.getPacientViewByUzivatelUuid(pacientUuid);
 
-        ZdravortniKarta zdravortniKarta =
+        ZdravotniKarta zdravotniKarta =
             zdravotniKartaRepository.findByPacientId(pacientView.getId());
 
-        pojisteniForm.setZdravotniKartaIdKarta(zdravortniKarta.getId());
+        pojisteniForm.setZdravotniKartaIdKarta(zdravotniKarta.getId());
 
-        lekarPacientFormService.updatePojisteniForm(zdravortniKarta.getId(), pojisteniForm);
+        lekarPacientFormService.updatePojisteniForm(zdravotniKarta.getId(), pojisteniForm);
         return RedirectUtil.redirect(String.format("/lekar/pacient/%s/edit", pacientUuid));
     }
 

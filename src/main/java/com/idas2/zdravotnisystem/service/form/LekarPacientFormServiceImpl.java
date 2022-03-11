@@ -1,7 +1,7 @@
 package com.idas2.zdravotnisystem.service.form;
 
 import com.idas2.zdravotnisystem.db.entity.Pojisteni;
-import com.idas2.zdravotnisystem.db.entity.ZdravortniKarta;
+import com.idas2.zdravotnisystem.db.entity.ZdravotniKarta;
 import com.idas2.zdravotnisystem.db.repository.PacientRepository;
 import com.idas2.zdravotnisystem.db.repository.PojisteniRepository;
 import com.idas2.zdravotnisystem.db.repository.ZdravotniKartaRepository;
@@ -35,7 +35,7 @@ public class LekarPacientFormServiceImpl implements LekarPacientFormService {
 
     @Override
     public @NotNull LekarKartaUpdateForm buildKartaForm(
-        @NotNull ZdravortniKarta source,
+        @NotNull ZdravotniKarta source,
         @NotNull LekarKartaUpdateForm target
     ) {
         return target
@@ -48,7 +48,7 @@ public class LekarPacientFormServiceImpl implements LekarPacientFormService {
         @NotNull Integer pacientId,
         @NotNull LekarKartaUpdateForm source
     ) {
-        ZdravortniKarta karta = kartaRepository.findByPacientId(pacientId);
+        ZdravotniKarta karta = kartaRepository.findByPacientId(pacientId);
 
         karta
             .setKartaOd(Date.valueOf(source.getPlatnostOd()).toLocalDate())

@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import java.time.LocalDate;
 
 @Entity
-public class ZdravortniKarta extends UUIDableTimedEntity<Integer> {
+public class ZdravotniKarta extends UUIDableTimedEntity<Integer> {
 
     private static final long serialVersionUID = -4953939557759873994L;
 
@@ -19,7 +19,7 @@ public class ZdravortniKarta extends UUIDableTimedEntity<Integer> {
         return datumVytvareni;
     }
 
-    public ZdravortniKarta setDatumVytvareni(LocalDate datumVytvareni) {
+    public ZdravotniKarta setDatumVytvareni(LocalDate datumVytvareni) {
         this.datumVytvareni = datumVytvareni;
         return this;
     }
@@ -28,7 +28,7 @@ public class ZdravortniKarta extends UUIDableTimedEntity<Integer> {
         return kartaOd;
     }
 
-    public ZdravortniKarta setKartaOd(LocalDate kartaOd) {
+    public ZdravotniKarta setKartaOd(LocalDate kartaOd) {
         this.kartaOd = kartaOd;
         return this;
     }
@@ -37,7 +37,7 @@ public class ZdravortniKarta extends UUIDableTimedEntity<Integer> {
         return kartaDo;
     }
 
-    public ZdravortniKarta setKartaDo(LocalDate kartaDo) {
+    public ZdravotniKarta setKartaDo(LocalDate kartaDo) {
         this.kartaDo = kartaDo;
         return this;
     }
@@ -46,7 +46,7 @@ public class ZdravortniKarta extends UUIDableTimedEntity<Integer> {
         return pacientUzivatelIdUzivatel;
     }
 
-    public ZdravortniKarta setPacientUzivatelIdUzivatel(Integer pacientUzivatelIdUzivatel) {
+    public ZdravotniKarta setPacientUzivatelIdUzivatel(Integer pacientUzivatelIdUzivatel) {
         this.pacientUzivatelIdUzivatel = pacientUzivatelIdUzivatel;
         return this;
     }

@@ -1,7 +1,7 @@
 package com.idas2.zdravotnisystem.service.form;
 
 import com.idas2.zdravotnisystem.db.entity.Pojisteni;
-import com.idas2.zdravotnisystem.db.entity.ZdravortniKarta;
+import com.idas2.zdravotnisystem.db.entity.ZdravotniKarta;
 import com.idas2.zdravotnisystem.db.view.PacientView;
 import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarKartaUpdateForm;
 import com.idas2.zdravotnisystem.form.uzivatel.lekar.PacientUpdateForm;
@@ -12,7 +12,7 @@ public interface LekarPacientFormService {
 
     @NotNull
     LekarKartaUpdateForm buildKartaForm(
-        @NotNull ZdravortniKarta source,
+        @NotNull ZdravotniKarta source,
         @NotNull LekarKartaUpdateForm target
     );
 

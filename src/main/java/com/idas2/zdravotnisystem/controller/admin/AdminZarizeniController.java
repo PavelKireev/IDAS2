@@ -12,6 +12,8 @@ import com.idas2.zdravotnisystem.form.zarizeni.ZarizeniCreateForm;
 import com.idas2.zdravotnisystem.form.zarizeni.ZarizeniUpdateForm;
 import com.idas2.zdravotnisystem.service.form.ZarizeniFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
+import com.idas2.zdravotnisystem.validator.zarizeni.ZarizeniCreateFormValidator;
+import com.idas2.zdravotnisystem.validator.zarizeni.ZarizeniUpdateFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -28,17 +30,24 @@ public class AdminZarizeniController {
     private final ZarizeniFormService zarizeniFormService;
     private final TypZarizeniRepository typZarizeniRepository;
 
+    private final ZarizeniCreateFormValidator zarizeniCreateFormValidator;
+    private final ZarizeniUpdateFormValidator zarizeniUpdateFormValidator;
+
     @Autowired
     public AdminZarizeniController(
         ZarizeniRepository zarizeniRepository,
         OrdinaceRepository ordinaceRepository,
         ZarizeniFormService zarizeniFormService,
-        TypZarizeniRepository typZarizeniRepository
+        TypZarizeniRepository typZarizeniRepository,
+        ZarizeniCreateFormValidator zarizeniCreateFormValidator,
+        ZarizeniUpdateFormValidator zarizeniUpdateFormValidator
     ) {
         this.zarizeniRepository = zarizeniRepository;
         this.ordinaceRepository = ordinaceRepository;
         this.zarizeniFormService = zarizeniFormService;
         this.typZarizeniRepository = typZarizeniRepository;
+        this.zarizeniCreateFormValidator = zarizeniCreateFormValidator;
+        this.zarizeniUpdateFormValidator = zarizeniUpdateFormValidator;
     }
 
     @GetMapping("")

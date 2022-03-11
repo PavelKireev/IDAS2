@@ -117,4 +117,26 @@ public class NemocnicniPokojRepositoryImpl
             return null;
         }
     }
+
+    @Override
+    public NemocnicniPokojView findByCislo(
+        @NotNull Integer cislo
+    ) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+        parameters.addValue("CISLO", cislo);
+        try {
+            return
+                namedParameterJdbcTemplate
+                    .queryForObject(
+                        "SELECT * FROM NEMOCNICNI_POKOJ_V WHERE CISLO = :CISLO",
+                        parameters,
+                        nemocnicniPokojViewMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn(ex.getMessage());
+            return null;
+        }
+    }
 }

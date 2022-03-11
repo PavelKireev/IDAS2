@@ -29,6 +29,5 @@ public class SpecializaceUpdateFormValidator implements Validator {
 
         if (Objects.nonNull(form.getPopis()) && form.getPopis().length() > 50)
             errors.rejectValue("popis", "", "Prilis dlouhy popis");
-
     }
 }

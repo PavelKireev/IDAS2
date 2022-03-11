@@ -7,6 +7,8 @@ import com.idas2.zdravotnisystem.form.mistnost.ordinace.OrdinaceCreateForm;
 import com.idas2.zdravotnisystem.form.mistnost.ordinace.OrdinaceUpdateForm;
 import com.idas2.zdravotnisystem.service.form.OrdinaceFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
+import com.idas2.zdravotnisystem.validator.mistnost.ordinace.OrdinaceCreateFormValidator;
+import com.idas2.zdravotnisystem.validator.mistnost.ordinace.OrdinaceUpdateFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -21,14 +23,20 @@ public class AdminOrdinaceController {
 
     private final OrdinaceRepository ordinaceRepository;
     private final OrdinaceFormService ordinaceFormService;
+    private final OrdinaceCreateFormValidator createFormValidator;
+    private final OrdinaceUpdateFormValidator ordinaceUpdateFormValidator;
 
     @Autowired
     public AdminOrdinaceController(
         OrdinaceRepository ordinaceRepository,
-        OrdinaceFormService ordinaceFormService
+        OrdinaceFormService ordinaceFormService,
+        OrdinaceCreateFormValidator createFormValidator,
+        OrdinaceUpdateFormValidator ordinaceUpdateFormValidator
     ) {
         this.ordinaceRepository = ordinaceRepository;
         this.ordinaceFormService = ordinaceFormService;
+        this.createFormValidator = createFormValidator;
+        this.ordinaceUpdateFormValidator = ordinaceUpdateFormValidator;
     }
 
     @GetMapping("")

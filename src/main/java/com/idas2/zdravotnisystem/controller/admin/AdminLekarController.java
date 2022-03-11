@@ -1,7 +1,6 @@
 package com.idas2.zdravotnisystem.controller.admin;
 
 import com.idas2.zdravotnisystem.component.AuthUser;
-import com.idas2.zdravotnisystem.db.entity.Kancelar;
 import com.idas2.zdravotnisystem.db.entity.Specializace;
 import com.idas2.zdravotnisystem.db.entity.User;
 import com.idas2.zdravotnisystem.db.repository.KancelarRepository;
@@ -14,6 +13,8 @@ import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarCreateForm;
 import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarUpdateForm;
 import com.idas2.zdravotnisystem.service.form.LekarFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
+import com.idas2.zdravotnisystem.validator.uzivatel.lekar.LekarCreateFormValidator;
+import com.idas2.zdravotnisystem.validator.uzivatel.lekar.LekarUpdateFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,8 @@ public class AdminLekarController {
     private final KancelarRepository kancelarRepository;
     private final UzivatelRepository uzivatelRepository;
     private final SpecializaceRepository specializaceRepository;
+    private final LekarCreateFormValidator lekarCreateFormValidator;
+    private final LekarUpdateFormValidator lekarUpdateFormValidator;
 
     @Autowired
     public AdminLekarController(
@@ -38,13 +41,17 @@ public class AdminLekarController {
         LekarFormService lekarFormService,
         KancelarRepository kancelarRepository,
         UzivatelRepository uzivatelRepository,
-        SpecializaceRepository specializaceRepository
+        SpecializaceRepository specializaceRepository,
+        LekarCreateFormValidator lekarCreateFormValidator,
+        LekarUpdateFormValidator lekarUpdateFormValidator
     ) {
         this.lekarRepository = lekarRepository;
         this.lekarFormService = lekarFormService;
         this.kancelarRepository = kancelarRepository;
         this.uzivatelRepository = uzivatelRepository;
         this.specializaceRepository = specializaceRepository;
+        this.lekarCreateFormValidator = lekarCreateFormValidator;
+        this.lekarUpdateFormValidator = lekarUpdateFormValidator;
     }
 
     @GetMapping("")

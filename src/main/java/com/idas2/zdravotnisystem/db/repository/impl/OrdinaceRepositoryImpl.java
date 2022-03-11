@@ -80,6 +80,26 @@ public class OrdinaceRepositoryImpl
     }
 
     @Override
+    public OrdinaceView findByCislo(@NotNull Integer cislo) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+        parameters.addValue("CISLO", cislo);
+        try {
+            return
+                namedParameterJdbcTemplate
+                    .queryForObject(
+                        "SELECT * FROM ORDINACE_V WHERE CISLO = :CISLO",
+                        parameters,
+                        mapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn(ex.getMessage());
+            return null;
+        }
+    }
+
+    @Override
     public void delete(@NotNull Integer id) {
         try {
             namedParameterJdbcTemplate

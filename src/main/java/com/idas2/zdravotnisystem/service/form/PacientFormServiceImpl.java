@@ -3,7 +3,7 @@ package com.idas2.zdravotnisystem.service.form;
 import com.idas2.zdravotnisystem.db.entity.Hospitalizace;
 import com.idas2.zdravotnisystem.db.entity.Pojisteni;
 import com.idas2.zdravotnisystem.db.entity.User;
-import com.idas2.zdravotnisystem.db.entity.ZdravortniKarta;
+import com.idas2.zdravotnisystem.db.entity.ZdravotniKarta;
 import com.idas2.zdravotnisystem.db.repository.*;
 import com.idas2.zdravotnisystem.db.view.PacientView;
 import com.idas2.zdravotnisystem.form.uzivatel.lekar.PacientUpdateForm;
@@ -118,7 +118,7 @@ public class PacientFormServiceImpl implements PacientFormService {
 
         User user = uzivatelRepository.findByEmail(view.getEmail());
 
-        ZdravortniKarta zdravortniKarta = new ZdravortniKarta();
+        ZdravotniKarta zdravotniKarta = new ZdravotniKarta();
 
         Hospitalizace hospitalizace = new Hospitalizace();
 
@@ -131,14 +131,14 @@ public class PacientFormServiceImpl implements PacientFormService {
 
         hospitalizaceRepository.saveFromEntity(hospitalizace);
 
-        zdravortniKarta
+        zdravotniKarta
             .setKartaOd(LocalDate.now().plusDays(1))
             .setKartaDo(LocalDate.now().plusYears(2L))
             .setPacientUzivatelIdUzivatel(user.getId());
 
-        zdravotniKartaRepository.updateByEntity(zdravortniKarta);
+        zdravotniKartaRepository.updateByEntity(zdravotniKarta);
 
-        ZdravortniKarta karta = zdravotniKartaRepository.findByPacientId(user.getId());
+        ZdravotniKarta karta = zdravotniKartaRepository.findByPacientId(user.getId());
 
         Pojisteni pojisteni = new Pojisteni();
 

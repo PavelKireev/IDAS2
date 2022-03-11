@@ -21,4 +21,8 @@ public interface NemocnicniPokojRepository {
         @NotNull Integer id
     );
 
+    NemocnicniPokojView findByCislo(
+        @NotNull Integer cislo
+    );
+
 }

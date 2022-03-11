@@ -7,6 +7,8 @@ import com.idas2.zdravotnisystem.form.mistnost.pokoj.PokojCreateForm;
 import com.idas2.zdravotnisystem.form.mistnost.pokoj.PokojUpdateForm;
 import com.idas2.zdravotnisystem.service.form.PokojFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
+import com.idas2.zdravotnisystem.validator.mistnost.pokoj.PokojCreateFormValidator;
+import com.idas2.zdravotnisystem.validator.mistnost.pokoj.PokojUpdateFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -18,14 +20,20 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminPokojController {
 
     private final PokojFormService pokojFormService;
+    private final PokojCreateFormValidator pokojCreateFormValidator;
+    private final PokojUpdateFormValidator pokojUpdateFormValidator;
     private final NemocnicniPokojRepository nemocnicniPokojRepository;
 
     @Autowired
     public AdminPokojController(
         PokojFormService pokojFormService,
+        PokojCreateFormValidator pokojCreateFormValidator,
+        PokojUpdateFormValidator pokojUpdateFormValidator,
         NemocnicniPokojRepository nemocnicniPokojRepository
     ) {
         this.pokojFormService = pokojFormService;
+        this.pokojCreateFormValidator = pokojCreateFormValidator;
+        this.pokojUpdateFormValidator = pokojUpdateFormValidator;
         this.nemocnicniPokojRepository = nemocnicniPokojRepository;
     }
 

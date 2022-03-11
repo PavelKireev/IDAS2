@@ -7,6 +7,8 @@ import com.idas2.zdravotnisystem.form.mistnost.kancelar.KancelarCreateForm;
 import com.idas2.zdravotnisystem.form.mistnost.kancelar.KancelarUpdateForm;
 import com.idas2.zdravotnisystem.service.form.KancelarFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
+import com.idas2.zdravotnisystem.validator.mistnost.kancelar.KancelarCreateFormValidator;
+import com.idas2.zdravotnisystem.validator.mistnost.kancelar.KancelarUpdateFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -21,14 +23,20 @@ public class AdminKancelarController {
 
     private final KancelarRepository kancelarRepository;
     private final KancelarFormService kancelarFormService;
+    private final KancelarCreateFormValidator kancelarCreateFormValidator;
+    private final KancelarUpdateFormValidator kancelarUpdateFormValidator;
 
     @Autowired
     public AdminKancelarController(
         KancelarRepository kancelarRepository,
-        KancelarFormService kancelarFormService
+        KancelarFormService kancelarFormService,
+        KancelarCreateFormValidator kancelarCreateFormValidator,
+        KancelarUpdateFormValidator kancelarUpdateFormValidator
     ) {
         this.kancelarRepository = kancelarRepository;
         this.kancelarFormService = kancelarFormService;
+        this.kancelarCreateFormValidator = kancelarCreateFormValidator;
+        this.kancelarUpdateFormValidator = kancelarUpdateFormValidator;
     }
 
     @GetMapping("")

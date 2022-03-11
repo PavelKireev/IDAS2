@@ -6,7 +6,7 @@ public class PacientCreateForm {
 
     private String email;
     private String heslo;
-    private String jmeeno;
+    private String jmeno;
     private String prijmeni;
     private String telCislo;
     private String adresa;
@@ -35,12 +35,12 @@ public class PacientCreateForm {
         return this;
     }
 
-    public String getJmeeno() {
-        return jmeeno;
+    public String getJmeno() {
+        return jmeno;
     }
 
-    public PacientCreateForm setJmeeno(String jmeeno) {
-        this.jmeeno = jmeeno;
+    public PacientCreateForm setJmeno(String jmeno) {
+        this.jmeno = jmeno;
         return this;
     }
 

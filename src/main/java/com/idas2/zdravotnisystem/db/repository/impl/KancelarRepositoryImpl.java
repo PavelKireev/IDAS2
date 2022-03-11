@@ -112,4 +112,24 @@ public class KancelarRepositoryImpl
             return null;
         }
     }
+
+    @Override
+    public KancelarView findByCislo(@NotNull Integer cislo) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+        parameters.addValue("CISLO", cislo);
+        try {
+            return
+                jdbcTemplate
+                    .queryForObject(
+                        "SELECT * FROM KANCELAR_V WHERE CISLO = :CISLO",
+                        parameters,
+                        kancelarViewMapper
+                    );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn(ex.getMessage());
+            return null;
+        }
+    }
 }

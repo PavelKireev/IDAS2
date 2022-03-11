@@ -9,15 +9,19 @@ public interface KancelarRepository {
 
     List<KancelarView> findAllView();
 
+    KancelarView findById(
+        @NotNull Integer id
+    );
+
+    KancelarView findByCislo(
+        @NotNull Integer cislo
+    );
+
     void saveFromView(
         @NotNull KancelarView view
     );
 
     void delete(
-        @NotNull Integer id
-    );
-
-    KancelarView findById(
         @NotNull Integer id
     );
 }

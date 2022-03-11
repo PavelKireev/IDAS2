@@ -1,10 +1,9 @@
 package com.idas2.zdravotnisystem.db.repository.impl;
 
-import com.idas2.zdravotnisystem.db.entity.ZdravortniKarta;
+import com.idas2.zdravotnisystem.db.entity.ZdravotniKarta;
 import com.idas2.zdravotnisystem.db.mapper.entity.ZdravotniKartaMapper;
 import com.idas2.zdravotnisystem.db.repository.ZdravotniKartaRepository;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -31,7 +30,7 @@ public class ZdravotniKartaRepositoryImpl
     }
 
     @Override
-    public ZdravortniKarta findByPacientId(
+    public ZdravotniKarta findByPacientId(
         @NotNull Integer pacientId
     ) {
         try {
@@ -50,17 +49,17 @@ public class ZdravotniKartaRepositoryImpl
 
     @Override
     public void updateByEntity(
-        @NotNull ZdravortniKarta zdravortniKarta
+        @NotNull ZdravotniKarta zdravotniKarta
     ) {
         try {
             MapSqlParameterSource parameters = new MapSqlParameterSource();
 
             parameters
-                .addValue("ID", zdravortniKarta.getId())
-                .addValue("OD", Date.valueOf(zdravortniKarta.getKartaOd()))
-                .addValue("DO", Date.valueOf(zdravortniKarta.getKartaDo()))
+                .addValue("ID", zdravotniKarta.getId())
+                .addValue("OD", Date.valueOf(zdravotniKarta.getKartaOd()))
+                .addValue("DO", Date.valueOf(zdravotniKarta.getKartaDo()))
                 .addValue("PACIENT_UZIVATEL_ID_UZIVATEL",
-                    zdravortniKarta.getPacientUzivatelIdUzivatel()
+                    zdravotniKarta.getPacientUzivatelIdUzivatel()
                 );
 
             namedParameterJdbcTemplate.update(
