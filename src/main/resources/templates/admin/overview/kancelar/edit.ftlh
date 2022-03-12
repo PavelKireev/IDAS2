@@ -14,7 +14,7 @@
                                 Nazev
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.nazev" "required class=\"form-control form-control-sm\" placeholder=\"Nazev\"" />
+                                <@spring.formInput "updateForm.nazev" "required class=\"form-control form-control-sm\" placeholder=\"Nazev\"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
@@ -23,7 +23,7 @@
                                 Cislo
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.cislo" "required class=\"form-control form-control-sm\" placeholder=\"Cislo\"" />
+                                <@spring.formInput "updateForm.cislo" "required class=\"form-control form-control-sm\" placeholder=\"Cislo\"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                                 Plocha
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.plocha" "required class=\"form-control form-control-sm\" placeholder=\"Plocha\"" />
+                                <@spring.formInput "updateForm.plocha" "required class=\"form-control form-control-sm\" placeholder=\"Plocha\"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                     <div class="form-row">
                         <div class="form-group ml-2 row">
                             <div class="form-check">
-                                <@spring.formCheckbox "form.jeObsazena" "class=\"form-check-input\" type=\"checkbox\" id=\"flexCheckDefault\""/>
+                                <@spring.formCheckbox "updateForm.jeObsazena" "class=\"form-check-input\" type=\"checkbox\" id=\"flexCheckDefault\""/>
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Je Obsazena
                                 </label>

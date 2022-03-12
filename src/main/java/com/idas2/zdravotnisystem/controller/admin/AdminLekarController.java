@@ -18,6 +18,9 @@ import com.idas2.zdravotnisystem.validator.uzivatel.lekar.LekarUpdateFormValidat
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -54,6 +57,18 @@ public class AdminLekarController {
         this.lekarUpdateFormValidator = lekarUpdateFormValidator;
     }
 
+
+    @InitBinder("createForm")
+    protected void initCreateBinder(WebDataBinder binder) {
+        binder.addValidators(lekarCreateFormValidator);
+    }
+
+    @InitBinder("updateForm")
+    protected void initUpdateBinder(WebDataBinder binder) {
+        binder.addValidators(lekarUpdateFormValidator);
+    }
+
+
     @GetMapping("")
     public ModelAndView info(
         @AuthenticationPrincipal AuthUser authUser
@@ -73,17 +88,29 @@ public class AdminLekarController {
 
         return new ModelAndView("admin/overview/lekar/create")
             .addObject("authUser", authUser)
-            .addObject("form", new LekarCreateForm())
+            .addObject("createForm", new LekarCreateForm())
             .addObject("specializaceList", specializaceList)
             .addObject("kancelarList", kancelarList);
     }
 
     @PostMapping("/save")
     public ModelAndView save(
-        @ModelAttribute LekarCreateForm form,
+        @Validated @ModelAttribute("createForm") LekarCreateForm createForm,
+        BindingResult bindingResult,
         @AuthenticationPrincipal AuthUser authUser
     ) {
-        lekarFormService.save(form);
+        if (bindingResult.hasErrors()) {
+            List<Specializace> specializaceList = specializaceRepository.findAll();
+            List<KancelarView> kancelarList = kancelarRepository.findAllView();
+
+            return new ModelAndView("admin/overview/lekar/create")
+                .addObject("authUser", authUser)
+                .addObject("createForm", createForm)
+                .addObject("specializaceList", specializaceList)
+                .addObject("kancelarList", kancelarList);
+        }
+
+        lekarFormService.save(createForm);
         return RedirectUtil.redirect("/admin/uzivatel/lekar");
     }
 
@@ -104,10 +131,17 @@ public class AdminLekarController {
     public ModelAndView update(
         @PathVariable Integer lekarId,
         @AuthenticationPrincipal AuthUser authUser,
-        @ModelAttribute LekarUpdateForm form
+        @Validated @ModelAttribute("updateForm") LekarUpdateForm updateForm,
+        BindingResult bindingResult
     ) {
-        form.setId(lekarId);
-        lekarFormService.update(form);
+        if(bindingResult.hasErrors()){
+            return new ModelAndView("admin/overview/lekar/edit")
+                .addObject("updateForm", updateForm)
+                .addObject("authUser", authUser);
+        }
+
+        updateForm.setId(lekarId);
+        lekarFormService.update(updateForm);
 
         return RedirectUtil.redirect("/admin/uzivatel/lekar");
     }

@@ -1,6 +1,6 @@
 <#import '/spring.ftl' as spring>
-<#import '../../navbar.ftlh' as layout>
-<#import '../../../partials/form.ftlh' as form>
+<#import '../navbar.ftlh' as layout>
+<#import '../../partials/form.ftlh' as form>
 
 
 <@layout.render>
@@ -51,7 +51,7 @@
         <div class="row col-lg-4" style="display: flex; justify-content: flex-end">
             <#--            <img src=${avatar!"/static/img/undraw_profile.svg"} class="img-fluid"/>-->
             <form method="post" enctype="multipart/form-data"
-                  action="/admin/uzivatel/admin/avatar/${view.getUuid()}/update">
+                  action="/admin/profile/avatar">
                 <div class="input-group mb-3 mt-3">
                     <div class="card" style="width: 26rem;">
                         <img class="card-img-top" src="${avatar!"/static/img/undraw_profile.svg"}" alt="Card image cap">

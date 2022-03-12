@@ -12,7 +12,7 @@
                         Email
                     </label>
                     <div class="form-group">
-                        <@spring.formInput "form.email" "required class=\"form-control form-control-sm\" placeholder=\"Email\"" "email"/>
+                        <@spring.formInput "createForm.email" "required class=\"form-control form-control-sm\" placeholder=\"Email\"" "email"/>
                         <@spring.showErrors "<br>" "small"/>
                     </div>
                     <div class="form-row">
@@ -21,7 +21,7 @@
                                 Heslo
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.heslo" "required class=\"form-control form-control-sm\" placeholder=\"Password\"" "password"/>
+                                <@spring.formInput "createForm.heslo" "required class=\"form-control form-control-sm\" placeholder=\"Password\"" "password"/>
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
                                 Heslo Potvrzeni
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.confirmHeslo" "required class=\"form-control form-control-sm\" placeholder=\"Confirm Password\"" "password"/>
+                                <@spring.formInput "createForm.confirmHeslo" "required class=\"form-control form-control-sm\" placeholder=\"Confirm Password\"" "password"/>
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                                 Jmeno
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.jmeno" "required class=\"form-control form-control-sm\" placeholder=\"Jmeno\"" />
+                                <@spring.formInput "createForm.jmeno" "required class=\"form-control form-control-sm\" placeholder=\"Jmeno\"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                 Prijmeni
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.prijmeni" "required class=\"form-control form-control-sm\" placeholder=\"Pijmeni\"" />
+                                <@spring.formInput "createForm.prijmeni" "required class=\"form-control form-control-sm\" placeholder=\"Pijmeni\"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
@@ -59,14 +59,14 @@
                         Adresa
                     </label>
                     <div class="form-group">
-                        <@spring.formInput "form.adresa" "required class=\"form-control form-control-sm\" placeholder=\"Adresa\"" />
+                        <@spring.formInput "createForm.adresa" "required class=\"form-control form-control-sm\" placeholder=\"Adresa\"" />
                         <@spring.showErrors "<br>" "small"/>
                     </div>
                     <label>
                         Telefonni Cislo
                     </label>
                     <div class="form-group">
-                        <@spring.formInput "form.telCislo" "required class=\"form-control form-control-sm\" placeholder=\"Telefonni Cislo\"" />
+                        <@spring.formInput "createForm.telCislo" "required class=\"form-control form-control-sm\" placeholder=\"Telefonni Cislo\"" />
                         <@spring.showErrors "<br>" "small"/>
                     </div>
                     <div class="form-row">
@@ -75,7 +75,7 @@
                                 Rust
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.rust" "required class=\"form-control form-control-sm\" placeholder=\"Rust\"" />
+                                <@spring.formInput "createForm.rust" "required class=\"form-control form-control-sm\" placeholder=\"Rust\"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
@@ -84,12 +84,12 @@
                                 Hmotnost
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.hmotnost" "required class=\"form-control form-control-sm\" placeholder=\"Hmotnost\"" />
+                                <@spring.formInput "createForm.hmotnost" "required class=\"form-control form-control-sm\" placeholder=\"Hmotnost\"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
                         <div class="form-group col-md-4">
-                            <@form.inputBirthDate "form.datumNarozeni" "Datum Narozeni" "class=\"form-control\""/>
+                            <@form.inputBirthDate "createForm.datumNarozeni" "Datum Narozeni" "class=\"form-control\""/>
                         </div>
                     </div>
                     <input type="submit" class="btn btn-lg btn-success" value="Create"/>

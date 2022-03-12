@@ -1,6 +1,6 @@
 package com.idas2.zdravotnisystem.validator.uzivatel.admin;
 
-import com.idas2.zdravotnisystem.form.uzivatel.admin.AdminCreateForm;
+import com.idas2.zdravotnisystem.db.view.AdministratorView;
 import com.idas2.zdravotnisystem.form.uzivatel.admin.AdminUpdateForm;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -14,9 +14,9 @@ public class AdminUpdateFormValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return false;
+        return AdminUpdateForm.class.isAssignableFrom(clazz)
+            || AdministratorView.class.isAssignableFrom(clazz);
     }
-
     @Override
     public void validate(Object target, Errors errors) {
         AdminUpdateForm form = (AdminUpdateForm) target;

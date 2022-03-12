@@ -11,5 +11,7 @@ public interface AdministratorRepository {
 
     AdministratorView findById(Integer id);
     List<AdministratorView> findAllView();
+
+    void delete(@NotNull Integer id);
     void saveFromView(@NotNull AdministratorView view);
 }

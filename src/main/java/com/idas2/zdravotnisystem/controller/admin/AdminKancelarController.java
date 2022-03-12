@@ -3,6 +3,7 @@ package com.idas2.zdravotnisystem.controller.admin;
 import com.idas2.zdravotnisystem.component.AuthUser;
 import com.idas2.zdravotnisystem.db.repository.KancelarRepository;
 import com.idas2.zdravotnisystem.db.view.KancelarView;
+import com.idas2.zdravotnisystem.db.view.PacientView;
 import com.idas2.zdravotnisystem.form.mistnost.kancelar.KancelarCreateForm;
 import com.idas2.zdravotnisystem.form.mistnost.kancelar.KancelarUpdateForm;
 import com.idas2.zdravotnisystem.service.form.KancelarFormService;
@@ -12,6 +13,9 @@ import com.idas2.zdravotnisystem.validator.mistnost.kancelar.KancelarUpdateFormV
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,6 +43,18 @@ public class AdminKancelarController {
         this.kancelarUpdateFormValidator = kancelarUpdateFormValidator;
     }
 
+
+    @InitBinder("createForm")
+    protected void initCreateBinder(WebDataBinder binder) {
+        binder.addValidators(kancelarCreateFormValidator);
+    }
+
+    @InitBinder("updateForm")
+    protected void initUpdateBinder(WebDataBinder binder) {
+        binder.addValidators(kancelarUpdateFormValidator);
+    }
+
+
     @GetMapping("")
     public ModelAndView list(
         @AuthenticationPrincipal AuthUser authUser
@@ -62,9 +78,16 @@ public class AdminKancelarController {
 
     @PostMapping("/save")
     public ModelAndView save(
-        @ModelAttribute KancelarCreateForm form
+        @AuthenticationPrincipal AuthUser authUser,
+        @Validated @ModelAttribute("createForm") KancelarCreateForm createForm,
+        BindingResult bindingResult
     ) {
-        kancelarFormService.create(form);
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("admin/overview/kancelar/create")
+                .addObject("authUser", authUser)
+                .addObject("form", kancelarFormService.buildCreateForm());
+        }
+        kancelarFormService.create(createForm);
         return RedirectUtil.redirect("/admin/mistnost/kancelar");
     }
 
@@ -82,10 +105,17 @@ public class AdminKancelarController {
     @PostMapping("/{kancelarId}/update")
     public ModelAndView update(
         @PathVariable Integer kancelarId,
-        @ModelAttribute KancelarUpdateForm form
+        @Validated @ModelAttribute("updateForm") KancelarUpdateForm updateForm,
+        BindingResult bindingResult
     ) {
-        form.setId(kancelarId);
-        kancelarFormService.update(form);
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("admin/overview/kancelar/edit")
+                .addObject("id", kancelarId)
+                .addObject("form", updateForm);
+        }
+
+        updateForm.setId(kancelarId);
+        kancelarFormService.update(updateForm);
         return RedirectUtil.redirect("/admin/mistnost/kancelar");
     }
 

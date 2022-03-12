@@ -12,6 +12,9 @@ import com.idas2.zdravotnisystem.validator.mistnost.ordinace.OrdinaceUpdateFormV
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +26,7 @@ public class AdminOrdinaceController {
 
     private final OrdinaceRepository ordinaceRepository;
     private final OrdinaceFormService ordinaceFormService;
+
     private final OrdinaceCreateFormValidator createFormValidator;
     private final OrdinaceUpdateFormValidator ordinaceUpdateFormValidator;
 
@@ -38,6 +42,17 @@ public class AdminOrdinaceController {
         this.createFormValidator = createFormValidator;
         this.ordinaceUpdateFormValidator = ordinaceUpdateFormValidator;
     }
+
+    @InitBinder("createForm")
+    protected void initCreateBinder(WebDataBinder binder) {
+        binder.addValidators(createFormValidator);
+    }
+
+    @InitBinder("updateForm")
+    protected void initUpdateBinder(WebDataBinder binder) {
+        binder.addValidators(ordinaceUpdateFormValidator);
+    }
+
 
     @GetMapping("")
     public ModelAndView list(
@@ -61,9 +76,16 @@ public class AdminOrdinaceController {
 
     @PostMapping("/save")
     public ModelAndView save(
-        @ModelAttribute OrdinaceCreateForm form
+        @AuthenticationPrincipal AuthUser authUser,
+        @Validated @ModelAttribute("createForm") OrdinaceCreateForm createForm,
+        BindingResult bindingResult
     ) {
-        ordinaceFormService.create(form);
+        if(bindingResult.hasErrors()){
+            return new ModelAndView("admin/overview/ordinace/create")
+                .addObject("authUser", authUser)
+                .addObject("createForm", createForm);
+        }
+        ordinaceFormService.create(createForm);
         return RedirectUtil.redirect("/admin/mistnost/ordinace");
     }
 
@@ -82,10 +104,17 @@ public class AdminOrdinaceController {
     @PostMapping("/{ordinaceId}/update")
     public ModelAndView update(
         @PathVariable Integer ordinaceId,
-        @ModelAttribute OrdinaceUpdateForm form
+        @Validated @ModelAttribute("updateForm") OrdinaceUpdateForm updateForm,
+        BindingResult bindingResult
     ) {
-        form.setId(ordinaceId);
-        ordinaceFormService.update(form);
+        if(bindingResult.hasErrors()){
+            return new ModelAndView("admin/overview/ordinace/edit")
+                .addObject("id", ordinaceId)
+                .addObject("updateForm", updateForm);
+        }
+
+        updateForm.setId(ordinaceId);
+        ordinaceFormService.update(updateForm);
         return RedirectUtil.redirect("/admin/mistnost/ordinace");
     }
 

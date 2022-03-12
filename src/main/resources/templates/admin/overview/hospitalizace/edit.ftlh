@@ -14,7 +14,7 @@
                                 Duvod
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.duvod" "required class=\"form-control form-control-sm\" placeholder=\"Duvod\"" />
+                                <@spring.formInput "updateForm.duvod" "required class=\"form-control form-control-sm\" placeholder=\"Duvod\"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
@@ -23,20 +23,20 @@
                                 Stav Pacienta
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.stavPacienta" "required class=\"form-control form-control-sm\" placeholder=\"Stav Pacienta\"" />
+                                <@spring.formInput "updateForm.stavPacienta" "required class=\"form-control form-control-sm\" placeholder=\"Stav Pacienta\"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-lg-6">
-                            <@form.inputDate "form.hospitalizaceOd" "Od" "class=\"form-control\""/>
+                            <@form.inputDate "updateForm.hospitalizaceOd" "Od" "class=\"form-control\""/>
                         </div>
                         <div class="form-group col-lg-6">
-                            <@form.inputDate "form.hospitalizaceDo" "Do" "class=\"form-control\""/>
+                            <@form.inputDate "updateForm.hospitalizaceDo" "Do" "class=\"form-control\""/>
                         </div>
                     </div>
-                    <@form.selectOptions "form.pacientUzivatelIdUzivatel" pacientList "Pacient" />
+                    <@form.selectOptions "updateForm.pacientUzivatelIdUzivatel" pacientList "Pacient" />
                     <input type="submit" class="btn btn-lg btn-success mt-4" value="Update"/>
                 </form>
             </div>

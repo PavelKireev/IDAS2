@@ -2,6 +2,7 @@ package com.idas2.zdravotnisystem.validator.uzivatel.pacient;
 
 import com.idas2.zdravotnisystem.db.view.PacientView;
 import com.idas2.zdravotnisystem.form.uzivatel.pacient.PacientCreateForm;
+import com.idas2.zdravotnisystem.form.uzivatel.pacient.PacientSignUpForm;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -16,20 +17,20 @@ public class PacientCreateFormValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return PacientCreateForm.class.isAssignableFrom(clazz)
+        return PacientSignUpForm.class.isAssignableFrom(clazz)
             || PacientView.class.isAssignableFrom(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        PacientCreateForm form = (PacientCreateForm) target;
+        PacientSignUpForm form = (PacientSignUpForm) target;
 
         if(Objects.nonNull(form.getHeslo()) &&
             form.getHeslo().length() < 8
         ) errors.rejectValue("heslo", "", "Heslo nesmi byt kratsi nez 8 znaku");
 
         if(Objects.isNull(form.getDatumNarozeni()) ||
-            !form.getDatumNarozeni().after(Date.valueOf(LocalDate.now()))
+            !Date.valueOf(form.getDatumNarozeni()).after(Date.valueOf(LocalDate.now()))
         ) errors.rejectValue("hesloPotvrzeni", "","Datum Narozeni nesmi byt prazdny, nebo budouci!");
 
         if(Objects.nonNull(form.getEmail()) && (

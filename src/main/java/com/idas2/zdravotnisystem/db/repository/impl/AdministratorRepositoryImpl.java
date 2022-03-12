@@ -103,4 +103,25 @@ public class AdministratorRepositoryImpl
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void delete(@NotNull Integer id) {
+
+        try {
+            namedParameterJdbcTemplate
+                .update(
+                    "DELETE FROM ADMINISTRATOR WHERE UZIVATEL_ID_UZIVATEL = :ID",
+                    mapParams("ID", id)
+                );
+
+            namedParameterJdbcTemplate
+                .update(
+                    "DELETE FROM UZIVATEL WHERE ID_UZIVATEL = :ID",
+                    mapParams("ID", id)
+                );
+
+        } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn("Delete admin ex");
+        }
+    }
 }
