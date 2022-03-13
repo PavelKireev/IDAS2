@@ -10,10 +10,16 @@ import com.idas2.zdravotnisystem.db.view.PacientView;
 import com.idas2.zdravotnisystem.form.uzivatel.lekar.*;
 import com.idas2.zdravotnisystem.service.form.LekarPacientFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
+import com.idas2.zdravotnisystem.validator.uzivatel.lekar.LekarPojisteniFormValidator;
+import com.idas2.zdravotnisystem.validator.uzivatel.lekar.LekarZdravotniKartaFormValidator;
+import com.idas2.zdravotnisystem.validator.uzivatel.pacient.PacientUpdateFormValidator;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,6 +39,10 @@ public class LekarPacientController {
     private final ZdravotniKartaRepository zdravotniKartaRepository;
     private final NemocnicniPokojRepositoryImpl nemocnicniPokojRepository;
 
+    private final PacientUpdateFormValidator pacientUpdateFormValidator;
+    private final LekarPojisteniFormValidator lekarPojisteniFormValidator;
+    private final LekarZdravotniKartaFormValidator lekarZdravotniKartaFormValidator;
+
     @Autowired
     public LekarPacientController(
         ObrazekRepository obrazekRepository,
@@ -41,7 +51,10 @@ public class LekarPacientController {
         PojistovnaRepository pojistovnaRepository,
         LekarPacientFormService lekarPacientFormService,
         ZdravotniKartaRepository zdravotniKartaRepository,
-        NemocnicniPokojRepositoryImpl nemocnicniPokojRepository
+        NemocnicniPokojRepositoryImpl nemocnicniPokojRepository,
+        PacientUpdateFormValidator pacientUpdateFormValidator,
+        LekarPojisteniFormValidator lekarPojisteniFormValidator,
+        LekarZdravotniKartaFormValidator lekarZdravotniKartaFormValidator
     ) {
         this.obrazekRepository = obrazekRepository;
         this.pacientRepository = pacientRepository;
@@ -50,6 +63,24 @@ public class LekarPacientController {
         this.lekarPacientFormService = lekarPacientFormService;
         this.zdravotniKartaRepository = zdravotniKartaRepository;
         this.nemocnicniPokojRepository = nemocnicniPokojRepository;
+        this.pacientUpdateFormValidator = pacientUpdateFormValidator;
+        this.lekarPojisteniFormValidator = lekarPojisteniFormValidator;
+        this.lekarZdravotniKartaFormValidator = lekarZdravotniKartaFormValidator;
+    }
+
+    @InitBinder("pacientUpdateForm")
+    protected void initUpdateBinder(WebDataBinder binder) {
+        binder.addValidators(pacientUpdateFormValidator);
+    }
+
+    @InitBinder("kartaUpdateForm")
+    protected void initKartaUpdateBinder(WebDataBinder binder) {
+        binder.addValidators(lekarZdravotniKartaFormValidator);
+    }
+
+    @InitBinder("pojisteniUpdateForm")
+    protected void initPojisteniUpdateBinder(WebDataBinder binder) {
+        binder.addValidators(lekarPojisteniFormValidator);
     }
 
     @GetMapping("/list")
@@ -124,12 +155,58 @@ public class LekarPacientController {
     public ModelAndView updateProfile(
         @PathVariable String pacientUuid,
         @AuthenticationPrincipal AuthUser authUser,
-        @ModelAttribute("pacientForm") PacientUpdateForm pacientForm
+        @Validated @ModelAttribute("pacientUpdateForm") PacientUpdateForm pacientUpdateForm,
+        BindingResult bindingResult
     ) {
+        if(bindingResult.hasErrors()){
+
+            PacientView pacientView =
+                pacientRepository.getPacientViewByUzivatelUuid(pacientUuid);
+
+            PacientUpdateForm pacientForm =
+                lekarPacientFormService.buildPacientForm(pacientView, new PacientUpdateForm());
+
+            ZdravotniKarta zdravotniKarta =
+                zdravotniKartaRepository.findByPacientId(pacientView.getId());
+
+            List<Pojistovna> pojistovnaList = pojistovnaRepository.findAll();
+
+            Pojisteni pojisteni =
+                pojisteniRepository.findByZdravorniKartaId(zdravotniKarta.getId());
+
+            LekarKartaUpdateForm kartaForm =
+                lekarPacientFormService.buildKartaForm(zdravotniKarta, new LekarKartaUpdateForm());
+
+            LekarPojisteniForm pojisteniForm =
+                lekarPacientFormService.buildPojisteniForm(pojisteni, new LekarPojisteniForm());
+
+            String avatar = null;
+
+            if (Objects.nonNull(pacientView.getObrazekData())) {
+                byte[] imgBytesAsBase64 = Base64.encodeBase64(pacientView.getObrazekData());
+                String imgDataAsBase64 = new String(imgBytesAsBase64);
+                avatar = String.format(
+                    "data:image/%s;base64,%s",
+                    pacientView.getObrazekPripona(), imgDataAsBase64
+                );
+            }
+
+            return new ModelAndView("lekar/pacient/info")
+                .addObject("avatar", avatar)
+                .addObject("authUser", authUser)
+                .addObject("kartaForm", kartaForm)
+                .addObject("pojisteni", pojisteni)
+                .addObject("pacientUpdateForm", pacientUpdateForm)
+                .addObject("pacientView", pacientView)
+                .addObject("pojisteniForm", pojisteniForm)
+                .addObject("pojistovnaList", pojistovnaList)
+                .addObject("zdravotniKarta", zdravotniKarta)
+                .addObject("pokojList", nemocnicniPokojRepository.findAll());
+        }
         PacientView pacientView =
             pacientRepository.getPacientViewByUzivatelUuid(pacientUuid);
 
-        lekarPacientFormService.updatePacientForm(pacientView.getId(), pacientForm);
+        lekarPacientFormService.updatePacientForm(pacientView.getId(), pacientUpdateForm);
 
         pacientView =
             pacientRepository.getPacientViewByUzivatelId(pacientView.getId());

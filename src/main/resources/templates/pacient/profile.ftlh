@@ -27,14 +27,14 @@
                 <div class="mt-2">
                     <label for="telCisloField">Telefonni Cislo</label>
                 </div>
-                <@spring.formInput "pacientForm.telCislo" "class=\"form-control\" id=\"telCisloField\" value=\"$\{pacientView.getTelCislo()!""}\"" />
+                <@spring.formInput "updateForm.telCislo" "class=\"form-control\" id=\"telCisloField\" value=\"$\{pacientView.getTelCislo()!""}\"" />
                 <@spring.showErrors "" "validation-error-label" />
             </div>
             <div class="form-group">
                 <div class="mt-2">
                     <label for="adresaField">Adresa</label>
                 </div>
-                <@spring.formInput "pacientForm.adresa" "class=\"form-control\" id=\"adreseField\" value=\"$\{pacientView.getTelCislo()!""}\"" />
+                <@spring.formInput "updateForm.adresa" "class=\"form-control\" id=\"adreseField\" value=\"$\{pacientView.getTelCislo()!""}\"" />
                 <@spring.showErrors "" "validation-error-label" />
             </div>
             <div class="form-group">

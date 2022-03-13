@@ -11,13 +11,13 @@
             <form method="post" action="/lekar/procedura/create">
                 <div class="form-group">
                     <label for="popisField">Popis</label>
-                    <@spring.formInput "form.popis" "class=\"form-control\" id=\"popisField\" " />
+                    <@spring.formInput "createForm.popis" "class=\"form-control\" id=\"popisField\" " />
                     <@spring.showErrors "" "validation-error-label" />
                 </div>
-                <@form.inputDate "form.datum" "Datum" "class=\"form-control\""/>
-                <@form.selectOptions "form.hospitalizace" hospitalizaceList "Pacient"/>
-                <@form.selectOptions "form.idTypProcedury"  typProceduryList "Procedura" />
-                <@form.selectOptions "form.idZarizeni" zarizeniList "Zarizeni" />
+                <@form.inputDate "createForm.datum" "Datum" "class=\"form-control\""/>
+                <@form.selectOptions "createForm.hospitalizace" hospitalizaceList "Pacient"/>
+                <@form.selectOptions "createForm.idTypProcedury"  typProceduryList "Procedura" />
+                <@form.selectOptions "createForm.idZarizeni" zarizeniList "Zarizeni" />
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
             </form>
         </div>

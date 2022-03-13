@@ -26,7 +26,7 @@
                 </div>
                 <div class="form-group">
                     <label for="telCisloField">Telefonni Cislo</label>
-                    <@spring.formInput "lekarForm.telCislo" "class=\"form-control\" id=\"telCisloField\" value=\"$\{lekarView.getTelCislo()!""}\"" />
+                    <@spring.formInput "updateForm.telCislo" "class=\"form-control\" id=\"telCisloField\" value=\"$\{lekarView.getTelCislo()!""}\"" />
                     <@spring.showErrors "" "validation-error-label" />
                 </div>
                 <div class="form-group">

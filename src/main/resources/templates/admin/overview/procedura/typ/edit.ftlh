@@ -12,14 +12,14 @@
             <div class="mt-2">
                 <label for="jmenoField">Nazev</label>
             </div>
-            <@spring.formInput "form.nazev" "class=\"form-control\" id=\"titulField\"" />
+            <@spring.formInput "typUpdateForm.nazev" "class=\"form-control\" id=\"titulField\"" />
             <@spring.showErrors "" "validation-error-label" />
         </div>
         <div class="form-row">
             <div class="mt-2">
                 <label for="textField">Popis</label>
             </div>
-            <@spring.formTextarea "form.popis" "class=\"form-control\" id=\"textField\"" />
+            <@spring.formTextarea "typUpdateForm.popis" "class=\"form-control\" id=\"textField\"" />
             <@spring.showErrors "" "validation-error-label" />
         </div>
 

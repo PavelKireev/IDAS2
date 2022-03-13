@@ -8,9 +8,15 @@ import com.idas2.zdravotnisystem.db.view.ZaznamView;
 import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarZaznamForm;
 import com.idas2.zdravotnisystem.service.form.LekarHospitalizaceFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
+import com.idas2.zdravotnisystem.validator.hospitalizace.HospitalizaceCreateFormValidator;
+import com.idas2.zdravotnisystem.validator.hospitalizace.HospitalizaceUpdateFormValidator;
+import com.idas2.zdravotnisystem.validator.hospitalizace.zaznam.ZaznamCreateFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,15 +30,24 @@ public class LekarHospitalizaceController {
     private final HospitalizaceRepository hospitalizaceRepository;
     private final LekarHospitalizaceFormService lekarHospitalizaceFormService;
 
+    private final ZaznamCreateFormValidator zaznamCreateFormValidator;
+
     @Autowired
     public LekarHospitalizaceController(
         ZaznamRepository zaznamRepository,
         HospitalizaceRepository hospitalizaceRepository,
-        LekarHospitalizaceFormService lekarHospitalizaceFormService
+        LekarHospitalizaceFormService lekarHospitalizaceFormService,
+        ZaznamCreateFormValidator zaznamCreateFormValidator
     ) {
         this.zaznamRepository = zaznamRepository;
         this.hospitalizaceRepository = hospitalizaceRepository;
         this.lekarHospitalizaceFormService = lekarHospitalizaceFormService;
+        this.zaznamCreateFormValidator = zaznamCreateFormValidator;
+    }
+
+    @InitBinder("zaznamCreateForm")
+    protected void initZaznamCreateBinder(WebDataBinder binder) {
+        binder.addValidators(zaznamCreateFormValidator);
     }
 
     @GetMapping("/list")
@@ -51,7 +66,6 @@ public class LekarHospitalizaceController {
     public ModelAndView hospitalizaceAdd(
         @AuthenticationPrincipal AuthUser authUser
     ){
-
         return new ModelAndView();
     }
 
@@ -60,14 +74,14 @@ public class LekarHospitalizaceController {
         @RequestParam Integer hospId,
         @AuthenticationPrincipal AuthUser authUser
     ) {
-        LekarZaznamForm form = new LekarZaznamForm();
+        LekarZaznamForm zaznamCreateForm = new LekarZaznamForm();
 
-        form
+        zaznamCreateForm
             .setIdLekar(authUser.getUser().getId())
             .setIdHospitalizace(hospId);
 
         return new ModelAndView("lekar/hospitalizace/zaznam/create")
-            .addObject("form", form)
+            .addObject("zaznamCreateForm", zaznamCreateForm)
             .addObject("hospId", hospId)
             .addObject("authUser", authUser);
 
@@ -77,13 +91,25 @@ public class LekarHospitalizaceController {
     public ModelAndView createZaznam(
         @RequestParam Integer hospId,
         @AuthenticationPrincipal AuthUser authUser,
-        @ModelAttribute("form") LekarZaznamForm form
+        @Validated @ModelAttribute("zaznamCreateForm") LekarZaznamForm zaznamCreateForm,
+        BindingResult bindingResult
     ) {
-        form
+        if(bindingResult.hasErrors()){
+            zaznamCreateForm
+                .setIdLekar(authUser.getUser().getId())
+                .setIdHospitalizace(hospId);
+
+            return new ModelAndView("lekar/hospitalizace/zaznam/create")
+                .addObject("zaznamCreateForm", zaznamCreateForm)
+                .addObject("hospId", hospId)
+                .addObject("authUser", authUser);
+        }
+
+        zaznamCreateForm
             .setIdHospitalizace(hospId)
             .setIdLekar(authUser.getUser().getId());
 
-        lekarHospitalizaceFormService.createZaznam(form);
+        lekarHospitalizaceFormService.createZaznam(zaznamCreateForm);
 
         return RedirectUtil.redirect(
             String.format("/lekar/hospitalizace/zaznam/list?hospId=%s", hospId)

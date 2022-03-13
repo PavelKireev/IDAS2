@@ -10,6 +10,9 @@ import com.idas2.zdravotnisystem.validator.pojistovna.PojistovnaCreateFormValida
 import com.idas2.zdravotnisystem.validator.pojistovna.PojistovnaUpdateFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,6 +24,7 @@ public class AdminPojistovnaController {
 
     private final PojistovnaRepository pojistovnaRepository;
     private final PojistovnaFormService pojistovnaFormService;
+
     private final PojistovnaCreateFormValidator pojistovnaCreateFormValidator;
     private final PojistovnaUpdateFormValidator pojistovnaUpdateFormValidator;
 
@@ -37,6 +41,16 @@ public class AdminPojistovnaController {
         this.pojistovnaUpdateFormValidator = pojistovnaUpdateFormValidator;
     }
 
+    @InitBinder("createForm")
+    protected void initCreateBinder(WebDataBinder binder) {
+        binder.addValidators(pojistovnaCreateFormValidator);
+    }
+
+    @InitBinder("updateForm")
+    protected void initUpdateBinder(WebDataBinder binder) {
+        binder.addValidators(pojistovnaUpdateFormValidator);
+    }
+
     @GetMapping("")
     public ModelAndView list() {
         List<Pojistovna> list = pojistovnaRepository.findAll();
@@ -48,14 +62,20 @@ public class AdminPojistovnaController {
     public ModelAndView create(
     ) {
         return new ModelAndView("admin/overview/pojistovna/create")
-            .addObject("form", new PojistovnaCreateForm());
+            .addObject("createForm", new PojistovnaCreateForm());
     }
 
     @PostMapping("/save")
     public ModelAndView save(
-        @ModelAttribute PojistovnaCreateForm form
+        @Validated @ModelAttribute("createForm") PojistovnaCreateForm createForm,
+        BindingResult bindingResult
     ) {
-        pojistovnaFormService.create(form);
+        if(bindingResult.hasErrors()){
+            return new ModelAndView("admin/overview/pojistovna/create")
+                .addObject("createForm", createForm);
+        }
+
+        pojistovnaFormService.create(createForm);
         return RedirectUtil.redirect("/admin/pojistovna");
     }
 
@@ -67,16 +87,22 @@ public class AdminPojistovnaController {
 
        return new ModelAndView("/admin/overview/pojistovna/edit")
            .addObject("id", id)
-           .addObject("form", pojistovnaFormService.buildUpdateForm(pojistovna));
+           .addObject("updateForm", pojistovnaFormService.buildUpdateForm(pojistovna));
     }
 
     @PostMapping("/{id}/update")
     public ModelAndView update(
         @PathVariable Integer id,
-        @ModelAttribute PojistovnaUpdateForm form
+        @Validated @ModelAttribute("updateForm") PojistovnaUpdateForm updateForm,
+        BindingResult bindingResult
     ) {
-        form.setId(id);
-        pojistovnaFormService.update(form);
+        if(bindingResult.hasErrors()){
+            return new ModelAndView("/admin/overview/pojistovna/edit")
+                .addObject("id", id)
+                .addObject("updateForm", updateForm);
+        }
+        updateForm.setId(id);
+        pojistovnaFormService.update(updateForm);
         return RedirectUtil.redirect("/admin/pojistovna");
     }
 

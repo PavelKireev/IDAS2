@@ -21,6 +21,9 @@ import com.idas2.zdravotnisystem.validator.procedura.typ.ProceduraTypUpdateFormV
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -71,6 +74,27 @@ public class AdminProceduraController {
         this.proceduraTypFormService = proceduraTypFormService;
     }
 
+    @InitBinder("createForm")
+    protected void initCreateBinder(WebDataBinder binder) {
+        binder.addValidators(proceduraCreateFormValidator);
+    }
+
+    @InitBinder("updateForm")
+    protected void initUpdateBinder(WebDataBinder binder) {
+        binder.addValidators(proceduraUpdateFormValidator);
+    }
+
+    @InitBinder("typCreateForm")
+    protected void initTypCreateBinder(WebDataBinder binder) {
+        binder.addValidators(proceduraTypCreateFormValidator);
+    }
+
+    @InitBinder("typUpdateTypForm")
+    protected void initTypUpdateBinder(WebDataBinder binder) {
+        binder.addValidators(proceduraTypUpdateFormValidator);
+    }
+
+
     @GetMapping("")
     public ModelAndView list(
     ) {
@@ -93,7 +117,7 @@ public class AdminProceduraController {
             .addObject("authUser", authUser)
             .addObject("lekarList", lekarList)
             .addObject("zarizeniList", zarizeniList)
-            .addObject("form", new ProceduraCreateForm())
+            .addObject("createForm", new ProceduraCreateForm())
             .addObject("typProceduryList", typProceduryList)
             .addObject("hospitalizaceList", hospitalizaceList);
     }
@@ -101,9 +125,25 @@ public class AdminProceduraController {
     @PostMapping("/save")
     public ModelAndView save(
         @AuthenticationPrincipal AuthUser authUser,
-        @ModelAttribute("form") ProceduraCreateForm form
+        @Validated @ModelAttribute("createForm") ProceduraCreateForm createForm,
+        BindingResult bindingResult
     ) {
-        proceduraFormService.createAdmin(form);
+        if(bindingResult.hasErrors()){
+            List<LekarView> lekarList = lekarRepository.findAllView();
+            List<Zarizeni> zarizeniList = zarizeniRepository.findAll();
+            List<TypProcedury> typProceduryList = typProceduryRepository.findAll();
+            List<HospitalizaceView> hospitalizaceList = hospitalizaceRepository.findAll();
+
+            return new ModelAndView("admin/overview/procedura/create")
+                .addObject("authUser", authUser)
+                .addObject("lekarList", lekarList)
+                .addObject("zarizeniList", zarizeniList)
+                .addObject("createForm", createForm)
+                .addObject("typProceduryList", typProceduryList)
+                .addObject("hospitalizaceList", hospitalizaceList);
+        }
+
+        proceduraFormService.createAdmin(createForm);
         return RedirectUtil.redirect("/admin/procedura");
     }
 
@@ -128,17 +168,36 @@ public class AdminProceduraController {
             .addObject("zarizeniList", zarizeniList)
             .addObject("typProceduryList", typProceduryList)
             .addObject("hospitalizaceList", hospitalizaceList)
-            .addObject("form", proceduraFormService.buildUpdateForm(view));
+            .addObject("updateForm", proceduraFormService.buildUpdateForm(view));
     }
 
     @PostMapping("/{id}/update")
     public ModelAndView update(
         @PathVariable Integer id,
         @AuthenticationPrincipal AuthUser authUser,
-        @ModelAttribute("form") ProceduraUpdateForm form
+        @ModelAttribute("updateForm") ProceduraUpdateForm updateForm,
+        BindingResult bindingResult
     ) {
-        form.setId(id);
-        proceduraFormService.update(form);
+        if(bindingResult.hasErrors()){
+
+            List<LekarView> lekarList = lekarRepository.findAllView();
+            List<Zarizeni> zarizeniList = zarizeniRepository.findAll();
+            List<TypProcedury> typProceduryList = typProceduryRepository.findAll();
+            List<HospitalizaceView> hospitalizaceList = hospitalizaceRepository.findAll();
+
+
+            return new ModelAndView("/admin/overview/procedura/edit")
+                .addObject("id", id)
+                .addObject("authUser", authUser)
+                .addObject("lekarList", lekarList)
+                .addObject("zarizeniList", zarizeniList)
+                .addObject("typProceduryList", typProceduryList)
+                .addObject("hospitalizaceList", hospitalizaceList)
+                .addObject("updateForm", updateForm);
+        }
+
+        updateForm.setId(id);
+        proceduraFormService.update(updateForm);
         return RedirectUtil.redirect("/admin/procedura");
     }
 
@@ -161,14 +220,14 @@ public class AdminProceduraController {
     @GetMapping("/typ/create")
     public ModelAndView typCreate() {
         return new ModelAndView("/admin/overview/procedura/typ/create")
-            .addObject("form", new ProceduraTypCreateForm());
+            .addObject("typCreateForm", new ProceduraTypCreateForm());
     }
 
     @PostMapping("/typ/save")
     public ModelAndView typSave(
-        @ModelAttribute ProceduraTypCreateForm form
+        @Validated @ModelAttribute("typCreateForm") ProceduraTypCreateForm typCreateForm
     ) {
-        proceduraTypFormService.create(form);
+        proceduraTypFormService.create(typCreateForm);
         return RedirectUtil.redirect("/admin/procedura/typ");
     }
 
@@ -179,7 +238,7 @@ public class AdminProceduraController {
         return new ModelAndView("/admin/overview/procedura/typ/edit")
             .addObject("id", id)
             .addObject(
-                "form",
+                "typUpdateForm",
                 proceduraTypFormService.buildUpdateForm(
                     typProceduryRepository.getOne(id))
             );
@@ -188,10 +247,17 @@ public class AdminProceduraController {
     @PostMapping("/typ/{id}/update")
     public ModelAndView update(
         @PathVariable Integer id,
-        @ModelAttribute ProceduraTypUpdateForm form
+        @Validated @ModelAttribute("typUpdateForm") ProceduraTypUpdateForm typUpdateForm,
+        BindingResult bindingResult
     ) {
-        form.setId(id);
-        proceduraTypFormService.update(form);
+        if(bindingResult.hasErrors()){
+            return new ModelAndView("/admin/overview/procedura/typ/edit")
+                .addObject("id", id)
+                .addObject("typUpdateForm", typUpdateForm);
+        }
+
+        typUpdateForm.setId(id);
+        proceduraTypFormService.update(typUpdateForm);
         return RedirectUtil.redirect("/admin/procedura/typ");
     }
 

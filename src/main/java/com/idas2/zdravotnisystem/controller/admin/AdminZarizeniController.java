@@ -14,8 +14,13 @@ import com.idas2.zdravotnisystem.service.form.ZarizeniFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
 import com.idas2.zdravotnisystem.validator.zarizeni.ZarizeniCreateFormValidator;
 import com.idas2.zdravotnisystem.validator.zarizeni.ZarizeniUpdateFormValidator;
+import com.idas2.zdravotnisystem.validator.zarizeni.typ.TypZarizeniCreateFormValidator;
+import com.idas2.zdravotnisystem.validator.zarizeni.typ.TypZarizeniUpdateFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,6 +38,9 @@ public class AdminZarizeniController {
     private final ZarizeniCreateFormValidator zarizeniCreateFormValidator;
     private final ZarizeniUpdateFormValidator zarizeniUpdateFormValidator;
 
+    private final TypZarizeniCreateFormValidator typZarizeniCreateFormValidator;
+    private final TypZarizeniUpdateFormValidator typZarizeniUpdateFormValidator;
+
     @Autowired
     public AdminZarizeniController(
         ZarizeniRepository zarizeniRepository,
@@ -40,7 +48,9 @@ public class AdminZarizeniController {
         ZarizeniFormService zarizeniFormService,
         TypZarizeniRepository typZarizeniRepository,
         ZarizeniCreateFormValidator zarizeniCreateFormValidator,
-        ZarizeniUpdateFormValidator zarizeniUpdateFormValidator
+        ZarizeniUpdateFormValidator zarizeniUpdateFormValidator,
+        TypZarizeniCreateFormValidator typZarizeniCreateFormValidator,
+        TypZarizeniUpdateFormValidator typZarizeniUpdateFormValidator
     ) {
         this.zarizeniRepository = zarizeniRepository;
         this.ordinaceRepository = ordinaceRepository;
@@ -48,6 +58,28 @@ public class AdminZarizeniController {
         this.typZarizeniRepository = typZarizeniRepository;
         this.zarizeniCreateFormValidator = zarizeniCreateFormValidator;
         this.zarizeniUpdateFormValidator = zarizeniUpdateFormValidator;
+        this.typZarizeniCreateFormValidator = typZarizeniCreateFormValidator;
+        this.typZarizeniUpdateFormValidator = typZarizeniUpdateFormValidator;
+    }
+
+    @InitBinder("createForm")
+    protected void initCreateBinder(WebDataBinder binder) {
+        binder.addValidators(zarizeniCreateFormValidator);
+    }
+
+    @InitBinder("updateForm")
+    protected void initUpdateBinder(WebDataBinder binder) {
+        binder.addValidators(zarizeniUpdateFormValidator);
+    }
+
+    @InitBinder("typCreateForm")
+    protected void initTypCreateBinder(WebDataBinder binder) {
+        binder.addValidators(typZarizeniCreateFormValidator);
+    }
+
+    @InitBinder("typUpdateForm")
+    protected void initTypUpdateBinder(WebDataBinder binder) {
+        binder.addValidators(typZarizeniUpdateFormValidator);
     }
 
     @GetMapping("")
@@ -65,15 +97,25 @@ public class AdminZarizeniController {
 
         return new ModelAndView("/admin/overview/zarizeni/create")
             .addObject("ordinaceList", ordinaceList)
-            .addObject("form", new ZarizeniCreateForm())
+            .addObject("createForm", new ZarizeniCreateForm())
             .addObject("typZarizeniList", typZarizeniList);
     }
 
     @PostMapping("/save")
     public ModelAndView save(
-        @ModelAttribute ZarizeniCreateForm form
+        @Validated @ModelAttribute("createForm") ZarizeniCreateForm createForm,
+        BindingResult bindingResult
     ) {
-        zarizeniFormService.create(form);
+        if(bindingResult.hasErrors()){
+            List<OrdinaceView> ordinaceList = ordinaceRepository.findAll();
+            List<TypZarizeni> typZarizeniList = typZarizeniRepository.findAll();
+
+            return new ModelAndView("/admin/overview/zarizeni/create")
+                .addObject("ordinaceList", ordinaceList)
+                .addObject("createForm", createForm)
+                .addObject("typZarizeniList", typZarizeniList);
+        }
+        zarizeniFormService.create(createForm);
         return RedirectUtil.redirect("/admin/zarizeni");
     }
 
@@ -90,16 +132,28 @@ public class AdminZarizeniController {
             .addObject("id", id)
             .addObject("ordinaceList", ordinaceList)
             .addObject("typZarizeniList", typZarizeniList)
-            .addObject("form", zarizeniFormService.buildUpdateForm(view));
+            .addObject("updateForm", zarizeniFormService.buildUpdateForm(view));
     }
 
     @PostMapping("/{id}/update")
     public ModelAndView update(
         @PathVariable Integer id,
-        @ModelAttribute ZarizeniUpdateForm form
+        @Validated @ModelAttribute("updateForm") ZarizeniUpdateForm updateForm,
+        BindingResult bindingResult
     ) {
-        form.setId(id);
-        zarizeniFormService.update(form);
+        if(bindingResult.hasErrors()){
+            List<OrdinaceView> ordinaceList = ordinaceRepository.findAll();
+            List<TypZarizeni> typZarizeniList = typZarizeniRepository.findAll();
+
+            return new ModelAndView("/admin/overview/zarizeni/edit")
+                .addObject("id", id)
+                .addObject("ordinaceList", ordinaceList)
+                .addObject("typZarizeniList", typZarizeniList)
+                .addObject("updateForm", updateForm);
+        }
+
+        updateForm.setId(id);
+        zarizeniFormService.update(updateForm);
         return RedirectUtil.redirect("/admin/zarizeni");
     }
 
@@ -124,14 +178,20 @@ public class AdminZarizeniController {
     public ModelAndView typCreate(
     ) {
         return new ModelAndView("/admin/overview/zarizeni/typ/create")
-            .addObject("form", new TypZarizeniCreateForm());
+            .addObject("typCreateForm", new TypZarizeniCreateForm());
     }
 
     @PostMapping("/typ/save")
     public ModelAndView typSave(
-        @ModelAttribute TypZarizeniCreateForm form
+        @Validated @ModelAttribute("typCreateForm") TypZarizeniCreateForm typCreateForm,
+        BindingResult bindingResult
     ) {
-        zarizeniFormService.createTyp(form);
+        if(bindingResult.hasErrors()){
+            return new ModelAndView("/admin/overview/zarizeni/typ/create")
+                .addObject("typCreateForm", typCreateForm);
+        }
+
+        zarizeniFormService.createTyp(typCreateForm);
         return RedirectUtil.redirect("/admin/zarizeni/typ");
     }
 
@@ -141,16 +201,22 @@ public class AdminZarizeniController {
     ) {
         TypZarizeni entity = typZarizeniRepository.getOne(id);
         return new ModelAndView("/admin/overview/zarizeni/typ/edit")
-            .addObject("form", zarizeniFormService.buildUpdateTypForm(entity));
+            .addObject("typCreateForm", zarizeniFormService.buildUpdateTypForm(entity));
     }
 
     @PostMapping("/typ/{id}/update")
     public ModelAndView typUpdate(
         @PathVariable Integer id,
-        @ModelAttribute TypZarizeniUpdateForm form
+        @Validated @ModelAttribute("typCreateForm") TypZarizeniUpdateForm typUpdateForm,
+        BindingResult bindingResult
     ) {
-        form.setId(id);
-        zarizeniFormService.updateTyp(form);
+        if(bindingResult.hasErrors()){
+            return new ModelAndView("/admin/overview/zarizeni/typ/edit")
+                .addObject("typUpdateForm", typUpdateForm);
+        }
+
+        typUpdateForm.setId(id);
+        zarizeniFormService.updateTyp(typUpdateForm);
         return RedirectUtil.redirect("/admin/zarizeni/typ");
     }
 

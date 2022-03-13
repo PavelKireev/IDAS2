@@ -103,8 +103,7 @@ public class AdminSpecializaceController {
     public ModelAndView update(
         @PathVariable Integer id,
         @AuthenticationPrincipal AuthUser authUser,
-        @Validated @ModelAttribute("updateForm")
-            SpecializaceUpdateForm form,
+        @Validated @ModelAttribute("updateForm") SpecializaceUpdateForm form,
         BindingResult bindingResult
     ) {
 

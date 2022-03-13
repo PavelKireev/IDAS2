@@ -10,10 +10,14 @@ import com.idas2.zdravotnisystem.db.view.PacientView;
 import com.idas2.zdravotnisystem.form.uzivatel.pacient.PacientInfoForm;
 import com.idas2.zdravotnisystem.service.form.PacientFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
+import com.idas2.zdravotnisystem.validator.uzivatel.pacient.PacientInfoFormVaidator;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,19 +35,28 @@ public class PacientProfileController {
     private final ProceduraRepository proceduraRepository;
     private final HospitalizaceRepository hospitalizaceRepository;
 
+    private final PacientInfoFormVaidator pacientInfoFormVaidator;
+
     @Autowired
     public PacientProfileController(
         PacientRepository pacientRepository,
         ObrazekRepository obrazekRepository,
         PacientFormService pacientFormService,
         ProceduraRepository proceduraRepository,
-        HospitalizaceRepository hospitalizaceRepository
+        HospitalizaceRepository hospitalizaceRepository,
+        PacientInfoFormVaidator pacientInfoFormVaidator
     ) {
         this.pacientRepository = pacientRepository;
         this.obrazekRepository = obrazekRepository;
         this.pacientFormService = pacientFormService;
         this.proceduraRepository = proceduraRepository;
         this.hospitalizaceRepository = hospitalizaceRepository;
+        this.pacientInfoFormVaidator = pacientInfoFormVaidator;
+    }
+
+    @InitBinder("updateForm")
+    protected void initKartaUpdateBinder(WebDataBinder binder) {
+        binder.addValidators(pacientInfoFormVaidator);
     }
 
     @GetMapping("/profile/info")
@@ -73,7 +86,7 @@ public class PacientProfileController {
                 .addObject("avatar", file)
                 .addObject("pacientView", pacientView)
                 .addObject("authUser", authUser)
-                .addObject("pacientForm",
+                .addObject("updateForm",
                     pacientFormService.buildInfoFormFromView(pacientView)
                 );
     }
@@ -89,11 +102,39 @@ public class PacientProfileController {
 
     @PostMapping("profile/info/update")
     public ModelAndView update(
-        @ModelAttribute PacientInfoForm form,
-        @AuthenticationPrincipal AuthUser authUser
+        @AuthenticationPrincipal AuthUser authUser,
+        @Validated @ModelAttribute("updateForm") PacientInfoForm updateForm,
+        BindingResult bindingResult
     ) {
+        if (bindingResult.hasErrors()) {
+            PacientView pacientView =
+                pacientRepository
+                    .getPacientViewByUzivatelId(authUser.getUser().getId());
+
+            User user = authUser.getUser();
+
+            String file = null;
+
+            if (Objects.nonNull(pacientView.getObrazekData())) {
+                byte[] imgBytesAsBase64 = Base64.encodeBase64(pacientView.getObrazekData());
+                String imgDataAsBase64 = new String(imgBytesAsBase64);
+                file = String.format(
+                    "data:image/%s;base64,%s",
+                    pacientView.getObrazekPripona(), imgDataAsBase64
+                );
+            }
+
+            return
+                new ModelAndView("/pacient/profile")
+                    .addObject("user", user)
+                    .addObject("avatar", file)
+                    .addObject("pacientView", pacientView)
+                    .addObject("authUser", authUser)
+                    .addObject("updateForm", updateForm);
+        }
+
         pacientFormService.updateInfoPaient(
-            authUser.getUser().getId(), form
+            authUser.getUser().getId(), updateForm
         );
 
         return RedirectUtil.redirect("/pacient/profile/info");

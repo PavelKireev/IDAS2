@@ -14,26 +14,26 @@
                                 Popis
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.popis" "required class=\"form-control form-control-sm\" placeholder=\"Popis\"" />
+                                <@spring.formInput "createForm.popis" "required class=\"form-control form-control-sm\" placeholder=\"Popis\"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
                         <div class="form-group col-lg-6">
-                            <@form.inputDate "form.datum" "Datum" "class=\"form-control\""/>
+                            <@form.inputDate "createForm.datum" "Datum" "class=\"form-control\""/>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-lg-3">
-                            <@form.selectOptions "form.idHospitalizace" hospitalizaceList "Pacient" />
+                            <@form.selectOptions "createForm.idHospitalizace" hospitalizaceList "Pacient" />
                         </div>
                         <div class="form-group col-lg-3">
-                            <@form.selectOptions "form.idTypProcedury" typProceduryList "Typ Procedury" />
+                            <@form.selectOptions "createForm.idTypProcedury" typProceduryList "Typ Procedury" />
                         </div>
                         <div class="form-group col-lg-3">
-                            <@form.selectOptions "form.idZarizeni" zarizeniList "Zarizeni" />
+                            <@form.selectOptions "createForm.idZarizeni" zarizeniList "Zarizeni" />
                         </div>
                         <div class="form-group col-lg-3">
-                            <@form.selectOptions "form.idLekar" lekarList "Lekar" />
+                            <@form.selectOptions "createForm.idLekar" lekarList "Lekar" />
                         </div>
                     </div>
                     <input type="submit" class="btn btn-lg btn-success mt-4" value="Create"/>

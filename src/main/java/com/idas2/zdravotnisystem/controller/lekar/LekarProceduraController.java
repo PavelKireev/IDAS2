@@ -6,9 +6,13 @@ import com.idas2.zdravotnisystem.db.view.ProceduraView;
 import com.idas2.zdravotnisystem.form.procedura.ProceduraCreateForm;
 import com.idas2.zdravotnisystem.service.form.ProceduraFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
+import com.idas2.zdravotnisystem.validator.procedura.ProceduraCreateFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,19 +28,29 @@ public class LekarProceduraController {
     private final TypProceduryRepository typProceduryRepository;
     private final HospitalizaceRepository hospitalizaceRepository;
 
+    private final ProceduraCreateFormValidator proceduraCreateFormValidator;
+
+
     @Autowired
     public LekarProceduraController(
         ProceduraRepository proceduraRepository,
         ProceduraFormService proceduraFormService,
         ZarizeniRepository zarizeniRepository,
         TypProceduryRepository typProceduryRepository,
-        HospitalizaceRepository hospitalizaceRepository
+        HospitalizaceRepository hospitalizaceRepository,
+        ProceduraCreateFormValidator proceduraCreateFormValidator
     ) {
         this.proceduraRepository = proceduraRepository;
         this.proceduraFormService = proceduraFormService;
         this.zarizeniRepository = zarizeniRepository;
         this.typProceduryRepository = typProceduryRepository;
         this.hospitalizaceRepository = hospitalizaceRepository;
+        this.proceduraCreateFormValidator = proceduraCreateFormValidator;
+    }
+
+    @InitBinder("createForm")
+    protected void initKartaUpdateBinder(WebDataBinder binder) {
+        binder.addValidators(proceduraCreateFormValidator);
     }
 
     @GetMapping("/nadchazejici")
@@ -75,7 +89,7 @@ public class LekarProceduraController {
     ) {
         return new ModelAndView("lekar/appointment/create")
             .addObject("authUser", authUser)
-            .addObject("form", new ProceduraCreateForm())
+            .addObject("createForm", new ProceduraCreateForm())
             .addObject("typProceduryList", typProceduryRepository.findAll())
             .addObject("zarizeniList", zarizeniRepository.findAll())
             .addObject("hospitalizaceList", hospitalizaceRepository.findAll());
@@ -83,9 +97,20 @@ public class LekarProceduraController {
 
     @PostMapping("/create")
     public ModelAndView create(
-        @ModelAttribute("form") ProceduraCreateForm form
+        @AuthenticationPrincipal AuthUser authUser,
+        @Validated @ModelAttribute("createForm") ProceduraCreateForm createForm,
+        BindingResult bindingResult
     ) {
-        proceduraFormService.create(form);
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("lekar/appointment/create")
+                .addObject("authUser", authUser)
+                .addObject("createForm", createForm)
+                .addObject("typProceduryList", typProceduryRepository.findAll())
+                .addObject("zarizeniList", zarizeniRepository.findAll())
+                .addObject("hospitalizaceList", hospitalizaceRepository.findAll());
+        }
+
+        proceduraFormService.create(createForm);
         return RedirectUtil.redirect("/lekar/procedura/nadchazejici");
     }
 
