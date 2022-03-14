@@ -2,14 +2,13 @@ package com.idas2.zdravotnisystem.controller.pacient;
 
 import com.idas2.zdravotnisystem.component.AuthUser;
 import com.idas2.zdravotnisystem.db.entity.User;
-import com.idas2.zdravotnisystem.db.repository.HospitalizaceRepository;
-import com.idas2.zdravotnisystem.db.repository.ObrazekRepository;
-import com.idas2.zdravotnisystem.db.repository.PacientRepository;
-import com.idas2.zdravotnisystem.db.repository.ProceduraRepository;
+import com.idas2.zdravotnisystem.db.repository.*;
 import com.idas2.zdravotnisystem.db.view.PacientView;
+import com.idas2.zdravotnisystem.form.uzivatel.PasswordUpdateForm;
 import com.idas2.zdravotnisystem.form.uzivatel.pacient.PacientInfoForm;
 import com.idas2.zdravotnisystem.service.form.PacientFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
+import com.idas2.zdravotnisystem.validator.uzivatel.PasswordUpdateFormValidator;
 import com.idas2.zdravotnisystem.validator.uzivatel.pacient.PacientInfoFormVaidator;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,32 +30,43 @@ public class PacientProfileController {
 
     private final PacientRepository pacientRepository;
     private final ObrazekRepository obrazekRepository;
+    private final UzivatelRepository uzivatelRepository;
     private final PacientFormService pacientFormService;
     private final ProceduraRepository proceduraRepository;
     private final HospitalizaceRepository hospitalizaceRepository;
 
     private final PacientInfoFormVaidator pacientInfoFormVaidator;
+    private final PasswordUpdateFormValidator passwordUpdateFormValidator;
 
     @Autowired
     public PacientProfileController(
         PacientRepository pacientRepository,
         ObrazekRepository obrazekRepository,
+        UzivatelRepository uzivatelRepository,
         PacientFormService pacientFormService,
         ProceduraRepository proceduraRepository,
         HospitalizaceRepository hospitalizaceRepository,
-        PacientInfoFormVaidator pacientInfoFormVaidator
+        PacientInfoFormVaidator pacientInfoFormVaidator,
+        PasswordUpdateFormValidator passwordUpdateFormValidator
     ) {
         this.pacientRepository = pacientRepository;
         this.obrazekRepository = obrazekRepository;
+        this.uzivatelRepository = uzivatelRepository;
         this.pacientFormService = pacientFormService;
         this.proceduraRepository = proceduraRepository;
         this.hospitalizaceRepository = hospitalizaceRepository;
         this.pacientInfoFormVaidator = pacientInfoFormVaidator;
+        this.passwordUpdateFormValidator = passwordUpdateFormValidator;
     }
 
     @InitBinder("updateForm")
-    protected void initKartaUpdateBinder(WebDataBinder binder) {
+    protected void initUpdateBinder(WebDataBinder binder) {
         binder.addValidators(pacientInfoFormVaidator);
+    }
+
+    @InitBinder("passwordForm")
+    protected void initPasswordUpdateBinder(WebDataBinder binder) {
+        binder.addValidators(passwordUpdateFormValidator);
     }
 
     @GetMapping("/profile/info")
@@ -135,6 +145,36 @@ public class PacientProfileController {
 
         pacientFormService.updateInfoPaient(
             authUser.getUser().getId(), updateForm
+        );
+
+        return RedirectUtil.redirect("/pacient/profile/info");
+    }
+
+    @GetMapping("/password/change")
+    public ModelAndView passwordChange(
+        @AuthenticationPrincipal AuthUser authUser
+    ) {
+        PasswordUpdateForm passwordForm = new PasswordUpdateForm();
+        passwordForm.setId(authUser.getUser().getId());
+        return new ModelAndView("pacient/password")
+            .addObject("passwordForm", passwordForm);
+    }
+
+    @PostMapping("/password/update")
+    public ModelAndView passwordUpdate(
+        @AuthenticationPrincipal AuthUser authUser,
+        @Validated @ModelAttribute("passwordForm") PasswordUpdateForm passwordForm,
+        BindingResult bindingResult
+    ) {
+        passwordForm.setId(authUser.getUser().getId());
+
+        if (bindingResult.hasErrors())
+            return new ModelAndView("pacient/password")
+                .addObject("passwordForm", passwordForm);
+
+        uzivatelRepository.updatePassword(
+            authUser.getUser().getId(),
+            passwordForm.getPassword()
         );
 
         return RedirectUtil.redirect("/pacient/profile/info");

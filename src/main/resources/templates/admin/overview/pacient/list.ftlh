@@ -40,7 +40,7 @@
                     <a class="btn btn-primary ml-4" href="/admin/uzivatel/pacient/${item.getUuid()}/edit" role="button">Update</a>
                 </td>
                 <td>
-                    <a class="btn btn-danger ml-4" href="/admin/uzivatel/pacient/${item.getUuid()}/delete" role="button">Delete</a>
+                    <a class="btn btn-danger ml-4" href="/admin/uzivatel/pacient/${item.getId()}/delete" role="button">Delete</a>
                 </td>
                 <td>
                     <a class="btn btn-warning ml-4" href="/admin/uzivatel/pacient/${item.getId()}/simulate"

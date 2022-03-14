@@ -120,11 +120,17 @@ public class AdminLekarController {
         @AuthenticationPrincipal AuthUser authUser
     ) {
         LekarView view = lekarRepository.getViewById(lekarId);
-        LekarUpdateForm form = lekarFormService.buildUpdateForm(view);
+        LekarUpdateForm updateForm = lekarFormService.buildUpdateForm(view);
+
+        List<Specializace> specializaceList = specializaceRepository.findAll();
+        List<KancelarView> kancelarList = kancelarRepository.findAllView();
 
         return new ModelAndView("admin/overview/lekar/edit")
-            .addObject("form", form)
-            .addObject("authUser", authUser);
+            .addObject("id", lekarId)
+            .addObject("updateForm", updateForm)
+            .addObject("authUser", authUser)
+            .addObject("specializaceList", specializaceList)
+            .addObject("kancelarList", kancelarList);
     }
 
     @PostMapping("/{lekarId}/update")
@@ -134,13 +140,20 @@ public class AdminLekarController {
         @Validated @ModelAttribute("updateForm") LekarUpdateForm updateForm,
         BindingResult bindingResult
     ) {
-        if(bindingResult.hasErrors()){
-            return new ModelAndView("admin/overview/lekar/edit")
-                .addObject("updateForm", updateForm)
-                .addObject("authUser", authUser);
-        }
 
         updateForm.setId(lekarId);
+
+        if(bindingResult.hasErrors()){
+            List<Specializace> specializaceList = specializaceRepository.findAll();
+            List<KancelarView> kancelarList = kancelarRepository.findAllView();
+
+            return new ModelAndView("admin/overview/lekar/edit")
+                .addObject("id", lekarId)
+                .addObject("updateForm", updateForm)
+                .addObject("authUser", authUser)
+                .addObject("specializaceList", specializaceList)
+                .addObject("kancelarList", kancelarList);
+        }
         lekarFormService.update(updateForm);
 
         return RedirectUtil.redirect("/admin/uzivatel/lekar");

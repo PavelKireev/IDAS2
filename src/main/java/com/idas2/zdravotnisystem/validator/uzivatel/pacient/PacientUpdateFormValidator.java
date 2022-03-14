@@ -17,7 +17,7 @@ public class PacientUpdateFormValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return PacientCreateForm.class.isAssignableFrom(clazz)
+        return PacientUpdateForm.class.isAssignableFrom(clazz)
             || PacientView.class.isAssignableFrom(clazz);
     }
 
@@ -26,8 +26,8 @@ public class PacientUpdateFormValidator implements Validator {
         PacientUpdateForm form = (PacientUpdateForm) target;
 
         if(Objects.isNull(form.getDatumNarozeni()) ||
-            !Date.valueOf(form.getDatumNarozeni()).after(Date.valueOf(LocalDate.now()))
-        ) errors.rejectValue("hesloPotvrzeni", "","Datum Narozeni nesmi byt prazdny, nebo budouci!");
+            Date.valueOf(form.getDatumNarozeni()).after(Date.valueOf(LocalDate.now()))
+        ) errors.rejectValue("datumNarozeni", "","Datum Narozeni nesmi byt prazdny, nebo budouci!");
 
         if(Objects.nonNull(form.getEmail()) && (
             !Pattern

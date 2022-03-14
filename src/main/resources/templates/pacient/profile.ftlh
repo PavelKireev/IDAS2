@@ -6,7 +6,12 @@
 
     <div class="row">
     <div class="col-lg-8">
-        <h1>${user.getJmeno()!""} ${user.getPrijmeni()!""} </h1>
+        <div class="row">
+            <h1>${user.getJmeno()!""} ${user.getPrijmeni()!""} </h1>
+            <a class="btn btn-outline-secondary ml-4 mb-3" href="/pacient/password/change"
+               role="button">Obnovit heslo</a>
+        </div>
+
         <hr>
         <form method="post" action="/pacient/profile/info/update">
             <div class="form-group">

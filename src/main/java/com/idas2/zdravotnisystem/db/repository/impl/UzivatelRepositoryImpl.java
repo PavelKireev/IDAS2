@@ -8,7 +8,10 @@ import com.idas2.zdravotnisystem.db.view.UzivatelView;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,15 +23,19 @@ public class UzivatelRepositoryImpl
     private final UzivatelViewMapper uzivatelViewMapper;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    private final PasswordEncoder encoder;
+
     @Autowired
     public UzivatelRepositoryImpl(
         NamedParameterJdbcTemplate namedParameterJdbcTemplate,
         UserMapper mapper,
-        UzivatelViewMapper uzivatelViewMapper
+        UzivatelViewMapper uzivatelViewMapper,
+        PasswordEncoder encoder
     ) {
         this.mapper = mapper;
         this.uzivatelViewMapper = uzivatelViewMapper;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        this.encoder = encoder;
     }
 
     @Override
@@ -82,6 +89,21 @@ public class UzivatelRepositoryImpl
 //            mapParams()
 //        );
         return null;
+    }
+
+    @Override
+    public void updatePassword(
+        @NotNull Integer id,
+        @NotNull String password
+    ) {
+        namedParameterJdbcTemplate.update(
+            "UPDATE UZIVATEL " +
+                "SET HESLO = :PASSWORD " +
+                "WHERE ID_UZIVATEL = :ID ",
+            new MapSqlParameterSource()
+                .addValue("ID", id)
+                .addValue("PASSWORD", encoder.encode(password))
+        );
     }
 
     @Override

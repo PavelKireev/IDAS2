@@ -56,6 +56,8 @@ public class LekarFormServiceImpl implements LekarFormService {
             .setObrazekPripona(form.getPripona())
             .setIdKancelar(form.getIdKancelar())
             .setIdSpecializace(form.getIdSpecializace());
+
+        lekarRepository.updateInfoByView(view);
     }
 
     @Override
@@ -72,6 +74,7 @@ public class LekarFormServiceImpl implements LekarFormService {
         LekarUpdateForm form = new LekarUpdateForm();
 
         return form
+            .setId(view.getId())
             .setEmail(view.getEmail())
             .setJmeno(view.getJmeno())
             .setPrijmeni(view.getPrijmeni())

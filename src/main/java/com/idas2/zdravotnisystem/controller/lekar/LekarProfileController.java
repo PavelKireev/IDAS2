@@ -8,7 +8,7 @@ import com.idas2.zdravotnisystem.db.view.LekarView;
 import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarProfileUpdateForm;
 import com.idas2.zdravotnisystem.service.form.LekarFormService;
 import com.idas2.zdravotnisystem.util.RedirectUtil;
-import com.idas2.zdravotnisystem.validator.uzivatel.lekar.LekarUpdateFormValidator;
+import com.idas2.zdravotnisystem.validator.uzivatel.lekar.LekarProfileUpdateFormValidator;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -31,14 +31,14 @@ public class LekarProfileController {
     private final LekarFormService lekarFormService;
     private final ObrazekRepository obrazekRepository;
 
-    private final LekarUpdateFormValidator lekarUpdateFormValidator;
+    private final LekarProfileUpdateFormValidator lekarUpdateFormValidator;
 
     @Autowired
     public LekarProfileController(
         LekarRepository lekarRepository,
         LekarFormService lekarFormService,
         ObrazekRepository obrazekRepository,
-        LekarUpdateFormValidator lekarUpdateFormValidator
+        LekarProfileUpdateFormValidator lekarUpdateFormValidator
     ) {
         this.lekarRepository = lekarRepository;
         this.lekarFormService = lekarFormService;

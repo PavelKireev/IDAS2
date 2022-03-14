@@ -1,6 +1,7 @@
 package com.idas2.zdravotnisystem.validator.uzivatel.lekar;
 
 import com.idas2.zdravotnisystem.db.entity.ZdravotniKarta;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarKartaUpdateForm;
 import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarZdravortniKartaForm;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;

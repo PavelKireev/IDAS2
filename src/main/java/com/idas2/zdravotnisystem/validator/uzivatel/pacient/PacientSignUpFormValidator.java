@@ -1,7 +1,9 @@
 package com.idas2.zdravotnisystem.validator.uzivatel.pacient;
 
+import com.idas2.zdravotnisystem.db.repository.UzivatelRepository;
 import com.idas2.zdravotnisystem.db.view.PacientView;
 import com.idas2.zdravotnisystem.form.uzivatel.pacient.PacientSignUpForm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -13,6 +15,13 @@ import java.util.regex.Pattern;
 
 @Component
 public class PacientSignUpFormValidator implements Validator {
+
+    private final UzivatelRepository uzivatelRepository;
+
+    @Autowired
+    public PacientSignUpFormValidator(UzivatelRepository uzivatelRepository) {
+        this.uzivatelRepository = uzivatelRepository;
+    }
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -28,9 +37,13 @@ public class PacientSignUpFormValidator implements Validator {
             form.getHeslo().length() < 8
         ) errors.rejectValue("heslo", "", "Heslo nesmi byt kratsi nez 8 znaku");
 
+        if(Objects.nonNull(form.getHeslo()) && Objects.nonNull(form.getConfirmHeslo()) &&
+            form.getConfirmHeslo().equals(form.getHeslo())
+        ) errors.rejectValue("confirmHeslo", "", "Heslo a Heslo Potvrzeni nejsou stejne!");
+
         if(Objects.isNull(form.getDatumNarozeni()) ||
             !Date.valueOf(form.getDatumNarozeni()).after(Date.valueOf(LocalDate.now()))
-        ) errors.rejectValue("hesloPotvrzeni", "","Datum Narozeni nesmi byt prazdny, nebo budouci!");
+        ) errors.rejectValue("datumNarozeni", "","Datum Narozeni nesmi byt prazdny, nebo budouci!");
 
         if(Objects.nonNull(form.getEmail()) && (
             !Pattern
@@ -53,5 +66,8 @@ public class PacientSignUpFormValidator implements Validator {
         if(Objects.nonNull(form.getHmotnost()) && form.getHmotnost() < 1)
             errors.rejectValue("hmotnost", "", "Hmotnost nesmi byt zaporna!");
 
+        if (Objects.nonNull(form.getEmail()) && Objects.nonNull(uzivatelRepository.findByEmail(form.getEmail()))) {
+            errors.rejectValue("email", "", "Tento email uz je zaregistrovan!");
+        }
     }
 }

@@ -1,9 +1,9 @@
 package com.idas2.zdravotnisystem.validator.uzivatel.lekar;
 
-import com.idas2.zdravotnisystem.db.view.AdministratorView;
+import com.idas2.zdravotnisystem.db.repository.UzivatelRepository;
 import com.idas2.zdravotnisystem.db.view.LekarView;
-import com.idas2.zdravotnisystem.form.uzivatel.admin.AdminCreateForm;
 import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarCreateForm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -13,6 +13,14 @@ import java.util.regex.Pattern;
 
 @Component
 public class LekarCreateFormValidator implements Validator {
+
+    private final UzivatelRepository uzivatelRepository;
+
+    @Autowired
+    public LekarCreateFormValidator(UzivatelRepository uzivatelRepository) {
+        this.uzivatelRepository = uzivatelRepository;
+    }
+
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -50,5 +58,9 @@ public class LekarCreateFormValidator implements Validator {
 
         if(Objects.nonNull(form.getPlat()) && form.getPlat() < 16200)
             errors.rejectValue("plat", "", "Plat nesmi byt mensi nez minimalni mzda!");
+
+        if (Objects.nonNull(form.getEmail()) && Objects.nonNull(uzivatelRepository.findByEmail(form.getEmail()))) {
+            errors.rejectValue("email", "", "Tento email uz je zaregistrovan!");
+        }
     }
 }

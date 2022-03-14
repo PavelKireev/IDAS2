@@ -11,6 +11,11 @@ public interface UzivatelRepository {
         @NotNull User user
     );
 
+    void updatePassword(
+        @NotNull Integer id,
+        @NotNull String password
+    );
+
     User findByEmail(String email);
 
     @NotNull User findByUuid(String uuid);
