@@ -15,7 +15,7 @@
                     <@spring.showErrors "" "validation-error-label" />
                 </div>
                 <@form.inputDate "createForm.datum" "Datum" "class=\"form-control\""/>
-                <@form.selectOptions "createForm.hospitalizace" hospitalizaceList "Pacient"/>
+                <@form.selectOptions "createForm.idHospitalizace" hospitalizaceList "Pacient"/>
                 <@form.selectOptions "createForm.idTypProcedury"  typProceduryList "Procedura" />
                 <@form.selectOptions "createForm.idZarizeni" zarizeniList "Zarizeni" />
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>

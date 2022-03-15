@@ -14,7 +14,7 @@
                                 Nazev
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.nazev" "required class=\"form-control form-control-sm\" placeholder=\"Nazev\"" />
+                                <@spring.formInput "createForm.nazev" "required class=\"form-control form-control-sm\" placeholder=\"Nazev\"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
@@ -24,7 +24,7 @@
                                 Cislo
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.cislo" "required class=\"form-control form-control-sm\" placeholder=\"Cislo\"" />
+                                <@spring.formInput "createForm.cislo" "required class=\"form-control form-control-sm\" placeholder=\"Cislo\"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                                 Plocha
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.plocha" "required class=\"form-control form-control-sm\" placeholder=\"Plocha\"" />
+                                <@spring.formInput "createForm.plocha" "required class=\"form-control form-control-sm\" placeholder=\"Plocha\"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                                 Kapacita
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.kapacita" "required class=\"form-control form-control-sm\" placeholder=\"Kapacita \"" />
+                                <@spring.formInput "createForm.kapacita" "required class=\"form-control form-control-sm\" placeholder=\"Kapacita \"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                 Pocet Pacientu
                             </label>
                             <div class="form-group">
-                                <@spring.formInput "form.pocetPacientu" "required class=\"form-control form-control-sm\" placeholder=\"Pocet Pacientu \"" />
+                                <@spring.formInput "createForm.pocetPacientu" "required class=\"form-control form-control-sm\" placeholder=\"Pocet Pacientu \"" />
                                 <@spring.showErrors "<br>" "small"/>
                             </div>
                         </div>

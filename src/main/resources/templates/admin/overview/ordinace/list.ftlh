@@ -6,7 +6,7 @@
     <#assign count = 1>
 
     <div class="row">
-        <h2>Kancelar</h2>
+        <h2>Ordinace</h2>
         <a class="btn btn-success ml-4 mb-2" href="/admin/mistnost/ordinace/create" role="button">Create</a>
     </div>
 

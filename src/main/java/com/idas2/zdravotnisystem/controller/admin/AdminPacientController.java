@@ -19,6 +19,7 @@ import com.idas2.zdravotnisystem.validator.uzivatel.lekar.LekarUpdateFormValidat
 import com.idas2.zdravotnisystem.validator.uzivatel.lekar.LekarZdravotniKartaFormValidator;
 import com.idas2.zdravotnisystem.validator.uzivatel.pacient.PacientCreateFormValidator;
 import com.idas2.zdravotnisystem.validator.uzivatel.pacient.PacientUpdateFormValidator;
+import com.idas2.zdravotnisystem.validator.zdravotnikarta.ZdravotniKartaUpdateFormValidator;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -50,7 +51,7 @@ public class AdminPacientController {
     private final PacientCreateFormValidator pacientCreateFormValidator;
     private final PacientUpdateFormValidator pacientUpdateFormValidator;
 
-    private final LekarZdravotniKartaFormValidator lekarZdravotniKartaFormValidator;
+    private final ZdravotniKartaUpdateFormValidator lekarZdravotniKartaFormValidator;
     private final LekarPojisteniFormValidator lekarPojisteniFormValidator;
 
     @Autowired
@@ -67,7 +68,7 @@ public class AdminPacientController {
         PacientCreateFormValidator pacientCreateFormValidator,
         PacientUpdateFormValidator pacientUpdateFormValidator,
         LekarUpdateFormValidator lekarUpdateFormValidator,
-        LekarZdravotniKartaFormValidator lekarZdravotniKartaFormValidator,
+        ZdravotniKartaUpdateFormValidator lekarZdravotniKartaFormValidator,
         LekarPojisteniFormValidator lekarPojisteniFormValidator
     ) {
         this.repository = repository;
@@ -129,7 +130,7 @@ public class AdminPacientController {
         BindingResult bindingResult
     ) {
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return new ModelAndView("/admin/overview/pacient/create")
                 .addObject("authUser", authUser)
                 .addObject("createForm", createForm);
@@ -202,7 +203,7 @@ public class AdminPacientController {
         @Validated @ModelAttribute("pacientUpdateForm") PacientUpdateForm pacientUpdateForm,
         BindingResult bindingResult
     ) {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             PacientView pacientView =
                 repository.getPacientViewByUzivatelUuid(pacientUuid);
 
@@ -262,7 +263,7 @@ public class AdminPacientController {
         @Validated @ModelAttribute("kartaForm") LekarKartaUpdateForm kartaUpdateForm,
         BindingResult bindingResult
     ) {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             PacientView pacientView =
                 repository.getPacientViewByUzivatelUuid(pacientUuid);
 
@@ -318,7 +319,7 @@ public class AdminPacientController {
         @Validated @ModelAttribute("pojisteniForm") LekarPojisteniForm pojisteniForm,
         BindingResult bindingResult
     ) {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             PacientView pacientView =
                 repository.getPacientViewByUzivatelUuid(pacientUuid);
 
@@ -418,7 +419,7 @@ public class AdminPacientController {
     @GetMapping("/{pacientUuid}/zdravotni-karta")
     public ModelAndView pojisteniList(
         @PathVariable String pacientUuid
-    ){
+    ) {
         PacientView view =
             repository.getPacientViewByUzivatelUuid(pacientUuid);
 

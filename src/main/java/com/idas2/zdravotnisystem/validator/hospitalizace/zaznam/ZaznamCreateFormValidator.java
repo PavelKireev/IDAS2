@@ -2,6 +2,7 @@ package com.idas2.zdravotnisystem.validator.hospitalizace.zaznam;
 
 import com.idas2.zdravotnisystem.db.view.ZaznamView;
 import com.idas2.zdravotnisystem.form.hospitalizace.zaznam.ZaznamCreateForm;
+import com.idas2.zdravotnisystem.form.uzivatel.lekar.LekarZaznamForm;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -14,7 +15,7 @@ public class ZaznamCreateFormValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return ZaznamCreateForm.class.isAssignableFrom(clazz)
+        return LekarZaznamForm.class.isAssignableFrom(clazz)
             || ZaznamView.class.isAssignableFrom(clazz);
     }
 

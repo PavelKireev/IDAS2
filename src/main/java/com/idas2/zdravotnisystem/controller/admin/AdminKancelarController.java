@@ -3,7 +3,6 @@ package com.idas2.zdravotnisystem.controller.admin;
 import com.idas2.zdravotnisystem.component.AuthUser;
 import com.idas2.zdravotnisystem.db.repository.KancelarRepository;
 import com.idas2.zdravotnisystem.db.view.KancelarView;
-import com.idas2.zdravotnisystem.db.view.PacientView;
 import com.idas2.zdravotnisystem.form.mistnost.kancelar.KancelarCreateForm;
 import com.idas2.zdravotnisystem.form.mistnost.kancelar.KancelarUpdateForm;
 import com.idas2.zdravotnisystem.service.form.KancelarFormService;
@@ -73,7 +72,7 @@ public class AdminKancelarController {
 
         return new ModelAndView("admin/overview/kancelar/create")
             .addObject("authUser", authUser)
-            .addObject("form", kancelarFormService.buildCreateForm());
+            .addObject("createForm", kancelarFormService.buildCreateForm());
     }
 
     @PostMapping("/save")
@@ -85,7 +84,7 @@ public class AdminKancelarController {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("admin/overview/kancelar/create")
                 .addObject("authUser", authUser)
-                .addObject("form", kancelarFormService.buildCreateForm());
+                .addObject("createForm", kancelarFormService.buildCreateForm());
         }
         kancelarFormService.create(createForm);
         return RedirectUtil.redirect("/admin/mistnost/kancelar");
@@ -99,7 +98,7 @@ public class AdminKancelarController {
         KancelarView view = kancelarRepository.findById(kancelarId);
         return new ModelAndView("admin/overview/kancelar/edit")
             .addObject("id", view.getId())
-            .addObject("form", kancelarFormService.buildUpdateForm(view));
+            .addObject("updateForm", kancelarFormService.buildUpdateForm(view));
     }
 
     @PostMapping("/{kancelarId}/update")
@@ -111,7 +110,7 @@ public class AdminKancelarController {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("admin/overview/kancelar/edit")
                 .addObject("id", kancelarId)
-                .addObject("form", updateForm);
+                .addObject("updateForm", updateForm);
         }
 
         updateForm.setId(kancelarId);

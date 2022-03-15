@@ -19,11 +19,6 @@ public interface PacientFormService {
         @NotNull PacientView source
     );
 
-//    void updateProfileInfo(
-//        @NotNull String userUuid,
-//        @NotNull PacientInfoForm form
-//    );
-
     void updateInfoPaient(
         @NotNull Integer pacientId,
         @NotNull PacientInfoForm pacientInfoForm

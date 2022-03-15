@@ -71,7 +71,7 @@ public class AdminOrdinaceController {
     ) {
         return new ModelAndView("admin/overview/ordinace/create")
             .addObject("authUser", authUser)
-            .addObject("form", new OrdinaceCreateForm());
+            .addObject("createForm", new OrdinaceCreateForm());
     }
 
     @PostMapping("/save")
@@ -98,7 +98,7 @@ public class AdminOrdinaceController {
 
         return new ModelAndView("admin/overview/ordinace/edit")
             .addObject("id", view.getId())
-            .addObject("form", ordinaceFormService.buildUpdateForm(view));
+            .addObject("updateForm", ordinaceFormService.buildUpdateForm(view));
     }
 
     @PostMapping("/{ordinaceId}/update")

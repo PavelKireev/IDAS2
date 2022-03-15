@@ -201,13 +201,13 @@ public class AdminZarizeniController {
     ) {
         TypZarizeni entity = typZarizeniRepository.getOne(id);
         return new ModelAndView("/admin/overview/zarizeni/typ/edit")
-            .addObject("typCreateForm", zarizeniFormService.buildUpdateTypForm(entity));
+            .addObject("typUpdateForm", zarizeniFormService.buildUpdateTypForm(entity));
     }
 
     @PostMapping("/typ/{id}/update")
     public ModelAndView typUpdate(
         @PathVariable Integer id,
-        @Validated @ModelAttribute("typCreateForm") TypZarizeniUpdateForm typUpdateForm,
+        @Validated @ModelAttribute("typUpdateForm") TypZarizeniUpdateForm typUpdateForm,
         BindingResult bindingResult
     ) {
         if(bindingResult.hasErrors()){

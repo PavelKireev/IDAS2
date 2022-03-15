@@ -49,6 +49,7 @@ public class PojistovnaRepositoryImpl
                     );
 
         } catch (EmptyResultDataAccessException ex) {
+            LOGGER.warn(ex.getMessage());
             return null;
         }
     }
@@ -89,7 +90,7 @@ public class PojistovnaRepositoryImpl
                     );
 
         } catch (EmptyResultDataAccessException ex) {
-            LOGGER.warn("EmptyResultDataAccessException");
+            LOGGER.warn(ex.getMessage());
             return new ArrayList<>();
         }
     }

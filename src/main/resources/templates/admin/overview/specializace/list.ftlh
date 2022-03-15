@@ -6,7 +6,7 @@
     <#assign count = 1>
 
     <div class="row">
-        <h2>Pojistovna</h2>
+        <h2>Specializace</h2>
         <a class="btn btn-success ml-4 mb-2" href="/admin/specializace/create" role="button">Create</a>
     </div>
 

@@ -13,7 +13,7 @@
                 <div class="mt-2">
                     <label for="jmenoField">Nazev</label>
                 </div>
-                <@spring.formInput "form.nazev" "class=\"form-control\" id=\"titulField\"" />
+                <@spring.formInput "updateForm.nazev" "class=\"form-control\" id=\"titulField\"" />
                 <@spring.showErrors "" "validation-error-label" />
             </div>
             <div class="col-lg-3">
@@ -21,7 +21,7 @@
                     <div class="mt-2">
                         <label for="textField">Adresa</label>
                     </div>
-                    <@spring.formInput "form.adresa" "class=\"form-control\" id=\"textField\"" />
+                    <@spring.formInput "updateForm.adresa" "class=\"form-control\" id=\"textField\"" />
                     <@spring.showErrors "" "validation-error-label" />
                 </div>
             </div>
@@ -30,7 +30,7 @@
                     <div class="mt-2">
                         <label for="textField">Telefonni Cislo</label>
                     </div>
-                    <@spring.formInput "form.telCislo" "class=\"form-control\" id=\"textField\"" />
+                    <@spring.formInput "updateForm.telCislo" "class=\"form-control\" id=\"textField\"" />
                     <@spring.showErrors "" "validation-error-label" />
                 </div>
             </div>

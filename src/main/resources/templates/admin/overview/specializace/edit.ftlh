@@ -5,7 +5,7 @@
 
 <@layout.render>
 
-    <h1>Update Pojistovna</h1>
+    <h1>Update Specializace</h1>
     <hr>
     <form method="post" action="/admin/specializace/${id}/update">
         <div class="form-row">

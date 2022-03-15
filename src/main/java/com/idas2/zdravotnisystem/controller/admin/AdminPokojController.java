@@ -85,7 +85,8 @@ public class AdminPokojController {
     ) {
         NemocnicniPokojView view = nemocnicniPokojRepository.findById(id);
         return new ModelAndView("admin/overview/pokoj/update")
-            .addObject("updateForm", pokojFormService.buildUpdateForm(view));
+            .addObject("updateForm", pokojFormService.buildUpdateForm(view))
+            .addObject("id", id);
     }
 
     @PostMapping("/{id}/update")

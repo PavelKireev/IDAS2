@@ -5,7 +5,7 @@
 
 <@layout.render>
 
-    <h1>Profile</h1>
+    <h1>Novy Zaznam</h1>
     <hr>
     <form method="post" action="/lekar/hospitalizace/zaznam/create?hospId=${hospId}">
         <div class="form-row">

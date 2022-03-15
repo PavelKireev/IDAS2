@@ -2,6 +2,7 @@ package com.idas2.zdravotnisystem.validator.zarizeni.typ;
 
 import com.idas2.zdravotnisystem.db.entity.TypZarizeni;
 import com.idas2.zdravotnisystem.form.zarizeni.TypZarizeniCreateForm;
+import com.idas2.zdravotnisystem.form.zarizeni.TypZarizeniUpdateForm;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -14,7 +15,7 @@ public class TypZarizeniUpdateFormValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return TypZarizeniCreateForm.class.isAssignableFrom(clazz)
+        return TypZarizeniUpdateForm.class.isAssignableFrom(clazz)
             || TypZarizeni.class.isAssignableFrom(clazz);    }
 
     @Override
